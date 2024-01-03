@@ -124,4 +124,73 @@ public static class Neo4JDataProvider
 
         return true;
     }
+
+    public async static Task<Result<bool, string>> AddAirport(AirportView a)
+    {
+        try
+        {
+
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>
+            {
+                { "pib", a.pib },
+                { "name", a.name },
+                { "phone", a.phone },
+                { "address", a.address },
+                { "city", a.city },
+                { "state", a.state },
+                { "gateNumber", a.gateNumber }
+            };
+
+            var query = new Neo4jClient.Cypher.CypherQuery(
+            $"CREATE (n:Airport {{ pib:'{a.pib}', name:'{a.name}', phone: '{a.phone}', address: '{a.address}', city: '{a.city}', state: '{a.state}', gateNumber: '{a.gateNumber}'}}) return n",
+            queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+
+        return true;
+    }
+
+    public async static Task<Result<bool, string>> AddTicket(TicketsView a)
+    {
+        try
+        {
+
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>
+            {
+                { "purchaseDate", a.purchaseDate },
+                { "price", a.price },
+            };
+
+            var query = new Neo4jClient.Cypher.CypherQuery(
+            $"CREATE (n:Ticket {{ purchaseDate:'{a.purchaseDate}', price:'{a.price}'}}) return n",
+            queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+
+        return true;
+    }
 }
