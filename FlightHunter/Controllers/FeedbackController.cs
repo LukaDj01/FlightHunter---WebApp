@@ -61,11 +61,11 @@ public class FeedbackController : ControllerBase
     }*/
     
     [HttpGet]
-    [Route("GetFeedback/{id}")]
+    [Route("GetFeedbacksAC/{acId}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetFeedback(string id)
+    public async Task<IActionResult> GetFeedbacksAC(string acId)
     {
-        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedback(id);
+        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedbacksAC(acId);
 
         if (IsError)
         {
@@ -76,11 +76,11 @@ public class FeedbackController : ControllerBase
     }
     
     [HttpGet]
-    [Route("GetFeedbacks")]
+    [Route("GetFeedbacksAirport/{airportPib}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetFeedbacks()
+    public async Task<IActionResult> GetFeedbacksAirport(string airportPib)
     {
-        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedback();
+        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedbacksAirport(airportPib);
 
         if (IsError)
         {

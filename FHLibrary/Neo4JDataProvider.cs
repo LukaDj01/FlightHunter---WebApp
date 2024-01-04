@@ -670,7 +670,7 @@ public static class Neo4JDataProvider
         }
         return true;
     }
-     public async static Task<Result<FeedbackView, string>> GetFeedback(string id)
+     public async static Task<Result<List<FeedbackView>, string>> GetFeedbacksAC(string acId)
     {
         try
         {
@@ -681,12 +681,12 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Feedback) and n.id ='" + id + "' return n limit 1",
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(:AvioCompany {id: '" + acId + "'}) RETURN f",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
-            FeedbackView? feed = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).FirstOrDefault();
+            List<FeedbackView> feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
 
-            return feed!;
+            return feeds!;
         }
         catch (Exception e )
         {
@@ -696,7 +696,7 @@ public static class Neo4JDataProvider
         {
         }
     }
-     public async static Task<Result<List<FeedbackView>, string>> GetFeedback()
+     public async static Task<Result<List<FeedbackView>, string>> GetFeedbacksAirport(string airportPib)
     {
         try
         {
@@ -707,12 +707,12 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Feedback) return n",
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(:Airport {pib: '" + airportPib + "'}) RETURN f",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
-            List<FeedbackView> feed = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+            List<FeedbackView> feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
 
-            return feed!;
+            return feeds!;
         }
         catch (Exception e )
         {
@@ -733,7 +733,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Feedback) and n.id ='" + id + "' delete n",
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->() where f.id ='" + id + "' delete f",
                                                             new Dictionary<string, object>(), CypherResultMode.Projection);
 
             ((IRawGraphClient)c).ExecuteCypher(query);
