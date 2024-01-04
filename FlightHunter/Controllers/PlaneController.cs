@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 
 public class PlaneController : ControllerBase
 {
-    [HttpPost]
+    /*[HttpPost]
     [Route("AddPlane")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -27,5 +27,5 @@ public class PlaneController : ControllerBase
         }
 
         return Ok("Uspešno");
-    }
+    }*/
 }

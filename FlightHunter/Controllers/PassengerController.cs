@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 [Route("[controller]")]
 public class PassengerController : ControllerBase
 {
-    //add
+    /*//add
     [HttpPost]
     [Route("AddPassenger")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -75,5 +75,5 @@ public class PassengerController : ControllerBase
         }
 
         return Ok($"Uspešno obrisan putnik. email: {email}");
-    }
+    }*/
 }

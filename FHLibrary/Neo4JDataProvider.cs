@@ -5,6 +5,7 @@ using Neo4jClient.Cypher;
 namespace FHLibrary;
 public static class Neo4JDataProvider
 {
+    #region AvioCompany
     public async static Task<Result<bool, string>> AddAvioCompany(AvioCompanyView ac)
     {
         try
@@ -125,6 +126,8 @@ public static class Neo4JDataProvider
         return true;
     }
 
+    #endregion
+    #region Airport
     public async static Task<Result<bool, string>> AddAirport(AirportView a)
     {
         try
@@ -251,7 +254,8 @@ public static class Neo4JDataProvider
         return true;
     }
 
-
+    #endregion
+    #region Ticket
     public async static Task<Result<bool, string>> AddTicket(TicketsView a)
     {
         try
@@ -368,4 +372,121 @@ public static class Neo4JDataProvider
 
         return true;
     }
+
+    #endregion
+    #region ExpiredFlight
+    public async static Task<Result<bool, string>> AddExpiredFlight(ExpiredFlightView ef)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("CREATE (n:ExpiredFlight {serial_number:'" + ef.serial_number
+                                                            + "',capacity:'" + ef.capacity
+                                                            + "',available_seats:'" + ef.available_seats
+                                                            + "'}) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+            
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+    public async static Task<Result<ExpiredFlightView, string>> GetExpiredFlight(string serial_number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:ExpiredFlight) and n.serial_number ='" + serial_number + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            ExpiredFlightView? expFlight = ((IRawGraphClient)c).ExecuteGetCypherResults<ExpiredFlightView>(query).FirstOrDefault();
+
+            return expFlight!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+    public async static Task<Result<List<ExpiredFlightView>, string>> GetExpiredFlights()
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:ExpiredFlight) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<ExpiredFlightView> expFlights = ((IRawGraphClient)c).ExecuteGetCypherResults<ExpiredFlightView>(query).ToList();
+
+            return expFlights!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    
+    public async static Task<Result<bool, string>> DeleteExpiredFlight(string serial_number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:ExpiredFlight) and n.serial_number ='" + serial_number + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+
+    #endregion
+
+
 }

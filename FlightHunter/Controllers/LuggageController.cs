@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 
 public class LuggageController : ControllerBase
 {
-    [HttpPost]
+    /*[HttpPost]
     [Route("AddLuggage")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -27,5 +27,5 @@ public class LuggageController : ControllerBase
         }
 
         return Ok("Uspešno");
-    }
+    }*/
 }

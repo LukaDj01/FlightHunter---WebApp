@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 [Route("[controller]")]
 public class FeedbackController : ControllerBase
 {
-    [HttpPost]
+    /*[HttpPost]
     [Route("AddFeedback")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,5 +74,5 @@ public class FeedbackController : ControllerBase
         }
 
         return Ok($"Uspešno obrisana recenzija. id: {id}");
-    }
+    }*/
 }
