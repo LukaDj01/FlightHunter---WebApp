@@ -9,7 +9,7 @@ public static class Neo4JSessionManager
     {
         try
         {
-            client = new GraphClient(new Uri("http://localhost:7474/db/data"), "neo4j", "neo4jneo4j");
+            client = new GraphClient(new Uri("http://localhost:7474/db/data"), "neo4j", "majl"); //neo4jneo4j
             client.Connect();
         }
         catch (Exception)
