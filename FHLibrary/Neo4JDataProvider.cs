@@ -162,6 +162,96 @@ public static class Neo4JDataProvider
         return true;
     }
 
+    public async static Task<Result<AirportView, string>> UpdateAirport(AirportView ac)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Airport) and n.phone ='" + ac.phone + "' set n.name = '" + ac.name
+                                                                                                        + "' set n.city = '" + ac.city
+                                                                                                        + "' set n.state = '" + ac.state
+                                                                                                        + "' set n.address = '" + ac.address
+                                                                                                        + "' set n.gateNumber = '" + ac.gateNumber
+                                                                                                        + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AirportView? airport = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+
+            return airport!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<AirportView, string>> GetAirport(string pib)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Airport) and n.pib ='" + pib + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AirportView? airport = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+
+            return airport!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<bool, string>> DeleteAirport(string pib)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Airport) and n.pib ='" + pib + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+
+
     public async static Task<Result<bool, string>> AddTicket(TicketsView a)
     {
         try
@@ -189,6 +279,91 @@ public static class Neo4JDataProvider
         catch (Exception e)
         {
             return e.Message;
+        }
+
+        return true;
+    }
+
+    public async static Task<Result<TicketsView, string>> UpdateTicket(TicketsView ac)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Ticket) and n.purchaseDate ='" + ac.purchaseDate + "' set n.price = '" + ac.price
+                                                                                                        + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            TicketsView? ticket = ((IRawGraphClient)c).ExecuteGetCypherResults<TicketsView>(query).FirstOrDefault();
+
+            return ticket!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<TicketsView, string>> GetTickets(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Ticket) and n.id ='" + id + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            TicketsView? ticket = ((IRawGraphClient)c).ExecuteGetCypherResults<TicketsView>(query).FirstOrDefault();
+
+            return ticket!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<bool, string>> DeleteTickets(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Ticket) and n.id ='" + id + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
         }
 
         return true;
