@@ -487,6 +487,122 @@ public static class Neo4JDataProvider
     }
 
     #endregion
+    #region Passenger
+    public async static Task<Result<bool, string>> AddPassenger(PassengerView p)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
 
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("CREATE (n:Passenger {id:'" + p.id
+                                                            + "',email:'" + p.email
+                                                            + "',password:'" + p.password
+                                                            + "',passport:'" + p.passport
+                                                            + "',phone:'" + p.phone
+                                                            + "',birth_date:'" + p.birth_date
+                                                            + "',nationality:'" + p.nationality
+                                                            + "',first_name:'" + p.first_name
+                                                            + "',last_name:'" + p.last_name
+                                                            + "',addr_street:'" + p.addr_street
+                                                            + "',addr_stNo:'" + p.addr_stNo
+                                                            + "'}) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+            
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+     public async static Task<Result<PassengerView, string>> GetPassenger(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Passenger) and n.id ='" + id + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            PassengerView? pass = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
+
+            return pass!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+     public async static Task<Result<List<PassengerView>, string>> GetPassenger()
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Passenger) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<PassengerView> pass = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).ToList();
+
+            return pass!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+    public async static Task<Result<bool, string>> DeletePassenger(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Passenger) and n.id ='" + id + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
 
 }
