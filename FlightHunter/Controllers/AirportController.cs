@@ -71,7 +71,7 @@ public class AirportController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteAirport(string pib)
     {
-        var data = await Neo4JDataProvider.GetAirport(pib);
+        var data = await Neo4JDataProvider.DeleteAirport(pib);
 
         if (data.IsError)
         {
