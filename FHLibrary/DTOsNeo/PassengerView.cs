@@ -2,6 +2,8 @@
 public class PassengerView
 {
     public string? id { get; set; }
+    [DataType(DataType.EmailAddress)]
+    [EmailAddress]
     public string? email { get; set; }
     public string? password { get; set; }
     public string? passport { get; set; }

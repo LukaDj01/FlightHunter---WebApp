@@ -608,7 +608,7 @@ public static class Neo4JDataProvider
     #region Feedback
     
 
-     public async static Task<Result<bool, string>> AddFeedback(FeedbackView f)
+     public async static Task<Result<bool, string>> AddFeedbackPassAC(FeedbackView f, string passId, string acId)
     {
         try
         {
@@ -619,11 +619,44 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("CREATE (n:Feedback {id:'" + f.id
+            var query = new CypherQuery("MATCH (p:Passenger {id: '" + passId + "'}), (ac:AvioCompany {id: '" + acId + "'})"
+                                        + " CREATE (p)-[:FEEDBACK {id:'" + f.id
                                                             + "',date:'" + f.date
                                                             + "',comment:'" + f.comment
                                                             + "',rate:'" + f.rate
-                                                            + "'}) return n",
+                                                            + "'}]->(ac)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+            
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+        return true;
+    }
+    
+
+     public async static Task<Result<bool, string>> AddFeedbackPassAirport(FeedbackView f, string passId, string apPib)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (p:Passenger {id: '" + passId + "'}), (ap:Airport {pib: '" + apPib + "'})"
+                                        + " CREATE (p)-[:FEEDBACK {id:'" + f.id
+                                                            + "',date:'" + f.date
+                                                            + "',comment:'" + f.comment
+                                                            + "',rate:'" + f.rate
+                                                            + "'}]->(ap)",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
             
@@ -717,4 +750,42 @@ public static class Neo4JDataProvider
         return true;
     }
     #endregion
+
+    /*#region FeedbackRelationship
+
+     public async static Task<Result<bool, string>> AddRelFeedAvioComp(string passId, string acId)
+     {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            //MATCH (charlie:Person {name: 'Charlie Sheen'}), (oliver:Person {name: 'Oliver Stone'})
+            //CREATE (charlie)-[:ACTED_IN {role: 'Bud Fox'}]->(wallStreet:Movie {title: 'Wall Street'})<-[:DIRECTED]-(oliver)
+            
+            var query = new CypherQuery("MATCH (p:Passenger {n.id ='" + passId + "'}), (ac:AvioCompany {id: '" + acId + "'})"
+                                        + " CREATE (p)-[:RATING {id:'" + f.id
+                                                            + "',date:'" + f.date
+                                                            + "',comment:'" + f.comment
+                                                            + "',rate:'" + f.rate
+                                                            + "'}]->(ac)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+            
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+        return true;
+    }
+
+
+    #endregion*/
 }

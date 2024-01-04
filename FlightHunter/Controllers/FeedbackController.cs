@@ -9,12 +9,27 @@ namespace FlightHunter.Controllers;
 public class FeedbackController : ControllerBase
 {
     [HttpPost]
-    [Route("AddFeedback")]
+    [Route("AddFeedbackPassAC/{passId}/{acId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddFeedback([FromBody] FeedbackView fb)
+    public async Task<IActionResult> AddFeedbackPassAC([FromBody] FeedbackView fb, string passId, string acId)
     {
-        var data = await Neo4JDataProvider.AddFeedback(fb);
+        var data = await Neo4JDataProvider.AddFeedbackPassAC(fb, passId, acId);
+
+        if (data.IsError)
+        {
+            return BadRequest(data.Error);
+        }
+
+        return Ok($"Uspešno dodata recenzija. id: {fb.id}");
+    }
+    [HttpPost]
+    [Route("AddFeedbackPassAirport/{passId}/{airportPib}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AddFeedbackPassAirport([FromBody] FeedbackView fb, string passId, string airportPib)
+    {
+        var data = await Neo4JDataProvider.AddFeedbackPassAirport(fb, passId, airportPib);
 
         if (data.IsError)
         {
