@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 [Route("[controller]")]
 public class FeedbackController : ControllerBase
 {
-    /*[HttpPost]
+    [HttpPost]
     [Route("AddFeedback")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -24,7 +24,7 @@ public class FeedbackController : ControllerBase
         return Ok($"Uspešno dodata recenzija. id: {fb.id}");
     }
     
-    [HttpPut]
+    /*[HttpPut]
     [Route("UpdateFeedback")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -43,7 +43,7 @@ public class FeedbackController : ControllerBase
         }
 
         return Ok($"Uspešno ažurirana recenzija. id: {feed.id}");
-    }
+    }*/
     
     [HttpGet]
     [Route("GetFeedback/{id}")]
@@ -51,6 +51,21 @@ public class FeedbackController : ControllerBase
     public async Task<IActionResult> GetFeedback(string id)
     {
         (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedback(id);
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(feed);
+    }
+    
+    [HttpGet]
+    [Route("GetFeedbacks")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetFeedbacks()
+    {
+        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedback();
 
         if (IsError)
         {
@@ -74,5 +89,5 @@ public class FeedbackController : ControllerBase
         }
 
         return Ok($"Uspešno obrisana recenzija. id: {id}");
-    }*/
+    }
 }

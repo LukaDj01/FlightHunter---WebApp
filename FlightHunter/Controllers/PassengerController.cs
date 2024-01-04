@@ -8,7 +8,7 @@ namespace FlightHunter.Controllers;
 [Route("[controller]")]
 public class PassengerController : ControllerBase
 {
-    /*//add
+    //add
     [HttpPost]
     [Route("AddPassenger")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -24,7 +24,7 @@ public class PassengerController : ControllerBase
 
         return Ok($"Uspešno dodat putnik. email: {p.email}");
     }
-    //update
+    /*//update
     [HttpPut]
     [Route("UpdatePassenger")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,7 +44,7 @@ public class PassengerController : ControllerBase
         }
 
         return Ok($"Uspešno ažuriran putnik. email: {passenger.email}");
-    }
+    }*/
     //get
     [HttpGet]
     [Route("GetPassenger/{email}")]
@@ -52,6 +52,20 @@ public class PassengerController : ControllerBase
     public async Task<IActionResult> GetPassenger(string email)
     {
         (bool IsError, var pass, string? error) = await Neo4JDataProvider.GetPassenger(email);
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(pass);
+    }
+    [HttpGet]
+    [Route("GetPassengers")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetPassengers()
+    {
+        (bool IsError, var pass, string? error) = await Neo4JDataProvider.GetPassenger();
 
         if (IsError)
         {
@@ -75,5 +89,5 @@ public class PassengerController : ControllerBase
         }
 
         return Ok($"Uspešno obrisan putnik. email: {email}");
-    }*/
+    }
 }
