@@ -13,25 +13,25 @@ public class PassengerController : ControllerBase
     [Route("AddPassenger")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddPassenger([FromBody] PassengerView ac)
+    public async Task<IActionResult> AddPassenger([FromBody] PassengerView p)
     {
-        var data = await Neo4JDataProvider.AddPassenger(ac);
+        var data = await Neo4JDataProvider.AddPassenger(p);
 
         if (data.IsError)
         {
             return BadRequest(data.Error);
         }
 
-        return Ok($"Uspešno dodat putnik. email: {ac.email}");
+        return Ok($"Uspešno dodat putnik. email: {p.email}");
     }
     //update
     [HttpPut]
     [Route("UpdatePassenger")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdatePassenger([FromBody] PassengerView ac)
+    public async Task<IActionResult> UpdatePassenger([FromBody] PassengerView p)
     {
-        (bool IsError, var passenger, string? error) = await Neo4JDataProvider.UpdatePassenger(ac);
+        (bool IsError, var passenger, string? error) = await Neo4JDataProvider.UpdatePassenger(p);
 
         if (IsError)
         {
@@ -40,10 +40,10 @@ public class PassengerController : ControllerBase
 
         if (passenger==null)
         {
-            return BadRequest("Avio kompanija nije validna.");
+            return BadRequest("Putnik nije validan.");
         }
 
-        return Ok($"Uspešno ažurirana avio kompanija. email: {passenger.email}");
+        return Ok($"Uspešno ažuriran putnik. email: {passenger.email}");
     }
     //get
     [HttpGet]
