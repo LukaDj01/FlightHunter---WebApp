@@ -604,5 +604,117 @@ public static class Neo4JDataProvider
 
         return true;
     }
+    #endregion
+    #region Feedback
+    
 
+     public async static Task<Result<bool, string>> AddFeedback(FeedbackView f)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("CREATE (n:Feedback {id:'" + f.id
+                                                            + "',date:'" + f.date
+                                                            + "',comment:'" + f.comment
+                                                            + "',rate:'" + f.rate
+                                                            + "'}) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+            
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+        return true;
+    }
+     public async static Task<Result<FeedbackView, string>> GetFeedback(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Feedback) and n.id ='" + id + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            FeedbackView? feed = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).FirstOrDefault();
+
+            return feed!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+     public async static Task<Result<List<FeedbackView>, string>> GetFeedback()
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Feedback) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<FeedbackView> feed = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            return feed!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+     public async static Task<Result<bool, string>> DeleteFeedback(string id)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Feedback) and n.id ='" + id + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+    #endregion
 }
