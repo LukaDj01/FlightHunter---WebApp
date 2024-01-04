@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FHLibrary.DTOsNeo
 {
-    internal class PlaneView
+    public class PlaneView
     {
         public string? serialNumber { get; set; }
         public string? fuel { get; set; }

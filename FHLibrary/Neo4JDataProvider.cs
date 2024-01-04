@@ -176,10 +176,11 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Airport) and n.phone ='" + ac.phone + "' set n.name = '" + ac.name
+            var query = new CypherQuery("start n=node(*) where (n:Airport) and n.pib ='" + ac.pib + "' set n.name = '" + ac.name
                                                                                                         + "' set n.city = '" + ac.city
                                                                                                         + "' set n.state = '" + ac.state
                                                                                                         + "' set n.address = '" + ac.address
+                                                                                                        + "' set n.phone = '" + ac.phone
                                                                                                         + "' set n.gateNumber = '" + ac.gateNumber
                                                                                                         + "' return n limit 1",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
@@ -749,6 +750,245 @@ public static class Neo4JDataProvider
 
         return true;
     }
+    #endregion
+
+
+    #region Luggage
+    public async static Task<Result<bool, string>> AddLuggage(LuggageView l)
+    {
+        try
+        {
+
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("CREATE (n:Luggage {number:'" + l.number
+                                                            + "',weight:'" + l.weight
+                                                            + "',dimension:'" + l.dimension
+                                                            + "',pricePerKG:'" + l.pricePerKG
+                                                            + "'}) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+
+        return true;
+    }
+
+    public async static Task<Result<LuggageView, string>> UpdateLuggage(LuggageView l)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Luggage) and n.number ='" + l.number 
+                                                                                                        + "' set n.weight = '"+ l.weight
+                                                                                                        + "' set n.dimension = '"+ l.dimension
+                                                                                                        + "' set n.pricePerKG = '"+ l.pricePerKG
+                                                                                                        +"' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            LuggageView? luggage = ((IRawGraphClient)c).ExecuteGetCypherResults<LuggageView>(query).FirstOrDefault();
+
+            return luggage!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<LuggageView, string>> GetLuggage(string number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Luggage) and n.number ='" + number + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            LuggageView? luggage = ((IRawGraphClient)c).ExecuteGetCypherResults<LuggageView>(query).FirstOrDefault();
+
+            return luggage!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<bool, string>> DeleteLuggage(string number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Luggage) and n.number ='" + number + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+
+    #endregion
+
+    #region Plane
+    public async static Task<Result<bool, string>> AddPlane(PlaneView p)
+    {
+        try
+        {
+
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("CREATE (n:Plane {serialNumber:'" + p.serialNumber
+                                                            + "',fuel:'" + p.fuel
+                                                            + "',type:'" + p.type
+                                                            + "'}) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+
+        return true;
+    }
+
+    public async static Task<Result<PlaneView, string>> UpdatePlane(PlaneView p)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serialNumber ='" + p.serialNumber 
+                                                                                                        + "' set n.fuel = '"+ p.fuel
+                                                                                                        + "' set n.type = '"+ p.type
+                                                                                                        +"' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            PlaneView? plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).FirstOrDefault();
+
+            return plane!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<PlaneView, string>> GetPlane(string serial_number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serial_number ='" + serial_number + "' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            PlaneView? plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).FirstOrDefault();
+
+            return plane!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<bool, string>> DeletePlane(string serial_number)
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serial_number ='" + serial_number + "' delete n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Projection);
+
+            ((IRawGraphClient)c).ExecuteCypher(query);
+
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+
     #endregion
 
     /*#region FeedbackRelationship

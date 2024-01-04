@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FHLibrary.DTOsNeo
 {
-    internal class LuggageView
+    public class LuggageView
     {
         public string? number { get; set; }
         public float? weight { get; set; }
