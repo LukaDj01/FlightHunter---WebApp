@@ -1,6 +1,7 @@
 ﻿using Neo4jClient;
 using FHLibrary.DomainModel;
 using Neo4jClient.Cypher;
+using System.Security.Cryptography;
 
 namespace FHLibrary;
 public static class Neo4JDataProvider
@@ -257,7 +258,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region Ticket
-    public async static Task<Result<bool, string>> AddTicket(TicketsView a)
+    public async static Task<Result<bool, string>> AddTicket(TicketsView a, string id)
     {
         try
         {
@@ -275,11 +276,12 @@ public static class Neo4JDataProvider
                 { "price", a.price },
             };
 
-            var query = new Neo4jClient.Cypher.CypherQuery(
-            $"CREATE (n:Ticket {{ purchaseDate:'{a.purchaseDate}', price:'{a.price}'}}) return n",
-            queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
+            var query = new CypherQuery("MATCH (p:Passanger {id: '" + id + "'})"+
+                                $"CREATE(p)-[:BUYS]->(n:Ticket {{ id: '{a.id}' , purchaseDate:'{a.purchaseDate}', price:'{a.price}'}}) return n",
+                                queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
 
-            ((IRawGraphClient)c).ExecuteCypher(query);
+
+((IRawGraphClient)c).ExecuteCypher(query);
         }
         catch (Exception e)
         {
@@ -346,7 +348,7 @@ public static class Neo4JDataProvider
     }
 
 
-    public async static Task<Result<bool, string>> DeleteTickets(string id)
+    public async static Task<Result<bool, string>> DeletePassTicketRel(string id)
     {
         try
         {
@@ -357,7 +359,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Ticket) and n.id ='" + id + "' delete n",
+            var query = new CypherQuery("MATCH ()-[b:BUYS]->(n:Ticket) { id: '" + id + "'}) delete b",
                                                             new Dictionary<string, object>(), CypherResultMode.Projection);
 
             ((IRawGraphClient)c).ExecuteCypher(query);
@@ -376,7 +378,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region ExpiredFlight
-    public async static Task<Result<bool, string>> AddExpiredFlight(ExpiredFlightView ef)
+    public async static Task<Result<bool, string>> AddExpiredFlight(ExpiredFlightView ef, string pib)
     {
         try
         {
@@ -387,13 +389,14 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("CREATE (n:ExpiredFlight {serial_number:'" + ef.serial_number
+            var query = new CypherQuery("MATCH (a:Airport {pib: '" + pib + "'})"+
+                                        "CREATE(a)-[:LAND]->(n:ExpiredFlight {serial_number:'" + ef.serial_number
                                                             + "',capacity:'" + ef.capacity
                                                             + "',available_seats:'" + ef.available_seats
                                                             + "'}) return n",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
-            
+
         }
         catch (Exception e )
         {
@@ -754,7 +757,7 @@ public static class Neo4JDataProvider
 
 
     #region Luggage
-    public async static Task<Result<bool, string>> AddLuggage(LuggageView l)
+    public async static Task<Result<bool, string>> AddLuggage(LuggageView l, string tId)
     {
         try
         {
@@ -766,13 +769,15 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("CREATE (n:Luggage {number:'" + l.number
+            var query = new CypherQuery("MATCH (t:Tickets {id: '" + tId + "'})" 
+                                        +"CREATE(t)-[:HAVE]->(n:Luggage {number:'" + l.number
                                                             + "',weight:'" + l.weight
                                                             + "',dimension:'" + l.dimension
                                                             + "',pricePerKG:'" + l.pricePerKG
                                                             + "'}) return n",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
-            ((IRawGraphClient)c).ExecuteCypher(query);
+
+                ((IRawGraphClient)c).ExecuteCypher(query);
 
         }
         catch (Exception e)
@@ -843,7 +848,7 @@ public static class Neo4JDataProvider
     }
 
 
-    public async static Task<Result<bool, string>> DeleteLuggage(string number)
+    public async static Task<Result<bool, string>> DeleteTLuggageRel(string number)
     {
         try
         {
@@ -854,7 +859,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Luggage) and n.number ='" + number + "' delete n",
+            var query = new CypherQuery("MATCH ()-[h:HAVE]->(n:Luggage { number: '" + number + "'}) delete h",
                                                             new Dictionary<string, object>(), CypherResultMode.Projection);
 
             ((IRawGraphClient)c).ExecuteCypher(query);
@@ -870,6 +875,8 @@ public static class Neo4JDataProvider
 
         return true;
     }
+
+
 
     #endregion
 

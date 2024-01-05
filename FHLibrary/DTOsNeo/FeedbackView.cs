@@ -10,7 +10,6 @@ public class FeedbackView
     //public virtual string? airport_id { get; set; }
     //public virtual string? company_id { get; set; }
 
-
     public FeedbackView() { }
     internal FeedbackView(Feedback? f) 
     { 
