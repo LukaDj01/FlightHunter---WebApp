@@ -961,6 +961,33 @@ public static class Neo4JDataProvider
         }
     }
 
+         public async static Task<Result<List<PlaneView>, string>> GetPlanes()
+    {
+        try
+        {
+            GraphClient? c = Neo4JSessionManager.GetClient();
+
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Plane) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<PlaneView> plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).ToList();
+
+            return plane!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
 
     public async static Task<Result<bool, string>> DeleteACPlaneRel(string serial_number)
     {

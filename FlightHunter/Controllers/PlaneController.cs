@@ -65,6 +65,21 @@ public class PlaneController : ControllerBase
         return Ok(plane);
     }
 
+    [HttpGet]
+    [Route("GetPlanes")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetPlanes()
+    {
+        (bool IsError, var planes, string? error) = await Neo4JDataProvider.GetPlanes();
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(planes);
+    }
+
     [HttpDelete]
     [Route("DeleteACPlaneRel/{planeSerialNumber}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
