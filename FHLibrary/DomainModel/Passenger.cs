@@ -16,6 +16,10 @@ internal class Passenger
     internal protected virtual string? last_name { get; set; }
     internal protected virtual string? addr_street { get; set; }
     internal protected virtual int? addr_stNo { get; set; }
+    internal protected virtual IList<Feedback>? feedbacks { get; set; }
 
-    public Passenger() { }
+    public Passenger()
+    { 
+        feedbacks = new List<Feedback>();
+    }
 }

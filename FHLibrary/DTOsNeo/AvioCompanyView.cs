@@ -9,7 +9,13 @@ public class AvioCompanyView
     public string? name { get; set; }
     public string? phone { get; set; }
     public string? state { get; set; }
-    public AvioCompanyView() { }
+    public virtual IList<ExpiredFlightView>? expiredFlights { get; set; }
+    public virtual IList<FeedbackView>? feedbacks { get; set; }
+    public AvioCompanyView() 
+    { 
+        expiredFlights = new List<ExpiredFlightView>();
+        feedbacks = new List<FeedbackView>();
+    }
     internal AvioCompanyView(AvioCompany? ac) 
     { 
         if(ac!=null)

@@ -9,12 +9,12 @@ namespace FlightHunter.Controllers;
 public class ExpiredFlightController : ControllerBase
 {
     [HttpPost]
-    [Route("AddExpiredFlight")]
+    [Route("AddExpiredFlight/{acId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExpiredFlight([FromBody] ExpiredFlightView f)
+    public async Task<IActionResult> AddExpiredFlight([FromBody] ExpiredFlightView f, string acId)
     {
-        var data = await Neo4JDataProvider.AddExpiredFlight(f);
+        var data = await Neo4JDataProvider.AddExpiredFlight(f, acId);
 
         if (data.IsError)
         {
@@ -75,7 +75,7 @@ public class ExpiredFlightController : ControllerBase
         return Ok(expiredFlight);
     }
     
-    [HttpDelete]
+    /*[HttpDelete]
     [Route("DeleteExpiredFlight/{serial_number}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -89,5 +89,5 @@ public class ExpiredFlightController : ControllerBase
         }
 
         return Ok($"Uspešno obrisan let. serial_number: {serial_number}");
-    }
+    }*/
 }

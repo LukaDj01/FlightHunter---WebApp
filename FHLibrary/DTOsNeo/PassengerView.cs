@@ -14,7 +14,11 @@ public class PassengerView
     public string? last_name { get; set; }
     public string? addr_street { get; set; }
     public int? addr_stNo { get; set; }
-    public PassengerView() { }
+    public virtual IList<FeedbackView>? feedbacks { get; set; }
+    public PassengerView()
+    { 
+        feedbacks = new List<FeedbackView>();
+    }
     internal PassengerView(Passenger? p) 
     { 
         if(p!=null){

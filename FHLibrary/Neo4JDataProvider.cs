@@ -376,7 +376,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region ExpiredFlight
-    public async static Task<Result<bool, string>> AddExpiredFlight(ExpiredFlightView ef)
+    public async static Task<Result<bool, string>> AddExpiredFlight(ExpiredFlightView ef, string acId)
     {
         try
         {
@@ -387,10 +387,11 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("CREATE (n:ExpiredFlight {serial_number:'" + ef.serial_number
+            var query = new CypherQuery("MATCH (ac:AvioCompany {id: '" + acId + "'})"
+                                        + " CREATE (ef:ExpiredFlight {serial_number:'" + ef.serial_number
                                                             + "',capacity:'" + ef.capacity
                                                             + "',available_seats:'" + ef.available_seats
-                                                            + "'}) return n",
+                                                            + "'})<-[:ORGANIZE]-(ac) return ef",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
             
@@ -992,41 +993,5 @@ public static class Neo4JDataProvider
 
     #endregion
 
-    /*#region FeedbackRelationship
-
-     public async static Task<Result<bool, string>> AddRelFeedAvioComp(string passId, string acId)
-     {
-        try
-        {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
-            if (c == null)
-            {
-                return "Nemoguće otvoriti sesiju. Neo4J";
-            }
-            //MATCH (charlie:Person {name: 'Charlie Sheen'}), (oliver:Person {name: 'Oliver Stone'})
-            //CREATE (charlie)-[:ACTED_IN {role: 'Bud Fox'}]->(wallStreet:Movie {title: 'Wall Street'})<-[:DIRECTED]-(oliver)
-            
-            var query = new CypherQuery("MATCH (p:Passenger {n.id ='" + passId + "'}), (ac:AvioCompany {id: '" + acId + "'})"
-                                        + " CREATE (p)-[:RATING {id:'" + f.id
-                                                            + "',date:'" + f.date
-                                                            + "',comment:'" + f.comment
-                                                            + "',rate:'" + f.rate
-                                                            + "'}]->(ac)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-            ((IRawGraphClient)c).ExecuteCypher(query);
-            
-        }
-        catch (Exception e )
-        {
-            return e.Message;
-        }
-        finally
-        {
-        }
-        return true;
-    }
-
-
-    #endregion*/
+    
 }

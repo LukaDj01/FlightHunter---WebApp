@@ -10,7 +10,11 @@ internal class Airport
     internal protected virtual string? city { get; set; }
     internal protected virtual string? state { get; set; }
     internal protected virtual string? gateNumber { get; set; }
+    internal protected virtual IList<Feedback>? feedbacks { get; set; }
 
-    internal Airport() { }
+    internal Airport()
+    { 
+        feedbacks = new List<Feedback>();
+    }
 
 }

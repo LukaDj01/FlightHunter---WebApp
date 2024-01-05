@@ -17,8 +17,12 @@ namespace FHLibrary.DTOsNeo
         public string? city { get; set; }
         public string? state { get; set; }
         public string? gateNumber { get; set; }
+        public virtual IList<FeedbackView>? feedbacks { get; set; }
 
-        public AirportView() { }
+        public AirportView()
+        { 
+            feedbacks = new List<FeedbackView>();
+        }
         internal AirportView(Airport? a)
         {
             if(a!=null)
