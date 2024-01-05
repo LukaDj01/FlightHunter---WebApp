@@ -9,17 +9,17 @@ namespace FlightHunter.Controllers;
 public class LuggageController : ControllerBase
 {
     [HttpPost]
-    [Route("AddLuggage")]
+    [Route("AddLuggage/{tId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddLuggage([FromBody] LuggageView luggageView)
+    public async Task<IActionResult> AddLuggage([FromBody] LuggageView luggageView, string tId)
     {
         if (luggageView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddLuggage(luggageView);
+        var result = await Neo4JDataProvider.AddLuggage(luggageView, tId);
 
         if (result.IsError)
         {
@@ -66,19 +66,18 @@ public class LuggageController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteLuggage/{number}")]
+    [Route("DeleteTLuggageRel/{numberLuggage}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteLuggage(string number)
+    public async Task<IActionResult> DeleteTLuggageRel(string numberLuggage)
     {
-        var data = await Neo4JDataProvider.DeleteLuggage(number);
+        var data = await Neo4JDataProvider.DeleteTLuggageRel(numberLuggage);
 
         if (data.IsError)
         {
             return BadRequest(data.Error);
         }
 
-        return Ok($"Uspešno obrisan prtljag. Broj prtljaga: {number}");
+        return Ok($"Uspešno obrisana veza karte.  Broj: {numberLuggage}");
     }
-
 }

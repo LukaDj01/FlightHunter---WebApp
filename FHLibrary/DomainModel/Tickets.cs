@@ -10,6 +10,7 @@ namespace FHLibrary.DomainModel
         internal protected virtual string? id { get; set; }
         internal protected virtual string? purchaseDate { get; set; }
         internal protected virtual float? price { get; set; }
+        internal protected virtual string? seatNumber { get; set; }
 
         public DateTime getPurchaseDate()
         {

@@ -10,7 +10,6 @@ public class FeedbackView
     public AirportView? airport { get; set; }
     public AvioCompanyView? avioCompany { get; set; }
 
-
     public FeedbackView() { }
     internal FeedbackView(Feedback? f) 
     { 

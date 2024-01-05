@@ -9,17 +9,17 @@ namespace FlightHunter.Controllers;
 public class TicketController : ControllerBase
 {
     [HttpPost]
-    [Route("AddTicket")]
+    [Route("AddTicket/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddTicket([FromBody] TicketsView ticketView)
+    public async Task<IActionResult> AddTicket([FromBody] TicketsView ticketView, string id)
     {
         if (ticketView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddTicket(ticketView);
+        var result = await Neo4JDataProvider.AddTicket(ticketView, id);
 
         if (result.IsError)
         {
@@ -66,12 +66,12 @@ public class TicketController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteTicket/{id}")]
+    [Route("DeletePassTicketRel/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteTicket(string id)
+    public async Task<IActionResult> DeletePassTicketRel(string id)
     {
-        var data = await Neo4JDataProvider.DeleteTickets(id);
+        var data = await Neo4JDataProvider.DeletePassTicketRel(id);
 
         if (data.IsError)
         {
