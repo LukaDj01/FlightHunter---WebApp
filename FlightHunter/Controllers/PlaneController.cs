@@ -9,17 +9,17 @@ namespace FlightHunter.Controllers;
 public class PlaneController : ControllerBase
 {
     [HttpPost]
-    [Route("AddPlane")]
+    [Route("AddPlane/{acId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddPlane([FromBody] PlaneView planeView)
+    public async Task<IActionResult> AddPlane([FromBody] PlaneView planeView, string acId)
     {
         if (planeView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddPlane(planeView);
+        var result = await Neo4JDataProvider.AddPlane(planeView, acId);
 
         if (result.IsError)
         {
@@ -66,18 +66,18 @@ public class PlaneController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeletePlane/{serialNumber}")]
+    [Route("DeleteACPlaneRel/{planeSerialNumber}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeletePlane(string serialNumber)
+    public async Task<IActionResult> DeleteACPlaneRel(string planeSerialNumber)
     {
-        var data = await Neo4JDataProvider.DeletePlane(serialNumber);
+        var data = await Neo4JDataProvider.DeleteACPlaneRel(planeSerialNumber);
 
         if (data.IsError)
         {
             return BadRequest(data.Error);
         }
 
-        return Ok($"Uspešno obrisan avion. Serijski broj: {serialNumber}");
+        return Ok($"Uspešno obrisana veza aviona. Serijski broj: {planeSerialNumber}");
     }
 }

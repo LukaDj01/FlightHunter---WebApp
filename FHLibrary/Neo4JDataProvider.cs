@@ -874,7 +874,7 @@ public static class Neo4JDataProvider
     #endregion
 
     #region Plane
-    public async static Task<Result<bool, string>> AddPlane(PlaneView p)
+    public async static Task<Result<bool, string>> AddPlane(PlaneView p, string acId)
     {
         try
         {
@@ -886,11 +886,12 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("CREATE (n:Plane {serialNumber:'" + p.serialNumber
-                                                            + "',fuel:'" + p.fuel
-                                                            + "',type:'" + p.type
-                                                            + "'}) return n",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            var query = new CypherQuery("MATCH (ac:AvioCompany {id: '"+acId+"'})"
+                                        +" CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'" + p.serialNumber
+                                                                        + "',fuel:'" + p.fuel
+                                                                        + "',type:'" + p.type
+                                                                        + "'}) return p",
+                                                                        new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
 
         }
@@ -944,7 +945,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serial_number ='" + serial_number + "' return n limit 1",
+            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serialNumber ='" + serial_number + "' return n limit 1",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             PlaneView? plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).FirstOrDefault();
@@ -961,7 +962,7 @@ public static class Neo4JDataProvider
     }
 
 
-    public async static Task<Result<bool, string>> DeletePlane(string serial_number)
+    public async static Task<Result<bool, string>> DeleteACPlaneRel(string serial_number)
     {
         try
         {
@@ -972,7 +973,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("start n=node(*) where (n:Plane) and n.serial_number ='" + serial_number + "' delete n",
+            var query = new CypherQuery("MATCH ()-[o:OWNS]->(p:Plane {serialNumber: '"+serial_number+"'}) delete o",
                                                             new Dictionary<string, object>(), CypherResultMode.Projection);
 
             ((IRawGraphClient)c).ExecuteCypher(query);
