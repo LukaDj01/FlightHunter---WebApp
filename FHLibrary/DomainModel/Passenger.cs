@@ -3,7 +3,6 @@
 namespace FHLibrary.DomainModel;
 internal class Passenger
 {
-    internal protected virtual string? id { get; set; }
     [DataType(DataType.EmailAddress)]
     [EmailAddress]
     internal protected virtual string? email { get; set; }

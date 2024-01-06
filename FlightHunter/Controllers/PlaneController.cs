@@ -9,17 +9,17 @@ namespace FlightHunter.Controllers;
 public class PlaneController : ControllerBase
 {
     [HttpPost]
-    [Route("AddPlane/{acId}")]
+    [Route("AddPlane/{acEmail}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddPlane([FromBody] PlaneView planeView, string acId)
+    public async Task<IActionResult> AddPlane([FromBody] PlaneView planeView, string acEmail)
     {
         if (planeView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddPlane(planeView, acId);
+        var result = await Neo4JDataProvider.AddPlane(planeView, acEmail);
 
         if (result.IsError)
         {

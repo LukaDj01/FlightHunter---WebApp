@@ -9,12 +9,12 @@ namespace FlightHunter.Controllers;
 public class FeedbackController : ControllerBase
 {
     [HttpPost]
-    [Route("AddFeedbackPassAC/{passId}/{acId}")]
+    [Route("AddFeedbackPassAC/{passEmail}/{acEmail}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddFeedbackPassAC([FromBody] FeedbackView fb, string passId, string acId)
+    public async Task<IActionResult> AddFeedbackPassAC([FromBody] FeedbackView fb, string passEmail, string acEmail)
     {
-        var data = await Neo4JDataProvider.AddFeedbackPassAC(fb, passId, acId);
+        var data = await Neo4JDataProvider.AddFeedbackPassAC(fb, passEmail, acEmail);
 
         if (data.IsError)
         {
@@ -24,12 +24,12 @@ public class FeedbackController : ControllerBase
         return Ok($"Uspešno dodata recenzija. id: {fb.id}");
     }
     [HttpPost]
-    [Route("AddFeedbackPassAirport/{passId}/{airportPib}")]
+    [Route("AddFeedbackPassAirport/{passEmail}/{airportPib}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddFeedbackPassAirport([FromBody] FeedbackView fb, string passId, string airportPib)
+    public async Task<IActionResult> AddFeedbackPassAirport([FromBody] FeedbackView fb, string passEmail, string airportPib)
     {
-        var data = await Neo4JDataProvider.AddFeedbackPassAirport(fb, passId, airportPib);
+        var data = await Neo4JDataProvider.AddFeedbackPassAirport(fb, passEmail, airportPib);
 
         if (data.IsError)
         {
@@ -61,11 +61,11 @@ public class FeedbackController : ControllerBase
     }*/
     
     [HttpGet]
-    [Route("GetFeedbacksAC/{acId}")]
+    [Route("GetFeedbacksAC/{acEmail}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetFeedbacksAC(string acId)
+    public async Task<IActionResult> GetFeedbacksAC(string acEmail)
     {
-        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedbacksAC(acId);
+        (bool IsError, var feed, string? error) = await Neo4JDataProvider.GetFeedbacksAC(acEmail);
 
         if (IsError)
         {

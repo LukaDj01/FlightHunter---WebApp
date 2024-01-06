@@ -1,7 +1,6 @@
 ﻿namespace FHLibrary.DomainModel;
 internal class AvioCompany
 {
-    internal protected virtual string? id { get; set; }
     [DataType(DataType.EmailAddress)]
     [EmailAddress]
     internal protected virtual string? email { get; set; }

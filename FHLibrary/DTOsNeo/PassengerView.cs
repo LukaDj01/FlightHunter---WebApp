@@ -1,7 +1,6 @@
 ﻿namespace FHLibrary.DTOsNeo;
 public class PassengerView
 {
-    public string? id { get; set; }
     [DataType(DataType.EmailAddress)]
     [EmailAddress]
     public string? email { get; set; }
@@ -22,7 +21,6 @@ public class PassengerView
     internal PassengerView(Passenger? p) 
     { 
         if(p!=null){
-            id = p.id;
             email = p.email;
             password = p.password;
             passport = p.passport;

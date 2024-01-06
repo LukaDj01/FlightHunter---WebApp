@@ -1,7 +1,6 @@
 ﻿namespace FHLibrary.DTOsNeo;
 public class AvioCompanyView
 {
-    public string? id { get; set; }
     [DataType(DataType.EmailAddress)]
     [EmailAddress]
     public string? email { get; set; }
@@ -20,7 +19,6 @@ public class AvioCompanyView
     { 
         if(ac!=null)
         {
-            id = ac.id;
             email = ac.email;
             password = ac.password;
             name = ac.name;
