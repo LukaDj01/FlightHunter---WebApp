@@ -71,7 +71,7 @@ public class LuggageController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteTLuggageRel(string numberLuggage)
     {
-        var data = await Neo4JDataProvider.DeleteTLuggageRel(numberLuggage);
+        var data = await Neo4JDataProvider.DeleteLuggage(numberLuggage);
 
         if (data.IsError)
         {

@@ -11,7 +11,11 @@ namespace FHLibrary.DomainModel
         internal protected virtual string? serialNumber { get; set; }
         internal protected virtual string? fuel { get; set; }
         internal protected virtual string? type { get; set; }
+        internal protected virtual IList<ExpiredFlight>? flights { get; set; }
 
-        internal Plane() { }
+        internal Plane() 
+        { 
+            flights = new List<ExpiredFlight>();
+        }
     }
 }

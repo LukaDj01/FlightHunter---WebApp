@@ -71,7 +71,7 @@ public class TicketController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeletePassTicketRel(string id)
     {
-        var data = await Neo4JDataProvider.DeletePassTicketRel(id);
+        var data = await Neo4JDataProvider.DeleteTickets(id);
 
         if (data.IsError)
         {

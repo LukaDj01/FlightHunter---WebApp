@@ -11,7 +11,11 @@ namespace FHLibrary.DTOsNeo
         public string? serialNumber { get; set; }
         public string? fuel { get; set; }
         public string? type { get; set; }
-        public PlaneView() { }
+        public virtual IList<ExpiredFlightView>? flights { get; set; }
+        public PlaneView()
+        { 
+            flights = new List<ExpiredFlightView>();
+        }
 
         internal PlaneView(Plane? p)
         {

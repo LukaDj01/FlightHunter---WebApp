@@ -18,10 +18,14 @@ namespace FHLibrary.DTOsNeo
         public string? state { get; set; }
         public string? gateNumber { get; set; }
         public virtual IList<FeedbackView>? feedbacks { get; set; }
+        public virtual IList<ExpiredFlightView>? takeOffFlight { get; set; }
+        public virtual IList<ExpiredFlightView>? landFlight { get; set; }
 
         public AirportView()
         { 
             feedbacks = new List<FeedbackView>();
+            takeOffFlight = new List<ExpiredFlightView>();
+            landFlight = new List<ExpiredFlightView>();
         }
         internal AirportView(Airport? a)
         {

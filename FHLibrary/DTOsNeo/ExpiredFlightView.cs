@@ -5,6 +5,9 @@ public class ExpiredFlightView
     public int? capacity { get; set; }
     public int? available_seats { get; set; }
     public AvioCompanyView? avioCompany { get; set; }
+    public AirportView? takeOffAirport { get; set; }
+    public AirportView? landAirport { get; set; }
+    public PlaneView? plane { get; set; }
 
     public DateTime? dateTimeLand { get; set; }
     public DateTime? dateTimeTakeOff { get; set; }
@@ -27,8 +30,11 @@ public class ExpiredFlightView
             gateTakeOff = f.gateTakeOff;
         }
     }
-    internal ExpiredFlightView(ExpiredFlight? f, AvioCompany? ac) : this(f)
+    internal ExpiredFlightView(ExpiredFlight? f, AvioCompany? ac, Airport? toa, Airport? la, Plane? p) : this(f)
     {
         avioCompany = new AvioCompanyView(ac);
+        takeOffAirport = new AirportView(toa);
+        landAirport = new AirportView(la);
+        plane = new PlaneView(p);
     }
 }

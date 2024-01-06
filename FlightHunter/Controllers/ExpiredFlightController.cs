@@ -9,12 +9,12 @@ namespace FlightHunter.Controllers;
 public class ExpiredFlightController : ControllerBase
 {
     [HttpPost]
-    [Route("AddExpiredFlight/{acId}")]
+    [Route("AddExpiredFlight/{acId}/{pib1}/{pib2}/{serialNumber}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExpiredFlight([FromBody] ExpiredFlightView f, string acId)
+    public async Task<IActionResult> AddExpiredFlight([FromBody] ExpiredFlightView f, string acId, string pib1, string pib2, string serialNumber)
     {
-        var data = await Neo4JDataProvider.AddExpiredFlight(f, acId);
+        var data = await Neo4JDataProvider.AddExpiredFlight(f, acId, pib1, pib2, serialNumber);
 
         if (data.IsError)
         {

@@ -11,10 +11,14 @@ internal class Airport
     internal protected virtual string? state { get; set; }
     internal protected virtual string? gateNumber { get; set; }
     internal protected virtual IList<Feedback>? feedbacks { get; set; }
+    internal protected virtual IList<ExpiredFlight>? takeOffFlight { get; set; }
+    internal protected virtual IList<ExpiredFlight>? landFlight { get; set; }
 
     internal Airport()
     { 
         feedbacks = new List<Feedback>();
+        takeOffFlight = new List<ExpiredFlight>();
+        landFlight = new List<ExpiredFlight>();
     }
 
 }
