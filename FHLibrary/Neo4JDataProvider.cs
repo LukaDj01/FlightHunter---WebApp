@@ -280,7 +280,7 @@ public static class Neo4JDataProvider
             if(maxId!=null)
             {
                 int mId = Int32.Parse(maxId);
-                id = (mId++).ToString();
+                id = (++mId).ToString();
             }
             else
                 id="1";
@@ -408,7 +408,7 @@ public static class Neo4JDataProvider
             if(maxId!=null)
             {
                 int mId = Int32.Parse(maxId);
-                serial_number = (mId++).ToString();
+                serial_number = (++mId).ToString();
             }
             else
                 serial_number="1";
@@ -652,7 +652,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH (f:FEEDBACK) return max(f.id)",
+            var queryMaxId = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return max(f.id)",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
@@ -661,7 +661,7 @@ public static class Neo4JDataProvider
             if(maxId!=null)
             {
                 int mId = Int32.Parse(maxId);
-                id = (mId++).ToString();
+                id = (++mId).ToString();
             }
             else
                 id="1";
@@ -698,7 +698,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH (f:FEEDBACK) return max(f.id)",
+            var queryMaxId = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return max(f.id)",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
@@ -707,7 +707,7 @@ public static class Neo4JDataProvider
             if(maxId!=null)
             {
                 int mId = Int32.Parse(maxId);
-                id = (mId++).ToString();
+                id = (++mId).ToString();
             }
             else
                 id="1";
