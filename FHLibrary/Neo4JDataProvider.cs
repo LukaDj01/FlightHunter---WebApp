@@ -528,6 +528,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region Passenger
+
     public async static Task<Result<bool, string>> AddPassenger(PassengerView p)
     {
         try
@@ -625,6 +626,12 @@ public static class Neo4JDataProvider
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var exists = GetPassenger(email);
+            if (exists == null)
+            {
+                return "Putnik sa datim e-mailom ne postoji";
             }
 
             var query = new CypherQuery("start n=node(*) where (n:Passenger) and n.email ='" + email + "' delete n",
