@@ -55,7 +55,7 @@ public class PassengerController : ControllerBase
 
         if (IsError)
         {
-            return BadRequest(error);
+            return BadRequest(error); //"Putnik sa zadatim e-mailom ne postoji u bazi!"
         }
 
         return Ok(pass);
@@ -88,6 +88,6 @@ public class PassengerController : ControllerBase
             return BadRequest(data.Error);
         }
 
-        return Ok($"Uspešno obrisan putnik. email: {email}");
+        return Ok($"Uspešno obrisan putnik sa e-mailom; email: {email}");
     }
 }
