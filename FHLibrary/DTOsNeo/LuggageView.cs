@@ -12,10 +12,12 @@ namespace FHLibrary.DTOsNeo
         public float? weight { get; set; }
         public float? dimension { get; set; }
         public float? pricePerKG { get; set; }
+        public TicketsView? ticket { get; set; }
+
 
         public LuggageView() { }
 
-        internal LuggageView(Luggage? l)
+        internal LuggageView(Luggage? l, Ticket? t)
         {
             if (l != null)
             {
@@ -23,6 +25,8 @@ namespace FHLibrary.DTOsNeo
                 weight = l.weight;
                 dimension = l.dimension;
                 pricePerKG = l.pricePerKG;
+                ticket = new TicketsView(t);
+
             }
         }
     }

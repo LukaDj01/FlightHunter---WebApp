@@ -12,6 +12,7 @@ namespace FHLibrary.DomainModel
         internal protected virtual float? weight { get; set; }
         internal protected virtual float? dimension { get; set; }
         internal protected virtual float? pricePerKG { get; set; }
+        internal protected virtual Ticket? ticket { get; set; }
 
         internal Luggage() { }
     }

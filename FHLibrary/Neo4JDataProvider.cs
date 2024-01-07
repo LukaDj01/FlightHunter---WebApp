@@ -256,7 +256,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region Ticket
-    public async static Task<Result<bool, string>> AddTicket(TicketsView a, string email)
+    public async static Task<Result<bool, string>> AddTicket(TicketsView a, string pemail)
     {
         try
         {
@@ -269,6 +269,7 @@ public static class Neo4JDataProvider
             {
                 { "purchaseDate", a.purchaseDate },
                 { "price", a.price },
+                { "seatNumber", a.seatNumber},
             };
 
             var queryMaxId = new CypherQuery("MATCH (t:Ticket) return max(t.id)",
@@ -285,13 +286,18 @@ public static class Neo4JDataProvider
             else
                 id="1";
 
-            var query = new CypherQuery("MATCH (p:Passanger {email: '" + email + "'})"+
-                                $"CREATE(p)-[:BUYS]->(n:Ticket {{ id: '{id}' , purchaseDate:'{a.purchaseDate}', price:'{a.price}'}}) return n",
-                                queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
-
+            var query = new CypherQuery("CREATE (a:Ticket {id:'" + id
+                                                            +"',puchaseDate:'" + a.purchaseDate
+                                                            +"',price:'" + a.price
+                                                            +"',seatNumber:'" + a.seatNumber
+                                                            + "'}) return a",
+                                new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
 
-((IRawGraphClient)c).ExecuteCypher(query);
+            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + pemail + "'})"+
+                                        "CREATE (p)-[:BUYS]->(t)",
+                                        new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query2);
         }
         catch (Exception e)
         {
@@ -826,14 +832,18 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("MATCH (t:Tickets {id: '" + tId + "'})" 
-                                        +"CREATE(t)-[:HAVE]->(n:Luggage {number:'" + l.number
+            var query = new CypherQuery("CREATE (l:Luggage {  number:'" + l.number
                                                             + "',weight:'" + l.weight
                                                             + "',dimension:'" + l.dimension
                                                             + "',pricePerKG:'" + l.pricePerKG
-                                                            + "'}) return n",
+                                                            + "'}) return l",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
+
+            var query2 = new CypherQuery("MATCH (t:Tickets {id: '" + tId + "'})" +
+                                        "CREATE (t)-[:HAVE]->(l)",
+                                        new Dictionary<string, object>(), CypherResultMode.Set);
+            ((IRawGraphClient)c).ExecuteCypher(query2);
 
         }
         catch (Exception e)
