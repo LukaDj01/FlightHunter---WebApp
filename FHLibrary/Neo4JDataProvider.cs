@@ -5,15 +5,13 @@ using Neo4jClient.Cypher;
 namespace FHLibrary;
 public static class Neo4JDataProvider
 {
-    //public static readonly GraphClient? client = Neo4JSessionManager.GetClient();
+    public static readonly GraphClient? c = Neo4JSessionManager.GetClient();
 
     #region AvioCompany
     public async static Task<Result<bool, string>> AddAvioCompany(AvioCompanyView ac)
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -43,8 +41,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -75,8 +71,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -103,8 +97,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -133,9 +125,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -170,8 +159,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -204,8 +191,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -232,8 +217,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -262,7 +245,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -313,8 +295,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -342,8 +322,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -370,8 +348,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -400,8 +376,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -450,8 +424,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -476,8 +448,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -504,8 +474,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -535,8 +503,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -571,8 +537,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -597,8 +561,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -623,8 +585,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -660,8 +620,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -706,8 +664,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -750,8 +706,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -776,8 +730,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -802,8 +754,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -833,9 +783,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -867,8 +814,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -899,8 +844,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -927,8 +870,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -958,9 +899,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -1001,8 +939,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -1032,8 +968,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -1060,8 +994,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
@@ -1088,8 +1020,6 @@ public static class Neo4JDataProvider
     {
         try
         {
-            GraphClient? c = Neo4JSessionManager.GetClient();
-
             if (c == null)
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
