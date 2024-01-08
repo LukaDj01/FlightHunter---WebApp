@@ -1,5 +1,4 @@
 ﻿using Neo4jClient;
-using FHLibrary.DomainModel;
 using Neo4jClient.Cypher;
 
 namespace FHLibrary;
@@ -241,7 +240,7 @@ public static class Neo4JDataProvider
 
     #endregion
     #region Ticket
-    public async static Task<Result<bool, string>> AddTicket(TicketsView a, string pemail)
+    public async static Task<Result<bool, string>> AddTicket(TicketsView a, string pemail, string flightSerialNumber)
     {
         try
         {
@@ -278,8 +277,8 @@ public static class Neo4JDataProvider
                                 new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
 
-            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + pemail + "'})"+
-                                        "CREATE (p)-[:BUYS]->(t)",
+            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + pemail + "'}), (t:Ticket {id:'" + id + "'}), (ef:ExpiredFlight {serial_number:'" + flightSerialNumber + "'})"+
+                                        "CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)",
                                         new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query2);
         }

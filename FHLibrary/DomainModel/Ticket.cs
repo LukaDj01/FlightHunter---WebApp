@@ -13,6 +13,7 @@ internal class Ticket
     internal protected virtual string? seatNumber { get; set; }
     internal protected virtual IList<Luggage>? luggages { get; set; }
     internal protected virtual Passenger? passenger { get; set; }
+    internal protected virtual ExpiredFlight? flight { get; set; }
     public DateTime getPurchaseDate()
     {
         if (purchaseDate == null) return new DateTime();

@@ -4,10 +4,10 @@ public class FlightView
     public string? serial_number { get; set; }
     public int? capacity { get; set; }
     public int? available_seats { get; set; }
-    public AvioCompanyView? avioCompany { get; set; }
-    public AirportView? takeOffAirport { get; set; }
-    public AirportView? landAirport { get; set; }
-    public PlaneView? plane { get; set; }
+    public string? avioCompanyId { get; set; }
+    public string? takeOffAirportPib { get; set; }
+    public string? landAirportPib { get; set; }
+    public string? planeSerialNumber { get; set; }
 
     public DateTime? dateTimeLand { get; set; }
     public DateTime? dateTimeTakeOff { get; set; }
@@ -23,18 +23,14 @@ public class FlightView
             serial_number = f.serial_number;
             capacity = f.capacity;
             available_seats = f.available_seats;
-            avioCompany = new AvioCompanyView(f.avioCompany);
+            avioCompanyId = f.avioCompanyId;
+            takeOffAirportPib = f.takeOffAirportPib;
+            landAirportPib = f.landAirportPib;
+            planeSerialNumber = f.planeSerialNumber;
             dateTimeLand = f.dateTimeLand;
             dateTimeTakeOff = f.dateTimeTakeOff;
             gateLand = f.gateLand;
             gateTakeOff = f.gateTakeOff;
         }
-    }
-    internal FlightView(Flight? f, AvioCompany? ac, Airport? toa, Airport? la, Plane? p) : this(f)
-    {
-        avioCompany = new AvioCompanyView(ac);
-        takeOffAirport = new AirportView(toa);
-        landAirport = new AirportView(la);
-        plane = new PlaneView(p);
     }
 }

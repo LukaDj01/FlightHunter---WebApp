@@ -24,6 +24,9 @@ public class ExpiredFlightView
             capacity = f.capacity;
             available_seats = f.available_seats;
             avioCompany = new AvioCompanyView(f.avioCompany);
+            takeOffAirport = new AirportView(f.takeOffAirport);
+            landAirport = new AirportView(f.landAirport);
+            plane = new PlaneView(f.plane);
             dateTimeLand = f.dateTimeLand;
             dateTimeTakeOff = f.dateTimeTakeOff;
             gateLand = f.gateLand;

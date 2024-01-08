@@ -7,4 +7,5 @@ global using System.Text;
 global using FHLibrary.DomainModel;
 global using FHLibrary.QueryEntities;
 global using FHLibrary.DTOsNeo;
+global using FHLibrary.DTOsCass;
 global using System.ComponentModel.DataAnnotations;

@@ -16,6 +16,7 @@ namespace FHLibrary.DTOsNeo
         public string? seatNumber { get; set; }
         public virtual IList<LuggageView>? luggages { get; set; }
         public PassengerView? passenger { get; set; }
+        public ExpiredFlightView? flight { get; set; }
 
 
         public TicketsView() 
@@ -34,9 +35,10 @@ namespace FHLibrary.DTOsNeo
             }
         }
 
-        internal TicketsView(Ticket? t, Passenger? p) : this(t)
+        internal TicketsView(Ticket? t, Passenger? p, ExpiredFlight? f) : this(t)
         {
             passenger = new PassengerView(p);
+            flight = new ExpiredFlightView(f);
         }
     }
 }
