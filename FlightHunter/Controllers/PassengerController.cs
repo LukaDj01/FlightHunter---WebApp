@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsNeo;
-
+using FlightHunter.Services;
 namespace FlightHunter.Controllers;
 
 [ApiController]
@@ -15,14 +15,26 @@ public class PassengerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddPassenger([FromBody] PassengerView p)
     {
-        var data = await Neo4JDataProvider.AddPassenger(p);
-
-        if (data.IsError)
+        try
         {
-            return BadRequest(data.Error);
-        }
+            if (!EmailValidation.IsEmailValid(p.email))
+            {
+                return BadRequest("Nevažeći domen e-pošte. Dozvoljeni su samo domeni poput @gmail, @hotmail, @outlook i slični.");
+            }
+            var data = await Neo4JDataProvider.AddPassenger(p);
 
-        return Ok($"Uspešno dodat putnik. email: {p.email}");
+            if (data.IsError)
+            {
+                return BadRequest(data.Error);
+            }
+            return Ok($"Uspešno dodat putnik. email: {p.email}");
+
+        }
+        catch(Exception e)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+ 
     }
     /*//update
     [HttpPut]
@@ -51,14 +63,30 @@ public class PassengerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetPassenger(string email)
     {
-        (bool IsError, var pass, string? error) = await Neo4JDataProvider.GetPassenger(email);
+        /*(bool IsError, var pass, string? error) = await Neo4JDataProvider.GetPassenger(email);
 
         if (IsError)
         {
             return BadRequest(error); //"Putnik sa zadatim e-mailom ne postoji u bazi!"
         }
 
-        return Ok(pass);
+        return Ok(pass);*/
+        try
+        {
+            var result = await Neo4JDataProvider.GetPassenger(email);
+
+            if (result.IsError)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return StatusCode(500, "Internal Server Error");
+        }
     }
     [HttpGet]
     [Route("GetPassengers")]
@@ -81,13 +109,30 @@ public class PassengerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeletePassenger(string email)
     {
-        var data = await Neo4JDataProvider.DeletePassenger(email);
-
-        if (data.IsError)
+         try
         {
-            return BadRequest(data.Error);
-        }
+            var data = await Neo4JDataProvider.DeletePassenger(email);
+            if (data.IsError)
+            {
+                return BadRequest(data.Error);
+            }
+            else
+            {
+                if(data.Data)
+                {                
+                    return Ok($"Uspešno obrisan putnik sa e-mailom; email: {email}");
+                }
+                else
+                {
+                    return BadRequest("Pokusavate da obrisete putnika koji ne postoji u bazi!");
+                }
+            }
 
-        return Ok($"Uspešno obrisan putnik sa e-mailom; email: {email}");
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            return StatusCode(500, "Internal Server Error");
+        }
     }
 }

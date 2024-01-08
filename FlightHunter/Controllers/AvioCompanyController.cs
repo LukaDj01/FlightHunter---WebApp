@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsNeo;
-
+using FlightHunter.Services;
 namespace FlightHunter.Controllers;
 
 [ApiController]
@@ -14,6 +14,10 @@ public class AvioCompanyController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddAvioCompany([FromBody] AvioCompanyView ac)
     {
+         if (!EmailValidation.IsEmailValid(ac.email))
+        {
+            return BadRequest("Nevažeći domen e-pošte. Dozvoljeni su samo domeni poput @gmail, @hotmail, @outlook i slični.");
+        }
         var data = await Neo4JDataProvider.AddAvioCompany(ac);
 
         if (data.IsError)

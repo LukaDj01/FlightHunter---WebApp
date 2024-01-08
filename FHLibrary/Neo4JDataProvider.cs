@@ -580,7 +580,7 @@ public static class Neo4JDataProvider
         {
         }
     }
-    public async static Task<Result<bool, string>> DeletePassenger(string email)
+    /*public async static Task<Result<bool, string>> DeletePassenger(string email)
     {
         try
         {
@@ -610,7 +610,42 @@ public static class Neo4JDataProvider
         }
 
         return true;
+    }*/
+
+    public async static Task<Result<bool, string>> DeletePassenger(string email)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            
+            var existsResult = await GetPassenger(email);
+            if (existsResult.IsError)
+            {
+                return existsResult.Error;
+            }
+
+            var exists = existsResult.Data;
+            if (exists == null)
+            {
+                return false;
+            }
+
+            var query = new CypherQuery("MATCH (n:Passenger {email: '" + email + "'}) DELETE n",
+                                        new Dictionary<string, object>(), CypherResultMode.Projection);
+            ((IRawGraphClient)c).ExecuteCypher(query);
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+
+        return true;
     }
+
+    
     #endregion
     #region Feedback
     

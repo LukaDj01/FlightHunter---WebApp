@@ -1,4 +1,5 @@
 ﻿using Cassandra;
+using FHLibrary.DTOsCass;
 
 namespace FHLibrary;
 public static class CassandraDataProvider
