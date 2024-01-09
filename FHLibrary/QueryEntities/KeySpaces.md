@@ -6,10 +6,10 @@ CREATE TABLE "Flight" (
     "landAirportPib" text,
     "takeOffAirportPib" text,
     "planeSerialNumber" text,
-    dateTimeLand text,
-    dateTimeTakeOff text,
-    gateLand text,
-    gateTakeOff text,
+    "dateTimeLand" text,
+    "dateTimeTakeOff" text,
+    "gateLand" text,
+    "gateTakeOff" text,
     PRIMARY KEY ("stateLand", "stateTakeOff")
 );
 
