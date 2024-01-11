@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>FlightHunter</title>
+        <!--CSS-->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">     
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">                       
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">      
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#top">
+                    <img src="images/logo.png" style="height: 45px;" alt="FlightHunter Logo">
+                    <span>FligtHunter</span>
+                </a>
+                <div class="d-lg-none ms-auto me-4">
+                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_1">View</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_2">Feedbacks</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_3">Add Flight</a>
+                        </li>    
+                                                
+                    </ul>
+                    <!--LOGOVANJE/PRIJAVLJIVANJE-->
+                    <div class="d-none d-lg-block">
+                        <a href="#top" id="button" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+                    
+                    
+                       
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-12 mx-auto">
+                        <!-- Add the image here -->
+                        <img src="images/airport.jpg" class="custom-block-image img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <!-- Move the text to the right -->
+                        <br><br>
+                        <h1 class="text-white text-center">Name of the AvioCmp</h1>
+                        <h6 class="text-center">Country name</h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-14 col-12 mb-4 mb-lg-0" >
+                        <div class="custom-block bg-white shadow-lg">
+                            <div class="table-responsive">
+                                        <h5>Flights</h5>
+                                            <br><br>
+                                            <table>
+                                                <tr>
+                                                  <th>Start</th>
+                                                  <th>End</th>
+                                                  <th>Plane</th>
+                                                  <th>Day</th>
+                                                  <th>Time</th>
+                                                  <th>Capacity</th>
+                                                </tr>
+                                                <tr>
+                                                  <td>Nis</td>
+                                                  <td>Belgrade</td>
+                                                  <td>Airbus193</td>
+                                                  <td>Monday</td>
+                                                  <td>07:00</td>
+                                                  <td>70</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nis</td>
+                                                    <td>Ljubljana</td>
+                                                    <td>Airbus192</td>
+                                                    <td>Saturday</td>
+                                                    <td>18:00</td>
+                                                    <td>62</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Belgrade</td>
+                                                    <td>New York City</td>
+                                                    <td>Boeing 737</td>
+                                                    <td>Sunday</td>
+                                                    <td>12:30</td>
+                                                    <td>250</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nis</td>
+                                                    <td>Athens</td>
+                                                    <td>Airbus192</td>
+                                                    <td>Wednesday</td>
+                                                    <td>09:40</td>
+                                                    <td>140</td>
+                                                </tr>
+                                              
+                                              </table>
+                                        
+                                    
+                                </div>                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="explore-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="mb-4">Feedbacks</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">                           
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">See what people had to say about you:</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-14 col-12 mb-0" >
+                        <div class="custom-block bg-white shadow-lg">
+                                
+                                    <div>
+                                     <p>Sort by:  </p>
+                                    </div>
+                                            <br>
+                                            <div class="feedback-container">
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Cool! Will definitely go again with this company.</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 5 stars</p>
+                                                    <p class="date">Date: January 10, 2024</p>
+                                                    <p class="user">User: A123</p>
+                                                </div>
+                                                
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Good but not the best.</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 4 stars</p>
+                                                    <p class="date">Date: January 10, 2024</p>
+                                                    <p class="user">User: B456</p>
+                                                </div>
+                                            
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Our flight was delayed. The company made sure we were content.</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 5 stars</p>
+                                                    <p class="date">Date: January 00, 2024</p>
+                                                    <p class="user">User: C789</p>
+                                                </div>
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Too loud inside of the plane!</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 1 stars</p>
+                                                    <p class="date">Date: January 10, 2024</p>
+                                                    <p class="user">User: D123</p>
+                                                </div>
+                                                
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Nice but couldnt understand pilot while talking to passengers. Audio is terrible.</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 3 stars</p>
+                                                    <p class="date">Date: January 10, 2024</p>
+                                                    <p class="user">User: E456</p>
+                                                </div>
+                                            
+                                                <div class="feedback-item">
+                                                    <div class="comment-container">
+                                                        <p class="comment">Fine. Got free snacks on 2 hour ride.</p>
+                                                    </div>
+                                                    <p class="rate">Rating: 5 stars</p>
+                                                    <p class="date">Date: January 10, 2024</p>
+                                                    <p class="user">User: F789</p>
+                                                </div>
+                                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--ADD NEW FLIGHT-->
+        <section class="section-padding contact-section" id="section_3" style="background-color: #b9cfde;">
+            <div class="container ">
+                <div class="col-lg-9 col-9 mx-auto" style="background-color: #b9cfde;">
+                    <div style="background-color: #b9cfde;">
+                        <div class="ms-lg-5">
+                            <h2 class="mb-4">Add new flight</h2>
+                            <div style=" margin-top: 30px">
+                                <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                                    <p>Take Off information</p>
+                                                    <input type="text" class="form-control" id="takeOffAirport" name="takeOffAirport" value="Airport" style="width: 300px;">
+                                                    <input type="date" class="form-control" id="takeOffDate" name="takeOffDate" value="Date" style="width: 300px;">
+                                                    <input type="time" class="form-control" id="takeOffTime" name="takeOffTime" value="Time" style="width: 300px;">
+                                                    <input type="text" class="form-control" id="takeOffGate" name="takeOffGate" value="Gate" style="width: 300px;">
+                                                    
+                                                    <p>Land information</p>
+                                                    <input type="text" class="form-control" id="landAirport" name="landAirport" value="Airport" style="width: 300px;">
+                                                    <input type="date" class="form-control" id="landDate" name="landDate" value="Date" style="width: 300px;">
+                                                    <input type="time" class="form-control" id="landTime" name="landTime" value="Time" style="width: 300px;">
+                                                    <input type="text" class="form-control" id="landGate" name="landGate" value="Gate" style="width: 300px;">
+                                                </div>
+                                                <br>
+                                                <div class="col-lg-6 col-12 align-items-center">
+                                                    <p>Additional information</p>
+                                                    <input type="text" class="form-control" id="serialNumber" name="serialNumber" value="Number" style="width: 300px;">
+                                                    <input type="text" class="form-control" id="capacity" name="capacity" value="Capacity" style="width: 300px;">
+                                                    <input type="text" class="form-control" id="seats" name="seats" value="Available seats" style="width: 300px;">
+                                                    <input type="text" class="form-control" id="plane" name="plane" value="Plane" style="width: 300px;"><br>
+                                                    <input type="submit" class="custom-btn" style="margin-left: 90px;" value="   Add   ">
+                                                </div>
+                                            </div>                                          
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>                      
+                    </div>
+                </div>
+                
+            </section>
+            
+        </main>
+
+<footer class="site-footer section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-12 mb-4 pb-2">
+                        <a class="navbar-brand mb-2" href="#top">
+                            <img src="images/logo-dark.png" style="height: 45px;" alt="FlightHunter Logo">
+                            <span>FlightHunter</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <h6 class="site-footer-title mb-3">Resources</h6>
+                        <ul class="site-footer-links">
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Home</a>
+                            </li>
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">FAQs</a>
+                            </li>
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                        <h6 class="site-footer-title mb-3">Information</h6>
+
+                        <p class="text-white d-flex mb-1">
+                            <a href="tel: 305-240-9671" class="site-footer-link">
+                                +38118123123
+                            </a>
+                        </p>
+                        <p class="text-white d-flex">
+                            <a href="mailto:info@company.com" class="site-footer-link">
+                                info@flighthunter.com
+                            </a>
+                        </p>
+                    </div>
+                    <!--Odabir jezika, nema potrebe da realizujemo-->
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            English</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Serbian</button></li>
+                            </ul>
+                        </div>
+
+                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2024 FlightHunter Coo. All rights reserved.
+                        
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/script.js"></script>
+
+    </body>
+    </html>
