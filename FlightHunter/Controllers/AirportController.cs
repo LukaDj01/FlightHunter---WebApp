@@ -65,6 +65,21 @@ public class AirportController : ControllerBase
         return Ok(airport);
     }
 
+    [HttpGet]
+    [Route("GetAirports")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAirports()
+    {
+        (bool IsError, var airports, string? error) = await Neo4JDataProvider.GetAirports();
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(airports);
+    }
+
     [HttpDelete]
     [Route("DeleteAirport/{pib}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -212,6 +212,32 @@ public static class Neo4JDataProvider
     }
 
 
+    public async static Task<Result<List<AirportView>, string>> GetAirports()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Airport) return n",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<AirportView>? airports = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).ToList();
+
+            return airports!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
     public async static Task<Result<bool, string>> DeleteAirport(string pib)
     {
         try

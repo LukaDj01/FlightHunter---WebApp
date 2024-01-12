@@ -21,22 +21,40 @@ takeOffAirportTitle.innerHTML= "Airport";
 takeOffAirportTitle.value = 0;
 takeOffAirportList.appendChild(takeOffAirportTitle);
 
-
 let landAirportList = document.querySelector(".landAirportList");
 let landAirportTitle = document.createElement("option");
 landAirportTitle.innerHTML= "Airport";
 landAirportTitle.value = 0;
 landAirportList.appendChild(landAirportTitle);
 
+let promAirports = await fetch(`http://localhost:5163/Airport/GetAirports`);
+await promAirports.json().then(airports=>{
+		airports.forEach(airport=>{
+			takeOffAirportTitle = document.createElement("option");
+			takeOffAirportTitle.innerHTML= airport.name;
+			takeOffAirportTitle.value = airport.name;
+			takeOffAirportList.appendChild(takeOffAirportTitle);
+			landAirportTitle = document.createElement("option");
+			landAirportTitle.innerHTML= airport.name;
+			landAirportTitle.value = airport.name;
+			landAirportList.appendChild(landAirportTitle);
+		});
+});
 
 let planeList = document.querySelector(".planeList");
 let planeTitle = document.createElement("option");
 planeTitle.innerHTML= "Plane";
 planeTitle.value = 0;
 planeList.appendChild(planeTitle);
+avioCompany.planes.forEach(plane =>{
+	planeTitle = document.createElement("option");
+	planeTitle.innerHTML= plane.type;
+	planeTitle.value = plane.type;
+	planeList.appendChild(planeTitle);
+});
 
 // dugme za dodavanje leta
 let AddFlightBtn = document.querySelector(".addFlight");
 AddFlightBtn.addEventListener("click", function(){
-	
+	console.log("dugme dodaj let");
 });
