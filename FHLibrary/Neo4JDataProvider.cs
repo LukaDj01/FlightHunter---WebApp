@@ -467,6 +467,30 @@ public static class Neo4JDataProvider
         {
         }
     }
+    public async static Task<Result<List<ExpiredFlightView>, string>> GetExpiredFlightsAC(string email)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (ac:AvioCompany {email: '"+email+"'})-[:ORGANIZE]->(ef:ExpiredFlight) return ef",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<ExpiredFlightView> expFlights = ((IRawGraphClient)c).ExecuteGetCypherResults<ExpiredFlightView>(query).ToList();
+
+            return expFlights!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
 
     
     public async static Task<Result<bool, string>> DeleteExpiredFlight(string serial_number)
@@ -1039,6 +1063,32 @@ public static class Neo4JDataProvider
             PlaneView? plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).FirstOrDefault();
 
             return plane!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+
+    public async static Task<Result<List<PlaneView>, string>> GetPlanesAvioComplany(string email)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            
+            var query = new CypherQuery("MATCH (ac:AvioCompany {email: '"+email+"'})-[:OWNS]->(p:Plane) return p",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<PlaneView>? planes = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).ToList();
+
+            return planes!;
         }
         catch (Exception e)
         {

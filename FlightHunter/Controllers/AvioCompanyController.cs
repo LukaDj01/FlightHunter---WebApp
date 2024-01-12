@@ -55,10 +55,41 @@ public class AvioCompanyController : ControllerBase
     public async Task<IActionResult> GetAvioCompany(string email)
     {
         (bool IsError, var avioCompany, string? error) = await Neo4JDataProvider.GetAvioCompany(email);
-
         if (IsError)
         {
             return BadRequest(error);
+        }
+
+        (IsError, var planes, error) = await Neo4JDataProvider.GetPlanesAvioComplany(email);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        (IsError, var fbs, error) = await Neo4JDataProvider.GetFeedbacksAC(email);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        (IsError, var expiredFlights, error) = await Neo4JDataProvider.GetExpiredFlightsAC(email);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        (IsError, var flights, error) = await CassandraDataProvider.GetFlightsAC(email);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        if(avioCompany!=null)
+        {
+            avioCompany.planes=planes;
+            avioCompany.feedbacks=fbs;
+            avioCompany.expiredFlights=expiredFlights;
+            avioCompany.flights=flights;
         }
 
         return Ok(avioCompany);

@@ -29,7 +29,7 @@ public static class CassandraDataProvider
                 flight.serial_number = flightData["serial_number"] != null ? flightData["serial_number"].ToString() : string.Empty;
                 flight.capacity = flightData["capacity"] != null ? int.Parse(flightData["capacity"].ToString()!) : 0;
                 flight.available_seats = flightData["available_seats"] != null ? int.Parse(flightData["available_seats"].ToString()!) : 0;
-                flight.avioCompanyId = flightData["avioCompanyId"] != null ? flightData["avioCompanyId"].ToString() : string.Empty;
+                flight.avioCompanyEmail = flightData["avioCompanyEmail"] != null ? flightData["avioCompanyEmail"].ToString() : string.Empty;
                 flight.takeOffAirportPib = flightData["takeOffAirportPib"] != null ? flightData["takeOffAirportPib"].ToString() : string.Empty;
                 flight.landAirportPib = flightData["landAirportPib"] != null ? flightData["landAirportPib"].ToString() : string.Empty;
                 flight.planeSerialNumber = flightData["planeSerialNumber"] != null ? flightData["planeSerialNumber"].ToString() : string.Empty;
@@ -40,6 +40,54 @@ public static class CassandraDataProvider
             }
             
             return flight;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    
+    public async static Task<Result<List<FlightView>, string>> GetFlightsAC(string email)
+    {
+        try
+        {
+            ISession s = CassandraSessionManager.GetSession();
+            List<FlightView> flights = new List<FlightView>();
+
+            if (s == null)
+            {
+                return "Nemoguće otvoriti sesiju. Cassandra";
+            }
+
+            List<Row>? flightsData = s.Execute("select * from \"FlightAC\" where \"avioCompanyEmail\" = '" + email + "'").ToList();
+            
+            foreach (var flightData in flightsData)
+            {
+                if(flightData != null)
+                {
+                    FlightView flight = new FlightView
+                    {
+                        serial_number = flightData["serial_number"] != null ? flightData["serial_number"].ToString() : string.Empty,
+                        capacity = flightData["capacity"] != null ? int.Parse(flightData["capacity"].ToString()!) : 0,
+                        available_seats = flightData["available_seats"] != null ? int.Parse(flightData["available_seats"].ToString()!) : 0,
+                        avioCompanyEmail = flightData["avioCompanyEmail"] != null ? flightData["avioCompanyEmail"].ToString() : string.Empty,
+                        takeOffAirportPib = flightData["takeOffAirportPib"] != null ? flightData["takeOffAirportPib"].ToString() : string.Empty,
+                        landAirportPib = flightData["landAirportPib"] != null ? flightData["landAirportPib"].ToString() : string.Empty,
+                        planeSerialNumber = flightData["planeSerialNumber"] != null ? flightData["planeSerialNumber"].ToString() : string.Empty,
+                        dateTimeLand = flightData["dateTimeLand"] != null ? DateTime.Parse(flightData["dateTimeLand"].ToString()!) : new DateTime(),
+                        dateTimeTakeOff = flightData["dateTimeTakeOff"] != null ? DateTime.Parse(flightData["dateTimeTakeOff"].ToString()!) : new DateTime(),
+                        gateLand = flightData["gateLand"] != null ? flightData["gateLand"].ToString() : string.Empty,
+                        gateTakeOff = flightData["gateTakeOff"] != null ? flightData["gateTakeOff"].ToString() : string.Empty
+                    };
+                    flights.Add(flight);
+                }
+            }
+            
+            return flights;
         }
         catch (Exception e )
         {
@@ -87,7 +135,7 @@ public static class CassandraDataProvider
         {
         }
     }
-    public async static Task<Result<bool, string>> AddFlight(FlightView f)
+    public async static Task<Result<bool, string>> AddFlight(FlightView f, string acEmail, string pib1, string pib2, string serialNumber)
     {
         try
         {
@@ -100,7 +148,32 @@ public static class CassandraDataProvider
 
             f.serial_number = generateID();
 
-            RowSet flightData = s.Execute("insert into \"Flight\" (serial_number, capacity, available_seats, \"avioCompanyId\", \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + f.serial_number +"', '" + f.capacity +"','" + f.available_seats +"','" + f.avioCompanyId +"','" + f.landAirportPib +"','" + f.takeOffAirportPib +"','" + f.planeSerialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+            RowSet flightData = s.Execute("insert into \"Flight\" (serial_number, capacity, available_seats, \"avioCompanyEmail\", \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + acEmail +"','" + pib1 +"','" + pib1 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+
+        return true;
+    }
+    public async static Task<Result<bool, string>> AddFlightAC(FlightView f, string acEmail, string pib1, string pib2, string serialNumber)
+    {
+        try
+        {
+            ISession s = CassandraSessionManager.GetSession();
+
+            if (s == null)
+            {
+                return "Nemoguće otvoriti sesiju. Cassandra";
+            }
+
+            f.serial_number = generateID();
+
+            RowSet flightData = s.Execute("insert into \"FlightAC\" (\"avioCompanyEmail\", serial_number, capacity, available_seats, \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + acEmail +"','" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + pib1 +"','" + pib1 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
         }
         catch (Exception e )
         {
@@ -178,7 +251,7 @@ public static class CassandraDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Cassandra";
             }
-            Row? luggageData = s.Execute("select * from \"Luggage\" where ticketId = '" + t.ticketId + "' order by number desc").FirstOrDefault();
+            Row? luggageData = s.Execute("select * from \"Luggage\" where \"ticketId\" = '" + t.ticketId + "' order by number desc").FirstOrDefault();
 
             int number = 1;
             if(luggageData != null)

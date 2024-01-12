@@ -4,7 +4,7 @@ internal class Flight
     internal protected virtual string? serial_number { get; set; }
     internal protected virtual int? capacity { get; set; }
     internal protected virtual int? available_seats { get; set; }
-    internal protected virtual string? avioCompanyId { get; set; }
+    internal protected virtual string? avioCompanyEmail { get; set; }
     internal protected virtual string? takeOffAirportPib { get; set; }
     internal protected virtual string? landAirportPib { get; set; }
     internal protected virtual string? planeSerialNumber { get; set; }

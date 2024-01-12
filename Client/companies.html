@@ -225,15 +225,13 @@
                                     <div class="row d-flex align-items-center">
                                         <div class="col-lg-6 col-12 mb-4 mb-lg-0">
                                                     <p>Take Off information</p>
-                                                    <input type="text" class="form-control" id="takeOffAirport" name="takeOffAirport" value="Airport" style="width: 300px;">
-                                                    <input type="date" class="form-control" id="takeOffDate" name="takeOffDate" value="Date" style="width: 300px;">
-                                                    <input type="time" class="form-control" id="takeOffTime" name="takeOffTime" value="Time" style="width: 300px;">
+                                                    <select type="text" class="form-control takeOffAirportList" id="takeOffAirport" name="takeOffAirport" value="Airport" style="width: 300px;"></select>
+                                                    <input type="datetime-local" class="form-control" id="takeOffDate" name="takeOffDate" value="Date" style="width: 300px;">
                                                     <input type="text" class="form-control" id="takeOffGate" name="takeOffGate" value="Gate" style="width: 300px;">
                                                     
                                                     <p>Land information</p>
-                                                    <input type="text" class="form-control" id="landAirport" name="landAirport" value="Airport" style="width: 300px;">
-                                                    <input type="date" class="form-control" id="landDate" name="landDate" value="Date" style="width: 300px;">
-                                                    <input type="time" class="form-control" id="landTime" name="landTime" value="Time" style="width: 300px;">
+                                                    <select type="text" class="form-control landAirportList" id="landAirport" name="landAirport" value="Airport" style="width: 300px;"></select>
+                                                    <input type="datetime-local" class="form-control" id="landDate" name="landDate" value="Date" style="width: 300px;">
                                                     <input type="text" class="form-control" id="landGate" name="landGate" value="Gate" style="width: 300px;">
                                                 </div>
                                                 <br>
@@ -241,9 +239,9 @@
                                                     <p>Additional information</p>
                                                     <input type="text" class="form-control" id="serialNumber" name="serialNumber" value="Number" style="width: 300px;">
                                                     <input type="text" class="form-control" id="capacity" name="capacity" value="Capacity" style="width: 300px;">
-                                                    <input type="text" class="form-control" id="seats" name="seats" value="Available seats" style="width: 300px;">
-                                                    <input type="text" class="form-control" id="plane" name="plane" value="Plane" style="width: 300px;"><br>
-                                                    <input type="submit" class="custom-btn" style="margin-left: 90px;" value="   Add   ">
+                                                    <!-- <input type="text" class="form-control" id="seats" name="seats" value="Available seats" style="width: 300px;"> -->
+                                                    <select type="text" class="form-control planeList" id="plane" name="plane" value="Plane" style="width: 300px;"></select><br>
+                                                    <input type="button" class="custom-btn addFlight" style="margin-left: 90px;" value="   Add   ">
                                                 </div>
                                             </div>                                          
                                         </form>
@@ -319,7 +317,7 @@
         <script src="js/jquery.sticky.js"></script>
         <script src="js/click-scroll.js"></script>
         <script src="js/custom.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/script.js" type="module"></script>
 
     </body>
     </html>

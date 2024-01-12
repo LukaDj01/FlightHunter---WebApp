@@ -9,11 +9,15 @@ public class AvioCompanyView
     public string? phone { get; set; }
     public string? state { get; set; }
     public virtual IList<ExpiredFlightView>? expiredFlights { get; set; }
+    public virtual IList<FlightView>? flights { get; set; }
     public virtual IList<FeedbackView>? feedbacks { get; set; }
+    public virtual IList<PlaneView>? planes { get; set; }
     public AvioCompanyView() 
     { 
         expiredFlights = new List<ExpiredFlightView>();
+        flights = new List<FlightView>();
         feedbacks = new List<FeedbackView>();
+        planes = new List<PlaneView>();
     }
     internal AvioCompanyView(AvioCompany? ac) 
     { 
