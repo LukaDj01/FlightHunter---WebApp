@@ -76,7 +76,7 @@
                             <div class="table-responsive">
                                         <h5>Flights</h5>
                                             <br><br>
-                                            <table>
+                                            <table class="flightsTable">
                                                 <tr>
                                                   <th>Start</th>
                                                   <th>End</th>
@@ -85,39 +85,6 @@
                                                   <th>Time</th>
                                                   <th>Capacity</th>
                                                 </tr>
-                                                <tr>
-                                                  <td>Nis</td>
-                                                  <td>Belgrade</td>
-                                                  <td>Airbus193</td>
-                                                  <td>Monday</td>
-                                                  <td>07:00</td>
-                                                  <td>70</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nis</td>
-                                                    <td>Ljubljana</td>
-                                                    <td>Airbus192</td>
-                                                    <td>Saturday</td>
-                                                    <td>18:00</td>
-                                                    <td>62</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Belgrade</td>
-                                                    <td>New York City</td>
-                                                    <td>Boeing 737</td>
-                                                    <td>Sunday</td>
-                                                    <td>12:30</td>
-                                                    <td>250</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nis</td>
-                                                    <td>Athens</td>
-                                                    <td>Airbus192</td>
-                                                    <td>Wednesday</td>
-                                                    <td>09:40</td>
-                                                    <td>140</td>
-                                                </tr>
-                                              
                                               </table>
                                         
                                     
@@ -154,51 +121,7 @@
                                      <p>Sort by:  </p>
                                     </div>
                                             <br>
-                                            <div class="feedback-container">
-                                                <div class="feedback-item">
-                                                    <div class="comment-container">
-                                                        <p class="comment">Cool! Will definitely go again with this company.</p>
-                                                    </div>
-                                                    <p class="rate">Rating: 5 stars</p>
-                                                    <p class="date">Date: January 10, 2024</p>
-                                                    <p class="user">User: A123</p>
-                                                </div>
-                                                
-                                                <div class="feedback-item">
-                                                    <div class="comment-container">
-                                                        <p class="comment">Good but not the best.</p>
-                                                    </div>
-                                                    <p class="rate">Rating: 4 stars</p>
-                                                    <p class="date">Date: January 10, 2024</p>
-                                                    <p class="user">User: B456</p>
-                                                </div>
-                                            
-                                                <div class="feedback-item">
-                                                    <div class="comment-container">
-                                                        <p class="comment">Our flight was delayed. The company made sure we were content.</p>
-                                                    </div>
-                                                    <p class="rate">Rating: 5 stars</p>
-                                                    <p class="date">Date: January 00, 2024</p>
-                                                    <p class="user">User: C789</p>
-                                                </div>
-                                                <div class="feedback-item">
-                                                    <div class="comment-container">
-                                                        <p class="comment">Too loud inside of the plane!</p>
-                                                    </div>
-                                                    <p class="rate">Rating: 1 stars</p>
-                                                    <p class="date">Date: January 10, 2024</p>
-                                                    <p class="user">User: D123</p>
-                                                </div>
-                                                
-                                                <div class="feedback-item">
-                                                    <div class="comment-container">
-                                                        <p class="comment">Nice but couldnt understand pilot while talking to passengers. Audio is terrible.</p>
-                                                    </div>
-                                                    <p class="rate">Rating: 3 stars</p>
-                                                    <p class="date">Date: January 10, 2024</p>
-                                                    <p class="user">User: E456</p>
-                                                </div>
-                                            
+                                            <div class="feedback-container feedbackList">
                                                 <div class="feedback-item">
                                                     <div class="comment-container">
                                                         <p class="comment">Fine. Got free snacks on 2 hour ride.</p>
@@ -225,22 +148,21 @@
                                     <div class="row d-flex align-items-center">
                                         <div class="col-lg-6 col-12 mb-4 mb-lg-0">
                                                     <p>Take Off information</p>
-                                                    <select type="text" class="form-control takeOffAirportList" id="takeOffAirport" name="takeOffAirport" value="Airport" style="width: 300px;"></select>
-                                                    <input type="datetime-local" class="form-control" id="takeOffDate" name="takeOffDate" value="Date" style="width: 300px;">
-                                                    <input type="text" class="form-control" id="takeOffGate" name="takeOffGate" value="Gate" style="width: 300px;">
+                                                    <select type="text" class="form-control takeOffAirportList" id="takeOffAirport" name="takeOffAirport" style="width: 300px;"></select>
+                                                    <input type="datetime-local" class="form-control takeOffDate" id="takeOffDate" name="takeOffDate" style="width: 300px;">
+                                                    <input type="number" class="form-control takeOffGate" id="takeOffGate" name="takeOffGate" min="1" placeholder="Gate" style="width: 300px;">
                                                     
                                                     <p>Land information</p>
-                                                    <select type="text" class="form-control landAirportList" id="landAirport" name="landAirport" value="Airport" style="width: 300px;"></select>
-                                                    <input type="datetime-local" class="form-control" id="landDate" name="landDate" value="Date" style="width: 300px;">
-                                                    <input type="text" class="form-control" id="landGate" name="landGate" value="Gate" style="width: 300px;">
+                                                    <select type="text" class="form-control landAirportList" id="landAirport" name="landAirport" style="width: 300px;"></select>
+                                                    <input type="datetime-local" class="form-control landDate" id="landDate" name="landDate" style="width: 300px;">
+                                                    <input type="number" class="form-control landGate" id="landGate" name="landGate" min="1" placeholder="Gate" style="width: 300px;">
                                                 </div>
                                                 <br>
                                                 <div class="col-lg-6 col-12 align-items-center">
                                                     <p>Additional information</p>
-                                                    <input type="text" class="form-control" id="serialNumber" name="serialNumber" value="Number" style="width: 300px;">
-                                                    <input type="text" class="form-control" id="capacity" name="capacity" value="Capacity" style="width: 300px;">
+                                                    <input type="number" class="form-control capacity" id="capacity" name="capacity" min="1" placeholder="Capacity" style="width: 300px;">
                                                     <!-- <input type="text" class="form-control" id="seats" name="seats" value="Available seats" style="width: 300px;"> -->
-                                                    <select type="text" class="form-control planeList" id="plane" name="plane" value="Plane" style="width: 300px;"></select><br>
+                                                    <select type="text" class="form-control planeList" id="plane" name="plane" style="width: 300px;"></select><br>
                                                     <input type="button" class="custom-btn addFlight" style="margin-left: 90px;" value="   Add   ">
                                                 </div>
                                             </div>                                          

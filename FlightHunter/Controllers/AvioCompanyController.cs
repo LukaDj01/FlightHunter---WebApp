@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsNeo;
 using FlightHunter.Services;
+using FHLibrary.DTOsCass;
 namespace FlightHunter.Controllers;
 
 [ApiController]
@@ -89,7 +90,41 @@ public class AvioCompanyController : ControllerBase
             avioCompany.planes=planes;
             avioCompany.feedbacks=fbs;
             avioCompany.expiredFlights=expiredFlights;
-            avioCompany.flights=flights;
+            if(flights != null)
+            {
+                foreach (var flight in flights!)
+                {
+                    FlightView f = new FlightView
+                    {
+                        serial_number = flight.serial_number,
+                        capacity = flight.capacity,
+                        available_seats = flight.available_seats,
+                        dateTimeLand = flight.dateTimeLand,
+                        dateTimeTakeOff = flight.dateTimeTakeOff,
+                        gateLand = flight.gateLand,
+                        gateTakeOff = flight.gateTakeOff
+                    };
+                    (IsError, var takeOffAirport, error) = await Neo4JDataProvider.GetAirport(flight.takeOffAirportPib!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    f.takeOffAirport = takeOffAirport;
+                    (IsError, var landAirport, error) = await Neo4JDataProvider.GetAirport(flight.landAirportPib!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    f.landAirport = landAirport;
+                    (IsError, var plane, error) = await Neo4JDataProvider.GetPlane(flight.planeSerialNumber!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    f.plane = plane;
+                    avioCompany.flights!.Add(f);
+                }
+            }
         }
 
         return Ok(avioCompany);

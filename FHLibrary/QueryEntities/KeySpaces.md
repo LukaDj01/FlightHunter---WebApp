@@ -25,7 +25,7 @@ CREATE TABLE "FlightAC" (
     "dateTimeTakeOff" text,
     "gateLand" text,
     "gateTakeOff" text,
-    PRIMARY KEY ("avioCompanyEmail")
+    PRIMARY KEY ("avioCompanyEmail", serial_number)
 );
 
 CREATE TABLE "Ticket" (
@@ -63,7 +63,7 @@ CREATE TABLE "SearchFlight" (
 
 CREATE TABLE "Flight" (serial_number text,capacity int,available_seats int,"avioCompanyEmail" text,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("serial_number"));
 
-CREATE TABLE "FlightAC" ("avioCompanyEmail" text,serial_number text,capacity int,available_seats int,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("avioCompanyEmail"));
+CREATE TABLE "FlightAC" ("avioCompanyEmail" text,serial_number text,capacity int,available_seats int,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("avioCompanyEmail", serial_number));
 
 CREATE TABLE "Ticket" ("passengerEmail" text,"flightSerialNumber" text,purchaseDate text,id text,price text,seatNumber text,PRIMARY KEY ("passengerEmail", "flightSerialNumber" purchaseDate));
 

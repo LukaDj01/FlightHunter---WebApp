@@ -10,12 +10,12 @@ public static class CassandraDataProvider
     }
 
     #region Flight
-    public async static Task<Result<FlightView, string>> GetFlight(string serial_number)
+    public async static Task<Result<FlightInput, string>> GetFlight(string serial_number)
     {
         try
         {
             ISession s = CassandraSessionManager.GetSession();
-            FlightView flight = new FlightView();
+            FlightInput flight = new FlightInput();
 
             if (s == null)
             {
@@ -51,12 +51,12 @@ public static class CassandraDataProvider
     }
 
     
-    public async static Task<Result<List<FlightView>, string>> GetFlightsAC(string email)
+    public async static Task<Result<List<FlightInput>, string>> GetFlightsAC(string email)
     {
         try
         {
             ISession s = CassandraSessionManager.GetSession();
-            List<FlightView> flights = new List<FlightView>();
+            List<FlightInput> flights = new List<FlightInput>();
 
             if (s == null)
             {
@@ -69,7 +69,7 @@ public static class CassandraDataProvider
             {
                 if(flightData != null)
                 {
-                    FlightView flight = new FlightView
+                    FlightInput flight = new FlightInput
                     {
                         serial_number = flightData["serial_number"] != null ? flightData["serial_number"].ToString() : string.Empty,
                         capacity = flightData["capacity"] != null ? int.Parse(flightData["capacity"].ToString()!) : 0,
@@ -148,7 +148,8 @@ public static class CassandraDataProvider
 
             f.serial_number = generateID();
 
-            RowSet flightData = s.Execute("insert into \"Flight\" (serial_number, capacity, available_seats, \"avioCompanyEmail\", \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + acEmail +"','" + pib1 +"','" + pib1 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+            s.Execute("insert into \"Flight\" (serial_number, capacity, available_seats, \"avioCompanyEmail\", \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + acEmail +"','" + pib1 +"','" + pib2 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+            s.Execute("insert into \"FlightAC\" (\"avioCompanyEmail\", serial_number, capacity, available_seats, \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + acEmail +"','" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + pib1 +"','" + pib2 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
         }
         catch (Exception e )
         {
@@ -160,7 +161,7 @@ public static class CassandraDataProvider
 
         return true;
     }
-    public async static Task<Result<bool, string>> AddFlightAC(FlightView f, string acEmail, string pib1, string pib2, string serialNumber)
+    /*public async static Task<Result<bool, string>> AddFlightAC(FlightView f, string acEmail, string pib1, string pib2, string serialNumber)
     {
         try
         {
@@ -173,7 +174,7 @@ public static class CassandraDataProvider
 
             f.serial_number = generateID();
 
-            RowSet flightData = s.Execute("insert into \"FlightAC\" (\"avioCompanyEmail\", serial_number, capacity, available_seats, \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + acEmail +"','" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + pib1 +"','" + pib1 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+            RowSet flightData = s.Execute("insert into \"FlightAC\" (\"avioCompanyEmail\", serial_number, capacity, available_seats, \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + acEmail +"','" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + pib1 +"','" + pib2 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
         }
         catch (Exception e )
         {
@@ -184,7 +185,7 @@ public static class CassandraDataProvider
         }
 
         return true;
-    }
+    }*/
     public async static Task<Result<bool, string>> DeleteFlight(string serial_number)
     {
         try

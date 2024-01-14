@@ -20,24 +20,11 @@ public class FlightController : ControllerBase
         {
             return BadRequest(data.Error);
         }
-
-        return Ok($"Uspešno dodat let. serijski broj: {f.serial_number}");
-    }
-
-    
-    [HttpPost]
-    [Route("AddFlightAC/{acEmail}/{pib1}/{pib2}/{serialNumber}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddFlightAC([FromBody] FlightView f, string acEmail, string pib1, string pib2, string serialNumber)
-    {
-        var data = await CassandraDataProvider.AddFlightAC(f, acEmail, pib1, pib2, serialNumber);
-
-        if (data.IsError)
+        /*var data2 = await CassandraDataProvider.AddFlightAC(f, acEmail, pib1, pib2, serialNumber);
+        if (data2.IsError)
         {
-            return BadRequest(data.Error);
-        }
-
+            return BadRequest(data2.Error);
+        }*/
         return Ok($"Uspešno dodat let. serijski broj: {f.serial_number}");
     }
     

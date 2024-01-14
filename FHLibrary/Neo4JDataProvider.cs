@@ -800,6 +800,18 @@ public static class Neo4JDataProvider
 
             List<FeedbackView> feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
 
+            foreach (var feed in feeds)
+            {
+                query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id: '" + feed.id + "'}]->(ac:AvioCompany) RETURN p",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+                PassengerView? passenger = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
+                query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id: '" + feed.id + "'}]->(ac:AvioCompany) RETURN ac",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+                AvioCompanyView? ac = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).FirstOrDefault();
+                feed.passenger=passenger;
+                feed.avioCompany=ac;
+            }
+            
             return feeds!;
         }
         catch (Exception e )
@@ -823,6 +835,18 @@ public static class Neo4JDataProvider
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             List<FeedbackView> feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            foreach (var feed in feeds)
+            {
+                query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id: '" + feed.id + "'}]->(a:Airport) RETURN p",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+                PassengerView? passenger = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
+                query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id: '" + feed.id + "'}]->(a:Airport) RETURN a",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+                AirportView? a = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+                feed.passenger=passenger;
+                feed.airport=a;
+            }
 
             return feeds!;
         }
