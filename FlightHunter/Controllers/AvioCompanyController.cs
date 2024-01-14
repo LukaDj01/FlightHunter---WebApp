@@ -18,6 +18,13 @@ public class AvioCompanyController : ControllerBase
         {
             return BadRequest("Nevažeći domen e-pošte. Dozvoljeni su samo domeni poput @gmail, @hotmail, @outlook i slični.");
         }
+
+        var get = await Neo4JDataProvider.GetAvioCompany(ac.email);
+        if(get.Data != null)
+        {
+            return BadRequest("Postoji kompanija sa tim imenom");
+        }
+
         var data = await Neo4JDataProvider.AddAvioCompany(ac);
 
         if (data.IsError)
@@ -94,7 +101,37 @@ public class AvioCompanyController : ControllerBase
 
         return Ok(avioCompany);
     }
-    
+    [HttpGet]
+    [Route("LoginAvioCompany/{email}/{password}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> LoginAvioCompany(string email, string password)
+    {
+        try
+        {
+            var result = await Neo4JDataProvider.GetAvioCompany(email);
+
+            if (result.IsError)
+            {
+                return BadRequest(result.Error);
+            }
+
+            if(result.Data == null)
+            {
+                return BadRequest("Kompanija ne postoji u bazi! Bezuspesno logovanje!");
+            }
+            if(result.Data.password != password)
+            {
+                return BadRequest("Lozinke se ne poklapaju");
+            }
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
     [HttpDelete]
     [Route("DeleteAvioCompany/{email}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
