@@ -21,6 +21,12 @@ public class PassengerController : ControllerBase
             {
                 return BadRequest("Nevažeći domen e-pošte. Dozvoljeni su samo domeni poput @gmail, @hotmail, @outlook i slični.");
             }
+            var get = await Neo4JDataProvider.GetPassenger(p.email);
+            if(get.Data != null)
+            {
+                return BadRequest("Postoji putnik sa tim imenom");
+            }
+
             var data = await Neo4JDataProvider.AddPassenger(p);
 
             if (data.IsError)
@@ -88,6 +94,38 @@ public class PassengerController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+    [HttpGet]
+    [Route("LoginPassenger/{email}/{password}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> LoginPassenger(string email, string password)
+    {
+        try
+        {
+            var result = await Neo4JDataProvider.GetPassenger(email);
+
+            if (result.IsError)
+            {
+                return BadRequest(result.Error);
+            }
+
+            if(result.Data == null)
+            {
+                return BadRequest("Putnik ne postoji u bazi! Bezuspesno logovanje!");
+            }
+            if(result.Data.password != password)
+            {
+                return BadRequest("Lozinke se ne poklapaju");
+            }
+
+            return Ok(result.Data);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
     [HttpGet]
     [Route("GetPassengers")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -131,7 +169,6 @@ public class PassengerController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception
             return StatusCode(500, "Internal Server Error");
         }
     }
