@@ -37,6 +37,9 @@
                         </li>    
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_3">Add Flight</a>
+                        </li>   
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_4">Add Plane</a>
                         </li>    
                                                 
                     </ul>
@@ -164,6 +167,63 @@
                     </div>
                 </div>
                 
+            </section>
+
+            <section class="section-padding contact-section" id="section_4" style="background-color: #b9cfde;">
+                <div class="container ">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 col-12">
+                            <div class="custom-block custom-block-overlay">
+                                <div class="d-flex flex-column h-100">
+                                    <div class="custom-block-overlay-text d-flex justify-content-center align-items-center">
+                                        <div class="table-responsive">
+                                            <h5>Flights</h5><br><br>
+                                            <table class="flightsTable">
+                                                <tr>
+                                                    <th>Start</th>
+                                                    <th>End</th>
+                                                    <th>Plane</th>
+                                                    <th>Day</th>
+                                                    <th>Time</th>
+                                                    <th>Capacity</th>
+                                                </tr>
+                                            </table>
+                                        </div>        
+                                    </div>
+                                    <div class="section-overlay"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                            <div class="custom-block bg-white shadow-lg">
+                                <div class="align-items-center">
+                                    <div class="align-items-center">
+                                        <h5 class="mb-2">Add new plane</h5>
+                                        <img src="images/picplane.avif" class="custom-block-image img-fluid" style="max-height: 20%;" alt="">
+                                        
+                                        <div>
+                                            <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5 align-items-center" role="add">
+                                                <div class="align-items-center">
+                                                    <input type="text" class="form-control planeType" id="planeType" name="planeType" placeholder="Plane Type" style="width: 300px;">
+                                                    <select type="text" class="form-control" id="fuel" name="fuel" style="width: 300px;">
+                                                        <option value="jetFuel">Jet Fuel</option>
+                                                        <option value="avgas">AVGAS</option>
+                                                        <option value="gas">Gasoline</option>
+                                                        <option value="bio">Biofuels</option>
+                                                        <option value="jetA">Jet A</option>
+                                                        <option value="jetB">Jet B</option>
+                                                    </select>
+                                                    <input type="button" class="custom-btn addPlane" value="   Add   ">                                                                                           
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
             </section>
             
         </main>
