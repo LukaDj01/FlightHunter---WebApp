@@ -45,5 +45,35 @@
     });
   
   })(window.jQuery);
+  
+
+  function showRegister() {
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('comp-container').style.display = 'none';
+    document.getElementById('register-container').style.display = 'block';
+  }
+  
+  function showLogin() {
+    document.getElementById('register-container').style.display = 'none';
+    document.getElementById('comp-container').style.display = 'none';
+    document.getElementById('login-container').style.display = 'block';
+  }
+  function showComp() {
+    document.getElementById('register-container').style.display = 'none';
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('comp-container').style.display = 'block';
+  }
+  
+  function login() {
+    alert('Saljemo upit za logovanje');
+  }
+  
+  function register() {
+    alert('Saljemo upit za registrovanje');
+  }
+  function comp() {
+    alert('Saljemo upit za kompanije');
+  }
+  
 
 

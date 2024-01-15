@@ -4,10 +4,6 @@ document.getElementById('button').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "flex";
 });
 
-/*document.querySelector('.close').addEventListener("click", function() {
-	document.querySelector('.bg-modal').style.display = "none";
-});*/
-
 let avioCompany;
 let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioCompany/user@example.com`); // email avio kompanije
 await promAvioCompany.json().then(ac=>{
@@ -180,3 +176,6 @@ AddFlightBtn.addEventListener("click", function(){
 		}
 	}).catch(errorMsg=>console.log(errorMsg));
 });
+
+
+

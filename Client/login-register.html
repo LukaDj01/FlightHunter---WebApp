@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Signup Page</title>
+   <!--CSS-->        
+   <link rel="preconnect" href="https://fonts.googleapis.com">     
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">                       
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/bootstrap-icons.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">      
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: url('images/sky.jpeg') repeat; background-size: cover; display: flex; align-items: center; justify-content: center; height: 100vh;">
+    <div id="banner">
+        <br>
+        <h2>Welcome to FlightHunter!</h2>
+        <!--<img src="images/logo.png" alt="Logo">-->  
+        
+    </div>
+    <main>
+        <section class="section-padding contact-section"  id="section_3">
+            <div class="container ">
+                <div id="login-container">
+                    <h2>Login</h2>
+                    <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                        <input type="text" class="form-control"  id="email"  placeholder="Email">
+                        <input type="password" class="form-control"  id="password" placeholder="Password">
+                        <input type="submit" class="custom-btn" onclick="login()" value="Login"><br><br>
+                        <p>Don't have an account? <span id="register-link" onclick="showRegister()">Register</span></p>
+                    </form>
+                </div>
+
+                <div id="register-container" style="width: 500px;">
+                    <h2>Register</h2>
+                    <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                <input type="text" class="form-control"  id="email" placeholder="email">
+                                <input type="password" class="form-control"  id="password"  placeholder="Password">
+                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                <input type="text" class="form-control" id="surname" placeholder="Surname">
+                                <input type="text" class="form-control" id="nationality" placeholder="Nationality">
+                            </div>
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                <input type="text" class="form-control" id="passport" placeholder="Passport">
+                                <input type="date" class="form-control" id="birthday" placeholder="Birthday">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                <input type="text" class="form-control" id="street" placeholder="Street">
+                                <input type="text" class="form-control" id="street-number" placeholder="Street Number">
+                            </div>
+                        </div>
+                        <input type="submit" class="custom-btn" onclick="register()" value="Register"><br><br>
+                        <p>Already have an account? <span id="login-link" onclick="showLogin()">Login</span></p>
+                        <p>Are you an AvioCompany? <span id="comp-link" onclick="showComp()">Click here!</span></p>
+                    </form>
+                </div>
+                <div id="comp-container" style="width: 500px;">
+                    <h2>Register</h2>
+                    <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                        <input type="text" class="form-control"  id="email"  placeholder="Email">
+                        <input type="password" class="form-control"  id="password" placeholder="Password">
+                        <input type="text" class="form-control" id="name" placeholder="Name">
+                        <input type="text" class="form-control" id="phone" placeholder="Phone">
+                        <input type="text" class="form-control" id="state" placeholder="State">
+                        <input type="submit" class="custom-btn" onclick="comp()" value="Register"><br><br>
+                        <p>Already have an account? <span id="login-link" onclick="showLogin()">Login</span></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="f2">
+        Copyright © 2024 FlightHunter Coo. All rights reserved.
+      </footer>
+  <!-- JAVASCRIPT FILES -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/click-scroll.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

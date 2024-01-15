@@ -842,3 +842,58 @@ tr:nth-child(even) {
   }
 }
 
+#login-container, #register-container, #comp-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px; 
+  border-radius: 10px;
+  text-align: center;
+  border-radius: (--border-radius-small);
+  transition: all 0.3s; 
+  margin: 0 auto;
+}
+#register-link, #login-link, #comp-link{
+  cursor: pointer;
+  color:  #13547a;
+  text-decoration: underline;
+}
+#register-container {
+  width: 500%; 
+  display: none;
+}
+#comp-container {
+  display: none;
+}
+.n2 {
+  background-color: #13547a;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+}
+#f2 {
+  background-color: #13547a;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+}
+#banner{
+  background: transparent; 
+  color: #13547a;
+  padding: 10px; 
+  width: 100%; 
+  text-align: center; 
+  position: fixed; 
+  top: 0;
+  z-index: 1000; 
+}
+#banner img {
+  width: 50px; 
+  margin-right: 10px;
+}
+#banner h2 {
+  display: inline-block;
+}
