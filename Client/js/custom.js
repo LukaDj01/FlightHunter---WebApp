@@ -72,5 +72,16 @@
     alert('Saljemo upit za kompanije');
   }
   
+  function handleRating(event) {
+    const stars = document.querySelectorAll('.rating i');
+    const clickedStarIndex = event.target.dataset.index;
 
+    stars.forEach((star, index) => {
+      if (index < clickedStarIndex) {
+        star.classList.add('active');
+      } else {
+        star.classList.remove('active');
+      }
+    });
+  }
 

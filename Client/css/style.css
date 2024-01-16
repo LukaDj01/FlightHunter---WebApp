@@ -925,3 +925,41 @@ tr:nth-child(even) {
   border-radius: var(--border-radius-medium);
   height: 150px;
 }
+
+.custom-block-blue {
+  border-radius: var(--border-radius-medium);
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  transition: all 0.3s ease;
+  height: 550px;
+}
+.custom-block-blue:hover {
+  background-color: #bcd7e8;
+  transform: translateY(-3px);
+}
+.rating {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.rating i {
+  color: white;
+}
+
+.rating i:hover,
+.rating i.active {
+  color: var(--primary-color);
+}
+.custom-form .form-control1 {
+  border-radius: var(--border-radius-medium);
+  color: var(--p-color);
+  margin-bottom: 24px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 20px;
+  outline: none;
+  width: 100%;
+  resize: none; 
+  height: 220px; 
+}
