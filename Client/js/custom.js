@@ -68,9 +68,6 @@
     alert('Saljemo upit za logovanje');
   }
   
-  function register() {
-    alert('Saljemo upit za registrovanje');
-  }
   function comp() {
     alert('Saljemo upit za kompanije');
   }

@@ -39,7 +39,7 @@
                             <div class="col-lg-6 col-12 mb-4 mb-lg-0">
                                 <input type="text" class="form-control"  id="email" placeholder="email">
                                 <input type="password" class="form-control"  id="password"  placeholder="Password">
-                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                <input type="text" class="form-control name" id="name" placeholder="Name">
                                 <input type="text" class="form-control" id="surname" placeholder="Surname">
                                 <input type="text" class="form-control" id="nationality" placeholder="Nationality">
                             </div>
@@ -51,7 +51,7 @@
                                 <input type="text" class="form-control" id="street-number" placeholder="Street Number">
                             </div>
                         </div>
-                        <input type="submit" class="custom-btn" onclick="register()" value="Register"><br><br>
+                        <input type="button" class="custom-btn addPassenger" value="Register"><br><br>
                         <p>Already have an account? <span id="login-link" onclick="showLogin()">Login</span></p>
                         <p>Are you an AvioCompany? <span id="comp-link" onclick="showComp()">Click here!</span></p>
                     </form>
@@ -64,7 +64,7 @@
                         <input type="text" class="form-control" id="name" placeholder="Name">
                         <input type="text" class="form-control" id="phone" placeholder="Phone">
                         <input type="text" class="form-control" id="state" placeholder="State">
-                        <input type="submit" class="custom-btn" onclick="comp()" value="Register"><br><br>
+                        <input type="button" class="custom-btn " value="Register"><br><br>
                         <p>Already have an account? <span id="login-link" onclick="showLogin()">Login</span></p>
                     </form>
                 </div>
@@ -80,6 +80,6 @@
   <script src="js/jquery.sticky.js"></script>
   <script src="js/click-scroll.js"></script>
   <script src="js/custom.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/login-registration.js" type="module"></script>
 </body>
 </html>
