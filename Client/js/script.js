@@ -178,4 +178,55 @@ AddFlightBtn.addEventListener("click", function(){
 });
 
 
+// dugme za dodavanje leta
+let AddPlaneBtn = document.querySelector(".addPlane");
+AddPlaneBtn.addEventListener("click", function(){
+	let fuelList = document.querySelector(".fuelList");
+	let fuel = fuelList.options[fuelList.selectedIndex].value;
+	if(fuel == "jetFuel") // ???
+	{
+		console.log("Izaberite gorivo");
+		return;
+	}
+	let type = document.querySelector(".planeType").value;
+	if(type == "")
+	{
+		console.log("Izaberite tip aviona");
+		return;
+	}
 
+	fetch(`http://localhost:5163/Plane/AddPlane/${avioCompany.email}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			fuel: fuel,
+        	type: type
+		})
+	}).then(p=>{
+		if(p.ok){
+			location.reload();
+		}
+		else
+		{
+			console.log("nesto je poslo po zlu iks de");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+});
+
+
+// kada se doda tabela za pregled aviona avio kompanije ovako bi trebalo da izgleda impl prikaza
+/*
+let planesTable = document.querySelector(".planesTable"); // dodati klasu planesTable odgovarajucoj tabeli (kao za flights)
+avioCompany.planes.forEach(plane=>{
+	let tableRow = document.createElement("tr");
+	tableRow.value = plane.serialNumber;
+	let tableData = document.createElement("td");
+	tableData.innerHTML= plane.type;
+	tableRow.appendChild(tableData);
+	tableData = document.createElement("td");
+	tableData.innerHTML= plane.fuel;
+	tableRow.appendChild(tableData);
+	planesTable.appendChild(tableRow);
+});*/
