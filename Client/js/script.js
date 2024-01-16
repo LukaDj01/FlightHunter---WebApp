@@ -215,3 +215,18 @@ AddPlaneBtn.addEventListener("click", function(){
 	}).catch(errorMsg=>console.log(errorMsg));
 });
 
+
+// kada se doda tabela za pregled aviona avio kompanije ovako bi trebalo da izgleda impl prikaza
+/*
+let planesTable = document.querySelector(".planesTable"); // dodati klasu planesTable odgovarajucoj tabeli (kao za flights)
+avioCompany.planes.forEach(plane=>{
+	let tableRow = document.createElement("tr");
+	tableRow.value = plane.serialNumber;
+	let tableData = document.createElement("td");
+	tableData.innerHTML= plane.type;
+	tableRow.appendChild(tableData);
+	tableData = document.createElement("td");
+	tableData.innerHTML= plane.fuel;
+	tableRow.appendChild(tableData);
+	planesTable.appendChild(tableRow);
+});*/
