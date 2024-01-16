@@ -606,7 +606,7 @@ public static class Neo4JDataProvider
         {
         }
     }
-     public async static Task<Result<List<PassengerView>, string>> GetPassenger()
+    public async static Task<Result<List<PassengerView>, string>> GetPassenger()
     {
         try
         {

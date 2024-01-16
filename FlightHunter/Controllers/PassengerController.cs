@@ -90,7 +90,6 @@ public class PassengerController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -126,7 +125,7 @@ public class PassengerController : ControllerBase
         }
     }
 
-    [HttpGet]
+   [HttpGet]
     [Route("GetPassengers")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetPassengers()

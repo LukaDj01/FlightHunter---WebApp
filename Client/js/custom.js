@@ -64,10 +64,6 @@
     document.getElementById('comp-container').style.display = 'block';
   }
   
-  function login() {
-    alert('Saljemo upit za logovanje');
-  }
-  
   function comp() {
     alert('Saljemo upit za kompanije');
   }
