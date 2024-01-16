@@ -1,31 +1,348 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-    <script src="./main.js" type="module"></script>
-    <div class="header">
-        <a href="#index" class="logo">FlightHunter</a>
-        <div class="header-right">
-            <a href="login-register.html">Log In/Sing Up</a>
-        </div>
-      </div>
-      <ul>
-        
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>FlightHunter</title>
+        <!--CSS-->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">     
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">                       
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">      
+    </head>
+    
+    <body id="top">
+        <main>
+            <!--GORNJA NAVIGACIJA-->
+            <nav class="navbar navbar-expand-lg">
+              <div class="container">
+                <a class="navbar-brand" href="index.html">
+                  <img src="images/logo.png" style="height: 45px;" alt="FlightHunter Logo">
+                  <span>FligtHunter</span>
+                </a>
+                <div class="d-lg-none ms-auto me-4">
+                  <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                    <li class="nav-item">
+                      <a class="nav-link click-scroll" href="#section_1">Book</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link click-scroll" href="#section_2">Feedbacks</a>
+                    </li>    
+                    <li class="nav-item">
+                      <a class="nav-link click-scroll" href="#section_3">FAQ</a>
+                    </li>    
+                    <li class="nav-item">
+                      <a class="nav-link click-scroll" href="#section_4">Contact</a>
+                    </li>                            
+                  </ul>
+                  <!--LOGOVANJE/PRIJAVLJIVANJE-->
+                  <div class="d-none d-lg-block nav-item dropdown">
+                    <a href="login-register.html" id="button" class="navbar-icon bi-person smoothscroll inactive" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                      <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                      </ul>
+                  </li>
 
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#popular">Most Popular</a></li>
-        <li><a class="active" href="#book">Book</a></li>
-        
-        
-        
-        
-      </ul>
-</body>
+
+
+                  </div>
+                </div>         
+              </div>
+            </nav>
+            
+            <!--SLOGAN/INFO/PRETRAGA-->
+            <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8 col-12 mx-auto">
+                    <h1 class="text-white text-center">Find your wings.</h1>
+                    <h6 class="text-center">travel the world with us</h6>
+                    <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-text bi-search" id="basic-addon1"></span>
+                        <input name="keyword" type="search" class="form-control" id="keyword" placeholder="Flights, Destination, Prices ..." aria-label="Search">
+                        <button type="submit" class="form-control">Search</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!--Prvi deo, zakazivanje karte i pregled mape-->
+            <section class="featured-section">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-lg-7 col-12">
+                    <div class="custom-block custom-block-overlay">
+                      <div class="d-flex flex-column h-100">
+                        <div class="custom-block-overlay-text d-flex justify-content-center align-items-center">
+                          <div>
+                            <h5 class="text-white mb-2">Map</h5>
+                              <div>
+                                <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15860239.074969538!2d19.918804495097728!3d56.38162179278152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2srs!4v1704378277940!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="section-overlay"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block bg-white shadow-lg">
+                      <div class="d-flex">
+                        <div>
+                          <h5 class="mb-2">Lets travel!</h5>
+                          <div>
+                            <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+                              <label for="from">From:</label>
+                              <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
+                              <label for="to">To:</label><br>
+                              <input type="text" class="form-control land" id="to" name="to" placeholder="...">
+                              <label for="tripType">Trip Type:&nbsp;</label> 
+                              <input type="radio" id="oneWay" name="tripType" value="oneWay">
+                              <label for="oneWay">One Way&nbsp;</label>
+                              <input type="radio" id="return" name="tripType" value="return">
+                              <label for="return">Return</label><br><br>
+                              <label for="departureDate">Departure Date:</label><br>
+                              <input type="date" class="form-control date" id="departureDate" placeholder="departureDate">
+                              <input type="button" class="custom-btn" value="Search">                                               
+                            </form> 
+                          </div>
+                        </div>
+                      </div>                              
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!--Pregled feedbackova-->
+            <section class="explore-section section-padding" id="section_2">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <h2 class="mb-4">Feedbacks</h1>
+                  </div>
+                </div>
+                </div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">                           
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">See what people had to say about:</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <!--Odabir airport ili kompanija-->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <a href="airoprts.html">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">Airports</h5>
+                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        </div>
+                                                    </div>
+                                                    <img src="images/airport.jpg" class="custom-block-image img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <a href="companies.html">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">AvioCompanies</h5>
+                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        </div>
+                                                    </div>
+                                                    <img src="images/plane.jpeg" class="custom-block-image img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </section>
+            <!--FAQ iskreno cisto filler-->
+            <section class="faq-section section-padding" id="section_3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <h2 class="mb-4">Frequently Asked Questions</h2>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="col-lg-5 col-12">
+                            <img src="images/flightA.jpeg" class="img-fluid" alt="FAQs">
+                        </div>
+
+                        <div class="col-lg-6 col-12 m-auto">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        What is Flight Hunter?
+                                        </button>
+                                    </h2>
+
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Flight Hunter is your number one helper with booking flights. <strong>We offer multiple flights, companiens and prices for your favourite destinations. </strong> The only thing separating you from your dream destination is only a few clicks away. 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        How to find a flight?
+                                    </button>
+                                    </h2>
+
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            ............. <strong>!!!</strong> ................................................................................
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        How do I chose between two identical flights?
+                                    </button>
+                                    </h2>
+
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            You can always check other peoples feedbacks on certain airports or companies. Hopefully, our previous clients experiances will help you decide between similar flights.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--KOntakt, isto filler-->
+            <section class="contact-section section-padding section-bg" id="section_4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-12 text-center">
+                            <h2 class="mb-5">Contact</h2>
+                        </div>
+
+                        <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.615912455868!2d21.892436166483307!3d43.33043360815552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b733e02e006f%3A0x2fd8f95c1eacfcfb!2sFaculty%20of%20Electronic%20Engineering!5e1!3m2!1sen!2srs!4v1704380879440!5m2!1sen!2srs" width="500" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12 mb-3 mb-lg- mb-md-0 ms-auto">
+                            <h4 class="mb-3">Office</h4>
+                            <p>Office no. 123</p>
+                            <p>Aleksandra Medvedeva 14, 1800 Niš, Serbia</p>
+                            <hr>
+                            <p class="d-flex align-items-center mb-1">
+                                <span class="me-2">Phone</span>
+
+                                <a href="tel: +38118123123" class="site-footer-link">
+                                    +38118123123
+                                </a>
+                            </p>
+                            <p class="d-flex align-items-center">
+                                <span class="me-2">Email</span>
+                                <a href="mailto:info@lighthunter.com" class="site-footer-link">
+                                    info@flighthunter.com
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12 mx-auto">
+                            <p>Some text how everyone can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla</p>                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+<footer class="site-footer section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-12 mb-4 pb-2">
+                        <a class="navbar-brand mb-2" href="index.html">
+                            <i class="bi-back"></i>
+                            <span>FlightHunter</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <h6 class="site-footer-title mb-3">Resources</h6>
+                        <ul class="site-footer-links">
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Home</a>
+                            </li>
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">FAQs</a>
+                            </li>
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                        <h6 class="site-footer-title mb-3">Information</h6>
+
+                        <p class="text-white d-flex mb-1">
+                            <a href="tel: 305-240-9671" class="site-footer-link">
+                                +38118123123
+                            </a>
+                        </p>
+                        <p class="text-white d-flex">
+                            <a href="mailto:info@company.com" class="site-footer-link">
+                                info@flighthunter.com
+                            </a>
+                        </p>
+                    </div>
+                    <!--Odabir jezika, nema potrebe da realizujemo-->
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            English</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Serbian</button></li>
+                            </ul>
+                        </div>
+
+                        <p class="copyright-text mt-lg-5 mt-4">Copyright © 2024 FlightHunter Coo. All rights reserved.
+                        
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/script.js"></script>
+
+    </body>
 </html>

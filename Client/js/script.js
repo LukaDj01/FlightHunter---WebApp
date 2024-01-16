@@ -217,7 +217,7 @@ AddPlaneBtn.addEventListener("click", function(){
 
 
 // kada se doda tabela za pregled aviona avio kompanije ovako bi trebalo da izgleda impl prikaza
-/*
+
 let planesTable = document.querySelector(".planesTable"); // dodati klasu planesTable odgovarajucoj tabeli (kao za flights)
 avioCompany.planes.forEach(plane=>{
 	let tableRow = document.createElement("tr");
@@ -229,4 +229,5 @@ avioCompany.planes.forEach(plane=>{
 	tableData.innerHTML= plane.fuel;
 	tableRow.appendChild(tableData);
 	planesTable.appendChild(tableRow);
-});*/
+});
+
