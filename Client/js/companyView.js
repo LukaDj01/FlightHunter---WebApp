@@ -4,8 +4,12 @@ document.getElementById('button').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "flex";
 });
 
+const urlString = window.location.search;
+const urlParam=new URLSearchParams(urlString);
+let email = urlParam.get('email');
+
 let avioCompany;
-let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioCompany/user@example.com`); // email avio kompanije
+let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioCompany/${email}`); // email avio kompanije
 await promAvioCompany.json().then(ac=>{
 		avioCompany = new AvioCompany(ac.email, ac.password, ac.name, ac.phone, ac.state, ac.expiredFlights, ac.flights, ac.feedbacks, ac.planes);
 });

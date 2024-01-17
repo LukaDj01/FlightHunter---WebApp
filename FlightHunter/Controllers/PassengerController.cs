@@ -110,11 +110,11 @@ public class PassengerController : ControllerBase
 
             if(result.Data == null)
             {
-                return BadRequest("Putnik ne postoji u bazi! Bezuspesno logovanje!");
+                return NoContent();
             }
             if(result.Data.password != password)
             {
-                return BadRequest("Lozinke se ne poklapaju");
+                return NoContent();
             }
 
             return Ok(result.Data);

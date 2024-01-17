@@ -82,8 +82,8 @@ import { AvioCompany } from "./AvioCompany.js";
 		})
         }).then(p=>{
             if(p.ok){
-                location.reload();
-                console.log(name, surname);
+                let url ="./profile.html?email="+email;
+                location.href=url;
             }
             else
             {
@@ -141,8 +141,8 @@ RegisterACBtn.addEventListener("click", function(){
 		})
         }).then(p=>{
             if(p.ok){
-                location.reload();
-                console.log(nameac);
+                let url ="./companies.html?email="+emailac;
+                location.href=url;
             }
             else
             {
@@ -157,8 +157,7 @@ RegisterACBtn.addEventListener("click", function(){
 // Declare passengerLogIn outside the event listener
 let passengerLogIn;
 
-document.addEventListener("DOMContentLoaded", function () {
-    let loginBtn = document.querySelector(".LogIn");
+let loginBtn = document.querySelector(".LogIn");
     loginBtn.addEventListener("click", async function () {
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
@@ -174,74 +173,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            })
-            if (response.ok) {
-                let responseData = await response.json();
-                console.log("Response Data:", responseData);
-
-                let passengerData = responseData?.first_name; //.data
-                let passengerSurname = responseData?.last_name;
-                let passengerEmail = responseData?.email;
-                let passengerNationality = responseData?.nationality;
-
-                console.log("Pass data " + passengerData + passengerSurname);
-                if (passengerData && passengerSurname) {
-                    passengerLogIn = new Passenger(passengerData, passengerSurname);
-                    console.log("Login successful:", passengerLogIn);
-                } else {
-                    console.log("Invalid response format. Please check the server response.");
-                }
+            });
+            if (response.status===200) {
+                let url ="./profile.html?email="+email;
+                location.href=url;
             } else {
-                console.log("Login failed. Please check your credentials.");
-            }
-        } catch (error) {
-            console.error("Error during login:", error);
-        }
-    });
-});
-
-let avioCompanyLogIn; // Change the variable name to indicate it's an AvioCompany
-
-document.addEventListener("DOMContentLoaded", function () {
-    let loginACBtn = document.querySelector(".LogInAC");
-    loginACBtn.addEventListener("click", async function () {
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
-
-        if (email === "" || password === "") {
-            console.log("Please enter both email and password.");
-            return;
-        }
-
-        try {
-            let response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
+                let response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
-            });
+                });
 
-            if (response.ok) {
-                let responseData = await response.json();
-                console.log("Response Data:", responseData);
-
-                let avioCompanyData = responseData?.nameac; //.data
-                let avioCompanyEmail = responseData?.emailac;
-
-                console.log("AvioCompany data " + avioCompanyData + avioCompanyEmail);
-                if (avioCompanyData && avioCompanyEmail) {
-                    avioCompanyLogIn = new AvioCompany(avioCompanyData, avioCompanyEmail);
-                    console.log("Login successful:", avioCompanyLogIn);
+                if (response.status===200) {
+                    let url ="./companies.html?email="+email;
+                    location.href=url;
                 } else {
-                    console.log("Invalid response format. Please check the server response.");
+                    console.log("Login failed. Please check your credentials.");
                 }
-            } else {
-                console.log("Login failed. Please check your credentials.");
             }
         } catch (error) {
             console.error("Error during login:", error);
         }
     });
-});
 
 

@@ -152,11 +152,11 @@ public class AvioCompanyController : ControllerBase
 
             if(result.Data == null)
             {
-                return BadRequest("Kompanija ne postoji u bazi! Bezuspesno logovanje!");
+                return NoContent();
             }
             if(result.Data.password != password)
             {
-                return BadRequest("Lozinke se ne poklapaju");
+                return NoContent();
             }
 
             return Ok(result.Data);
