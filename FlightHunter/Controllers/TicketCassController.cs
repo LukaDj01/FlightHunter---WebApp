@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsNeo;
 
@@ -6,20 +6,20 @@ namespace FlightHunter.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TicketController : ControllerBase
+public class TicketCassController : ControllerBase
 {
     [HttpPost]
     [Route("AddTicket/{passenger_email}/{flightSerialNumber}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddTicket([FromBody] TicketsView ticketView, string passenger_email, string flightSerialNumber)
+    public async Task<IActionResult> AddTicket([FromBody] TicketsCassView ticketView)
     {
         if (ticketView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddTicket(ticketView, passenger_email, flightSerialNumber);
+        var result = await CassandraDataProvider.AddTicket(ticketView);
 
         if (result.IsError)
         {
@@ -29,41 +29,20 @@ public class TicketController : ControllerBase
         return Ok($"Uspešno dodata karta. ID karte: {ticketView.id}");
     }
 
-    [HttpPut]
-    [Route("UpdateTicket")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateTicket([FromBody] TicketsView tickets)
-    {
-        (bool IsError, var ticket, string? error) = await Neo4JDataProvider.UpdateTicket(tickets);
-
-        if (IsError)
-        {
-            return BadRequest(error);
-        }
-
-        if (ticket == null)
-        {
-            return BadRequest("Karta nije validna.");
-        }
-
-        return Ok($"Uspešno ažurirana karta. Id: {ticket.id}");
-    }
-
     [HttpGet]
-    [Route("GetTicket/{id}")]
+    [Route("GetTicketsPass/{email}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetTicket(string id)
+    public async Task<IActionResult> GetTicketsPass(string email)
     {
-        (bool IsError, var ticket, string? error) = await Neo4JDataProvider.GetTicket(id);
+        (bool IsError, var tickets, string? error) = await CassandraDataProvider.GetTicketsPass(email);
 
         if (IsError)
         {
             return BadRequest(error);
         }
 
-        return Ok(ticket);
-    }
+        return Ok(tickets);
+    }/*
 
     [HttpDelete]
     [Route("DeletePassTicketRel/{id}")]
@@ -79,6 +58,6 @@ public class TicketController : ControllerBase
         }
 
         return Ok($"Uspešno obrisana karta. Id: {id}");
-    }
+    }*/
 
 }

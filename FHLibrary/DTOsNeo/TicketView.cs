@@ -11,9 +11,10 @@ namespace FHLibrary.DTOsNeo
     public class TicketsView
     {
         public string? id { get; set; }
-        public string? purchaseDate { get; set; }
+        public DateTime? purchaseDate { get; set; }
         public float? price { get; set; }
         public string? seatNumber { get; set; }
+        public bool? isExpired { get; set; }
         public virtual IList<LuggageView>? luggages { get; set; }
         public PassengerView? passenger { get; set; }
         public ExpiredFlightView? flight { get; set; }

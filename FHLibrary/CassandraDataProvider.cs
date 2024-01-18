@@ -226,7 +226,7 @@ public static class CassandraDataProvider
             
             t.id = generateID();
 
-            RowSet flightData = s.Execute("insert into \"Ticket\" (\"passengerEmail\", \"flightSerialNumber\", purchaseDate, id, price, seatNumber)  values ('" + t.passengerEmail +"', '" + t.flightSerialNumber +"','" + t.purchaseDate +"','" + t.id +"','" + t.price +"','" + t.seatNumber +"')");
+            RowSet flightData = s.Execute("insert into \"Ticket\" (\"passengerEmail\", \"flightSerialNumber\", \"purchaseDate\", id, price, \"seatNumber\")  values ('" + t.passengerEmail +"', '" + t.flightSerialNumber +"','" + t.purchaseDate +"','" + t.id +"','" + t.price +"','" + t.seatNumber +"')");
         }
         catch (Exception e )
         {
@@ -237,6 +237,47 @@ public static class CassandraDataProvider
         }
 
         return true;
+    }
+
+    public async static Task<Result<List<TicketsCassView>, string>> GetTicketsPass(string email)
+    {
+        try
+        {
+            ISession s = CassandraSessionManager.GetSession();
+            List<TicketsCassView> tickets = new List<TicketsCassView>();
+
+            if (s == null)
+            {
+                return "Nemoguće otvoriti sesiju. Cassandra";
+            }
+
+            List<Row>? ticketsData = s.Execute("select * from \"Ticket\" where \"passengerEmail\" = '" + email + "'").ToList();
+            
+            foreach (var ticketData in ticketsData)
+            {
+                if(ticketData != null)
+                {
+                    TicketsCassView ticket = new TicketsCassView
+                    {
+                        passengerEmail = ticketData["passengerEmail"] != null ? ticketData["passengerEmail"].ToString() : string.Empty,
+                        flightSerialNumber = ticketData["flightSerialNumber"] != null ? ticketData["flightSerialNumber"].ToString() : string.Empty,
+                        purchaseDate = ticketData["purchaseDate"] != null ? DateTime.Parse(ticketData["purchaseDate"].ToString()!) : new DateTime(),
+                        id = ticketData["id"] != null ? ticketData["id"].ToString() : string.Empty,
+                        price = ticketData["price"] != null ? float.Parse(ticketData["price"].ToString()!) : 0
+                    };
+                    tickets.Add(ticket);
+                }
+            }
+            
+            return tickets;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
     }
 
     #endregion
@@ -262,7 +303,7 @@ public static class CassandraDataProvider
             }
             
 
-            RowSet luggage = s.Execute("insert into \"Luggage\" (\"ticketId\", number, weight, dimension, pricePerKG)  values ('" + t.ticketId +"', '" + number.ToString() +"','" + t.weight +"','" + t.dimension +"','" + t.pricePerKG +"')");
+            RowSet luggage = s.Execute("insert into \"Luggage\" (\"ticketId\", number, weight, dimension, \"pricePerKG\")  values ('" + t.ticketId +"', '" + number.ToString() +"','" + t.weight +"','" + t.dimension +"','" + t.pricePerKG +"')");
         }
         catch (Exception e )
         {

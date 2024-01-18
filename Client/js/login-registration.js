@@ -82,6 +82,7 @@ import { AvioCompany } from "./AvioCompany.js";
 		})
         }).then(p=>{
             if(p.ok){
+                //window.localStorage.setItem("emailPass", email);
                 let url ="./profile.html?email="+email;
                 location.href=url;
             }
@@ -141,6 +142,7 @@ RegisterACBtn.addEventListener("click", function(){
 		})
         }).then(p=>{
             if(p.ok){
+                //window.localStorage.setItem("emailAC", emailac);
                 let url ="./companies.html?email="+emailac;
                 location.href=url;
             }
@@ -153,9 +155,6 @@ RegisterACBtn.addEventListener("click", function(){
        
 });
 
-
-// Declare passengerLogIn outside the event listener
-let passengerLogIn;
 
 let loginBtn = document.querySelector(".LogIn");
     loginBtn.addEventListener("click", async function () {
@@ -175,10 +174,11 @@ let loginBtn = document.querySelector(".LogIn");
                 }
             });
             if (response.status===200) {
+                //window.localStorage.setItem("emailPass", email);
                 let url ="./profile.html?email="+email;
                 location.href=url;
             } else {
-                let response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
+                response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -186,6 +186,7 @@ let loginBtn = document.querySelector(".LogIn");
                 });
 
                 if (response.status===200) {
+                    //window.localStorage.setItem("emailAC", email);
                     let url ="./companies.html?email="+email;
                     location.href=url;
                 } else {

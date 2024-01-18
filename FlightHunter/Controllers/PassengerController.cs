@@ -69,29 +69,60 @@ public class PassengerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetPassenger(string email)
     {
-        /*(bool IsError, var pass, string? error) = await Neo4JDataProvider.GetPassenger(email);
+        
+        (bool IsError, var passenger, string? error) = await Neo4JDataProvider.GetPassenger(email);
 
         if (IsError)
         {
-            return BadRequest(error); //"Putnik sa zadatim e-mailom ne postoji u bazi!"
+            return BadRequest(error);
         }
 
-        return Ok(pass);*/
-        try
+        (IsError, var tickets, error) = await Neo4JDataProvider.GetTicketsPass(email);
+        if (IsError)
         {
-            var result = await Neo4JDataProvider.GetPassenger(email);
+            return BadRequest(error);
+        }
 
-            if (result.IsError)
+        /*(IsError, var fbs, error) = await Neo4JDataProvider.GetFeedbacksAC(email); // za putnika ako bude potrebe
+        if (IsError)
+        {
+            return BadRequest(error);
+        }*/
+
+        if(passenger!=null)
+        {
+            //passenger.feedbacks=fbs;
+            if(tickets != null)
             {
-                return BadRequest(result.Error);
+                foreach (var ticket in tickets!)
+                {
+                    TicketsView t = new TicketsView
+                    {
+                        id = ticket.id,
+                        purchaseDate = ticket.purchaseDate,
+                        price = ticket.price,
+                        seatNumber = ticket.seatNumber,
+                        isExpired = true
+                        
+                    };
+                    (IsError, var expiredFlight, error) = await Neo4JDataProvider.GetExpiredFlightTicket(ticket.id!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    t.flight = expiredFlight;
+                    (IsError, var luggages, error) = await Neo4JDataProvider.GetLuggagesTicket(ticket.id!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    t.luggages = luggages;
+                    passenger.tickets!.Add(t);
+                }
             }
+        }
 
-            return Ok(result.Data);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, "Internal Server Error");
-        }
+        return Ok(passenger);
     }
 
     [HttpGet]

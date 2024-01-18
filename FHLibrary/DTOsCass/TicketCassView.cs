@@ -11,7 +11,7 @@ namespace FHLibrary.DTOsNeo
     public class TicketsCassView
     {
         public string? id { get; set; }
-        public string? purchaseDate { get; set; }
+        public DateTime? purchaseDate { get; set; }
         public float? price { get; set; }
         public string? seatNumber { get; set; }
         public string? passengerEmail { get; set; }

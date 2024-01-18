@@ -10,7 +10,7 @@ namespace FHLibrary.DTOsNeo
     {
         public string? number { get; set; }
         public float? weight { get; set; }
-        public float? dimension { get; set; }
+        public string? dimension { get; set; }
         public float? pricePerKG { get; set; }
         public TicketsView? ticket { get; set; }
 
