@@ -1,8 +1,6 @@
 import { AvioCompany } from "./AvioCompany.js";
 
-document.getElementById('button').addEventListener("click", function() {
-	document.querySelector('.bg-modal').style.display = "flex";
-});
+
 
 
 const urlString = window.location.search;

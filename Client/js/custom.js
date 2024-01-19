@@ -81,3 +81,9 @@
     });
   }
 
+  function upis(checkboxId, textFieldId) {
+    var checkbox = document.getElementById(checkboxId);
+    var textField = document.getElementById(textFieldId);
+
+    textField.disabled = !checkbox.checked;
+}
