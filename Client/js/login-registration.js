@@ -1,5 +1,3 @@
-import { Passenger } from "./Passenger.js";
-import { AvioCompany } from "./AvioCompany.js";
 
     let RegisterBtn = document.querySelector(".addPassenger");
     RegisterBtn.addEventListener("click", function(){
@@ -61,36 +59,36 @@ import { AvioCompany } from "./AvioCompany.js";
                 console.log("Unesite broj");
                 return;
             }
-            
-
-        fetch(`http://localhost:5163/Passenger/AddPassenger/`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			email: email,
-            password: password,
-            name: name,
-            surname:surname,
-            nationality:nationality,
-            passport: passport,
-            birthday:birthday,
-            phone:phone,
-            street:street,
-            stnumber:stnumber
-		})
-        }).then(p=>{
-            if(p.ok){
-                window.localStorage.setItem("emailPass", email);
-                let url ="./profile.html";
-                location.href=url;
-            }
-            else
-            {
-                console.log("nesto je poslo po zlu iks de");
-            }
-        }).catch(errorMsg=>console.log(errorMsg));
+            //console.log(name,surname,email,passport,nationality,phone,birthday, passport,stnumber, street);
+            fetch(`http://localhost:5163/Passenger/AddPassenger/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    passport: passport,
+                    phone:phone,
+                    birth_date:birthday,
+                    nationality:nationality,
+                    first_name: name,
+                    last_name:surname,
+                    addr_street:street,
+                    addr_stNo:stnumber
+                })
+                }).then(p=>{
+                    if(p.ok){
+                        window.localStorage.setItem("emailPass", email);
+                        let url ="./profile.html";
+                        location.href=url;
+                    }
+                    else
+                    {
+                        console.log("nesto je poslo po zlu iks de");
+                    }
+                }).catch(errorMsg=>console.log(errorMsg));  
+        
 
        
 });
@@ -127,7 +125,7 @@ RegisterACBtn.addEventListener("click", function(){
                 return;
             }
             
-
+        //console.log(nameac,emailac,passwordac,state,phoneac);
         fetch(`http://localhost:5163/AvioCompany/AddAvioCompany/`, {
 		method: "POST",
 		headers: {
