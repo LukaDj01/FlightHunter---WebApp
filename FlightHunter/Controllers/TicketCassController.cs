@@ -12,14 +12,14 @@ public class TicketCassController : ControllerBase
     [Route("AddTicket/{passenger_email}/{flightSerialNumber}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddTicket([FromBody] TicketsCassView ticketView)
+    public async Task<IActionResult> AddTicket([FromBody] TicketsCassView ticketView, string passenger_email, string flightSerialNumber)
     {
         if (ticketView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await CassandraDataProvider.AddTicket(ticketView);
+        var result = await CassandraDataProvider.AddTicket(ticketView, passenger_email, flightSerialNumber);
 
         if (result.IsError)
         {
@@ -42,22 +42,22 @@ public class TicketCassController : ControllerBase
         }
 
         return Ok(tickets);
-    }/*
+    }
 
     [HttpDelete]
-    [Route("DeletePassTicketRel/{id}")]
+    [Route("DeletePassTicket/{email}/{serial_number}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeletePassTicketRel(string id)
+    public async Task<IActionResult> DeletePassTicketRel(string email, string serial_number)
     {
-        var data = await Neo4JDataProvider.DeleteTickets(id);
+        var data = await CassandraDataProvider.DeletePassTicket(email, serial_number);
 
         if (data.IsError)
         {
             return BadRequest(data.Error);
         }
 
-        return Ok($"Uspešno obrisana karta. Id: {id}");
-    }*/
+        return Ok($"Uspešno");
+    }
 
 }

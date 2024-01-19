@@ -9,7 +9,7 @@ internal class Flight
     internal protected virtual string? landAirportPib { get; set; }
     internal protected virtual string? planeSerialNumber { get; set; }
     internal protected virtual DateTime? dateTimeLand { get; set; }
-    internal protected virtual DateTime? dateTimeTakeOff { get; set; }
+    internal protected virtual DateTime dateTimeTakeOff { get; set; }
     internal protected virtual string? gateLand { get; set; }
     internal protected virtual string? gateTakeOff { get; set; }
 

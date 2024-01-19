@@ -79,6 +79,20 @@ public class AirportController : ControllerBase
 
         return Ok(airports);
     }
+    
+    [HttpGet]
+    [Route("GetAirportsForRate/{passEmail}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAirportsForRate(string passEmail)
+    {
+        (bool IsError, var airports, string? error) = await Neo4JDataProvider.GetAirportsForRate(passEmail);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(airports);
+    }
 
     [HttpDelete]
     [Route("DeleteAirport/{pib}")]

@@ -6,20 +6,20 @@ namespace FlightHunter.Controllers;
 [ApiController]
 [Route("[controller]")]
 
-public class LuggageController : ControllerBase
+public class LuggageCassController : ControllerBase
 {
     [HttpPost]
     [Route("AddLuggage/{tId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddLuggage([FromBody] LuggageView luggageView, string tId)
+    public async Task<IActionResult> AddLuggage([FromBody] LuggageCassView luggageView, string tId)
     {
         if (luggageView == null)
         {
             return BadRequest("Invalid input data");
         }
 
-        var result = await Neo4JDataProvider.AddLuggage(luggageView, tId);
+        var result = await CassandraDataProvider.AddLuggage(luggageView, tId);
 
         if (result.IsError)
         {
@@ -34,7 +34,7 @@ public class LuggageController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLuggage(string ticketID)
     {
-        (bool IsError, var luggages, string? error) = await Neo4JDataProvider.GetLuggage(ticketID);
+        (bool IsError, var luggages, string? error) = await CassandraDataProvider.GetLuggages(ticketID);
 
         if (IsError)
         {
@@ -45,12 +45,12 @@ public class LuggageController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteTLuggages/{ticketID}")]
+    [Route("DeleteLuggages/{ticketID}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteTLuggageRel(string ticketID)
+    public async Task<IActionResult> DeleteLuggages(string ticketID)
     {
-        var data = await Neo4JDataProvider.DeleteLuggage(ticketID);
+        var data = await CassandraDataProvider.DeleteLuggages(ticketID);
 
         if (data.IsError)
         {

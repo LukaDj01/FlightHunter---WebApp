@@ -28,7 +28,17 @@ CREATE TABLE "FlightAC" (
     PRIMARY KEY ("avioCompanyEmail", serial_number)
 );
 
-CREATE TABLE "Ticket" (
+CREATE TABLE "TicketFlight" (
+    "flightSerialNumber" text,
+    "passengerEmail" text,
+    "purchaseDate" text,
+    id text,
+    price float,
+    "seatNumber" text,
+    PRIMARY KEY ("flightSerialNumber", "passengerEmail", "purchaseDate")
+);
+
+CREATE TABLE "TicketPass" (
     "passengerEmail" text,
     "flightSerialNumber" text,
     "purchaseDate" text,
@@ -65,7 +75,9 @@ CREATE TABLE "Flight" (serial_number text,capacity int,available_seats int,"avio
 
 CREATE TABLE "FlightAC" ("avioCompanyEmail" text,serial_number text,capacity int,available_seats int,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("avioCompanyEmail", serial_number));
 
-CREATE TABLE "Ticket" ("passengerEmail" text,"flightSerialNumber" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("passengerEmail", "flightSerialNumber", "purchaseDate"));
+CREATE TABLE "TicketFlight" ("flightSerialNumber" text,"passengerEmail" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("flightSerialNumber", "passengerEmail", "purchaseDate"));
+
+CREATE TABLE "TicketPass" ("passengerEmail" text,"flightSerialNumber" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("passengerEmail", "flightSerialNumber", "purchaseDate"));
 
 CREATE TABLE "Luggage" ("ticketId" text,number text,weight float,dimension text,"pricePerKG" float,PRIMARY KEY ("ticketId", number));
 

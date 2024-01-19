@@ -9,7 +9,7 @@ public class FlightInput
     public string? landAirportPib { get; set; }
     public string? planeSerialNumber { get; set; }
     public DateTime? dateTimeLand { get; set; }
-    public DateTime? dateTimeTakeOff { get; set; }
+    public DateTime dateTimeTakeOff { get; set; }
     public string? gateLand { get; set; }
     public string? gateTakeOff { get; set; }
 

@@ -11,3 +11,58 @@ await promPassenger.json().then(p=>{
     passenger = new Passenger(p.email, p.password, p.passport, p.phone, p.birth_date, p.nationality, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.feedbacks, p.tickets);
 });
 console.log(passenger);
+
+let airportAClist = document.querySelector('.airportAClist');
+let op = document.createElement("option");
+op.innerHTML = "Izaberi";
+op.value = "Izaberi";
+airportAClist.appendChild(op);
+let radioBtns = document.querySelectorAll('input[name="tripType"]');
+radioBtns.forEach(radioBtn => {
+    radioBtn.addEventListener("click", function () {
+        while(airportAClist.lastChild.value!="Izaberi")
+            airportAClist.removeChild(airportAClist.lastChild);
+        if(radioBtn.value=="AC")
+        {
+            fetch(`http://localhost:5163/AvioCompany/GetAvioCompaniesForRate/${passenger.email}`)
+            .then(p=>{
+                console.log(p);
+                if(p.ok){
+                    p.json().then(acs=>{
+                        acs.forEach(ac => {
+                            let op = document.createElement("option");
+                            op.innerHTML = ac.name;
+                            op.value = ac.email;
+                            airportAClist.appendChild(op);
+                        });
+                    })
+                }
+                else
+                {
+                    console.log("desila se greska kod preuzimanja avio kompanija");
+                }
+            }).catch(errorMsg=>console.log(errorMsg));
+            
+        }
+        else
+        {
+            fetch(`http://localhost:5163/Airport/GetAirportsForRate/${passenger.email}`)
+            .then(p=>{
+                if(p.ok){
+                    p.json().then(as=>{
+                        as.forEach(a => {
+                            let op = document.createElement("option");
+                            op.innerHTML = a.name;
+                            op.value = a.pib;
+                            airportAClist.appendChild(op);
+                        });
+                    })
+                }
+                else
+                {
+                    console.log("desila se greska kod preuzimanja avio kompanija");
+                }
+            }).catch(errorMsg=>console.log(errorMsg));
+        }
+    });
+});

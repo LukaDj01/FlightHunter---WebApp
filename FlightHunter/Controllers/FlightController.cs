@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsCass;
+using FHLibrary.DTOsNeo;
 
 namespace FlightHunter.Controllers;
 
@@ -28,26 +29,24 @@ public class FlightController : ControllerBase
         return Ok($"Uspešno dodat let. serijski broj: {f.serial_number}");
     }
     
-    /*[HttpPut]
-    [Route("UpdateExpiredFlight")]
+    [HttpPut]
+    [Route("UpdateFlightBuyTicket/{serial_number}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateExpiredFlight([FromBody] ExpiredFlightView f)
+    public async Task<IActionResult> UpdateFlightBuyTicket(string serial_number)
     {
-        (bool IsError, var expiredFlight, string? error) = await Neo4JDataProvider.UpdateExpiredFlight(f);
+        (bool IsError, var success, string? error) = await CassandraDataProvider.UpdateFlightBuyTicket(serial_number);
 
         if (IsError)
         {
             return BadRequest(error);
         }
 
-        if (expiredFlight==null)
-        {
-            return BadRequest("Let nije validan.");
-        }
-
-        return Ok($"Uspešno ažuriran let. serijski broj: {expiredFlight.serial_number}");
-    }*/
+        if(success)
+            return Ok($"Uspešno ažuriran let. serijski broj: {serial_number}");
+        else
+            return BadRequest("Desila se greska");
+    }
     
     /*[HttpGet]
     [Route("GetExpiredFlights")]
@@ -79,19 +78,83 @@ public class FlightController : ControllerBase
         return Ok(expiredFlight);
     }*/
     
-    /*[HttpDelete]
-    [Route("DeleteExpiredFlight/{serial_number}")]
+    [HttpDelete]
+    [Route("DeleteFlightsOutdated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteExpiredFlight(string serial_number)
+    public async Task<IActionResult> DeleteFlightsOutdated()
     {
-        var data = await Neo4JDataProvider.DeleteExpiredFlight(serial_number);
+        (bool IsError, var flights, string? error) = await CassandraDataProvider.GetAllFlights();
 
-        if (data.IsError)
+        if (IsError)
         {
-            return BadRequest(data.Error);
+            return BadRequest(error);
         }
+        if(flights != null)
+            {
+                foreach (var flight in flights)
+                {
+                    if(flight.dateTimeTakeOff.CompareTo(DateTime.Now)<0)
+                    {
+                    ExpiredFlightView ef = new ExpiredFlightView
+                    {
+                        serial_number = flight.serial_number,
+                        capacity = flight.capacity,
+                        available_seats = flight.available_seats,
+                        gateTakeOff = flight.gateTakeOff,
+                        gateLand = flight.gateLand,
+                        dateTimeTakeOff = flight.dateTimeTakeOff,
+                        dateTimeLand = flight.dateTimeLand
+                    };
+                    await Neo4JDataProvider.AddExpiredFlight(ef, flight.avioCompanyEmail!, flight.takeOffAirportPib!, flight.landAirportPib!, flight.planeSerialNumber!);
+                        (IsError, var tickets, error) = await CassandraDataProvider.GetTicketsFlight(flight.serial_number!);
+                        if (IsError)
+                        {
+                            return BadRequest(error);
+                        }
+                        if(tickets!=null)
+                        {
+                            foreach (var ticket in tickets)
+                            {
+                                TicketsView t = new TicketsView
+                                {
+                                    id = ticket.id,
+                                    purchaseDate = ticket.purchaseDate,
+                                    seatNumber = ticket.seatNumber,
+                                    price = ticket.price
+                                };
+                                await Neo4JDataProvider.AddTicket(t, ticket.passengerEmail!, flight.serial_number!);
+                                (IsError, var luggages, error) = await CassandraDataProvider.GetLuggages(ticket.id!);
+                                if (IsError)
+                                {
+                                    return BadRequest(error);
+                                }
+                                if(luggages!=null)
+                                {
+                                    foreach (var luggage in luggages)
+                                    {
+                                        LuggageView l = new LuggageView
+                                        {
+                                            number = luggage.number,
+                                            weight = luggage.weight,
+                                            dimension = luggage.dimension,
+                                            pricePerKG = luggage.pricePerKG
+                                        };
+                                        await Neo4JDataProvider.AddLuggage(l, ticket.id!);
+                                    }
+                                }
 
-        return Ok($"Uspešno obrisan let. serial_number: {serial_number}");
-    }*/
+                                await CassandraDataProvider.DeleteLuggages(ticket.id!);
+                                await CassandraDataProvider.DeletePassTicket(ticket.passengerEmail!, ticket.flightSerialNumber!);
+                            }
+                        }
+                        await CassandraDataProvider.DeleteFlight(flight.serial_number!, flight.avioCompanyEmail!);
+                    }
+
+                }
+            }
+
+
+        return Ok($"Uspešno");
+    }
 }

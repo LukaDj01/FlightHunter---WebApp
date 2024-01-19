@@ -14,6 +14,7 @@ namespace FHLibrary.DTOsNeo
         public DateTime? purchaseDate { get; set; }
         public float? price { get; set; }
         public string? seatNumber { get; set; }
+        public bool? isExpired { get; set; }
         public string? passengerEmail { get; set; }
         public string? flightSerialNumber { get; set; }
 
@@ -31,6 +32,7 @@ namespace FHLibrary.DTOsNeo
                 purchaseDate = t.purchaseDate;
                 price = t.price;
                 seatNumber = t.seatNumber;
+                isExpired = t.isExpired;
                 passengerEmail = t.passengerEmail;
                 flightSerialNumber = t.flightSerialNumber;
             }

@@ -102,8 +102,7 @@ public class PassengerController : ControllerBase
                         purchaseDate = ticket.purchaseDate,
                         price = ticket.price,
                         seatNumber = ticket.seatNumber,
-                        isExpired = true
-                        
+                        isExpired = ticket.isExpired
                     };
                     (IsError, var expiredFlight, error) = await Neo4JDataProvider.GetExpiredFlightTicket(ticket.id!);
                     if (IsError)
@@ -121,6 +120,7 @@ public class PassengerController : ControllerBase
                 }
             }
         }
+
 
         return Ok(passenger);
     }

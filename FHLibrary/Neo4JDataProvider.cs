@@ -92,6 +92,32 @@ public static class Neo4JDataProvider
     }
 
     
+    public async static Task<Result<List<AvioCompanyView>, string>> GetAvioCompaniesForRate(string passEmail)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (p:Passenger {email:'" + passEmail + "'})-[:BUYS]->(t:Ticket)-[:FOR]->(ef:ExpiredFlight)<-[:ORGANIZE]-(ac:AvioCompany) return ac",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<AvioCompanyView>? avioCompanies = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).ToList();
+
+            return avioCompanies!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    
     public async static Task<Result<bool, string>> DeleteAvioCompany(string email)
     {
         try
@@ -237,6 +263,36 @@ public static class Neo4JDataProvider
         }
     }
 
+    
+    public async static Task<Result<List<AirportView>, string>> GetAirportsForRate(string passEmail)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (p:Passenger {email:'" + passEmail + "'})-[:BUYS]->(t:Ticket)-[:FOR]->(ef:ExpiredFlight)<-[:TAKE_OFF]-(a:Airport) return a",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + passEmail + "'})-[:BUYS]->(t:Ticket)-[:FOR]->(ef:ExpiredFlight)<-[:LAND]-(a:Airport) return a",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<AirportView>? airports = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).ToList();
+            List<AirportView>? airports2 = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query2).ToList();
+            airports.AddRange(airports2);
+
+            return airports!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
 
     public async static Task<Result<bool, string>> DeleteAirport(string pib)
     {
@@ -276,34 +332,22 @@ public static class Neo4JDataProvider
             }
             Dictionary<string, object> queryDict = new Dictionary<string, object>
             {
+                { "id", a.id },
                 { "purchaseDate", a.purchaseDate },
                 { "price", a.price },
                 { "seatNumber", a.seatNumber},
             };
 
-            var queryMaxId = new CypherQuery("MATCH (t:Ticket) return max(t.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var id = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                id = (++mId).ToString();
-            }
-            else
-                id="1";
-
-            var query = new CypherQuery("CREATE (a:Ticket {id:'" + id
+            var query = new CypherQuery("CREATE (a:Ticket {id:'" + a.id
                                                             +"',purchaseDate:'" + a.purchaseDate
                                                             +"',price:'" + a.price
                                                             +"',seatNumber:'" + a.seatNumber
+                                                            +"',isExpired:'" + true
                                                             + "'}) return a",
                                 new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
 
-            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + pemail + "'}), (t:Ticket {id:'" + id + "'}), (ef:ExpiredFlight {serial_number:'" + flightSerialNumber + "'})"+
+            var query2 = new CypherQuery("MATCH (p:Passenger {email:'" + pemail + "'}), (t:Ticket {id:'" + a.id + "'}), (ef:ExpiredFlight {serial_number:'" + flightSerialNumber + "'})"+
                                         "CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)",
                                         new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query2);
@@ -432,23 +476,13 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH (ef:ExpiredFlight) return max(ef.serial_number)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var serial_number = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                serial_number = (++mId).ToString();
-            }
-            else
-                serial_number="1";
-
-            var query = new CypherQuery("CREATE (ef:ExpiredFlight {serial_number:'" + serial_number
+            var query = new CypherQuery("CREATE (ef:ExpiredFlight {serial_number:'" + ef.serial_number
                                                             + "',capacity:'" + ef.capacity
                                                             + "',available_seats:'" + ef.available_seats
+                                                            + "',gateTakeOff:'" + ef.gateTakeOff
+                                                            + "',gateLand:'" + ef.gateLand
+                                                            + "',dateTimeTakeOff:'" + ef.dateTimeTakeOff
+                                                            + "',dateTimeLand:'" + ef.dateTimeLand
                                                             + "'}) return ef",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
             ((IRawGraphClient)c).ExecuteCypher(query);
@@ -945,22 +979,9 @@ public static class Neo4JDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
-            var queryMaxNumber = new CypherQuery("MATCH (t:Ticket {id: '" + tId + "'})-[:HAVE]->(l:Luggage) return max(l.number)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxNumber = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxNumber).ToList().FirstOrDefault();
-
-            var number = "";
-            if(maxNumber!=null)
-            {
-                int mId = Int32.Parse(maxNumber);
-                number = (++mId).ToString();
-            }
-            else
-                number="1";
 
             var query = new CypherQuery("MATCH (t:Ticket {id: '" + tId + "'})"
-                                        + " CREATE (t)-[:HAVE]->(l:Luggage {  number:'" + number
+                                        + " CREATE (t)-[:HAVE]->(l:Luggage {  number:'" + l.number
                                                             + "',weight:'" + l.weight
                                                             + "',dimension:'" + l.dimension
                                                             + "',pricePerKG:'" + l.pricePerKG
