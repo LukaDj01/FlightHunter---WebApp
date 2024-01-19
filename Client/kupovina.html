@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>FlightHunter</title>
+        <title>Ticket</title>
         <!--CSS-->        
         <link rel="preconnect" href="https://fonts.googleapis.com">     
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
                   <span>FligtHunter</span>
                 </a>
                 <div class="d-lg-none ms-auto me-4">
-                  <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                  <a href="#section_1" class="navbar-icon bi-person smoothscroll"></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -31,16 +31,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ms-lg-5 me-lg-auto">
                     <li class="nav-item">
-                      <a class="nav-link click-scroll" href="#section_1">Book</a>
+                      <a class="nav-link">Book</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link click-scroll" href="#section_2">Feedbacks</a>
+                      <a class="nav-link " >Bags</a>
                     </li>    
                     <li class="nav-item">
-                      <a class="nav-link click-scroll" href="#section_3">FAQ</a>
+                      <a class="nav-link " >Pay</a>
                     </li>    
                     <li class="nav-item">
-                      <a class="nav-link click-scroll" href="#section_4">Contact</a>
+                      <a class="nav-link " >Contact</a>
                     </li>                            
                   </ul>
                   <!--LOGOVANJE/PRIJAVLJIVANJE-->
@@ -68,25 +68,10 @@
               </div>
             </section>
 
-            <!--Prvi deo, zakazivanje karte i pregled mape-->
+            <!--karta-->
             <section class="featured-section">
               <div class="container">
                 <div class="row justify-content-center align-items-center">
-                  <div class="col-lg-7 col-12 align-items-center">
-                    <div class="custom-block custom-block-overlay align-items-center">
-                      <div class="d-flex flex-column h-100 align-items-center">
-                        <div class="custom-block-overlay-text d-flex justify-content-center align-items-center">
-                          <div>
-                            <h5 class="text-white mb-2">Map</h5>
-                              <div>
-                                <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15860239.074969538!2d19.918804495097728!3d56.38162179278152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2srs!4v1704378277940!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="section-overlay"></div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="col-lg-5 col-12 mb-4 mb-lg-0">
                     <div class="custom-block bg-white shadow-lg align-items-center">
                       <div class="d-flex align-items-center">
@@ -97,10 +82,12 @@
                               <label for="from">From:</label>
                               <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
                               <label for="to">To:</label><br>
-                              <select  type="text" class="form-control land" id="to" name="to" placeholder="..."><br>
+                              <input  type="text" class="form-control land" id="to" name="to" placeholder="...">
+                                <label for="from">From:</label>
+                                <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
                               <label for="departureDate">Departure Date:</label><br>
                               <input type="date" class="form-control date" id="departureDate" placeholder="departureDate">
-                              <input type="button" class="custom-btn" value="Search">                                               
+                              <a href="#section_2" style="margin-left: 130px;" onclick="toggleSection('#section_2');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>                                    
                             </form> 
                           </div>
                         </div>
@@ -110,12 +97,11 @@
                 </div>
               </div>
             </section>
-            <!--Pregled feedbackova-->
-            <section class="explore-section section-padding" id="section_2">
+            <section class="explore-section section-padding" id="section_2" style="display: none;">
               <div class="container">
                 <div class="row">
                   <div class="col-12 text-center">
-                    <h2 class="mb-4">Feedbacks</h1>
+                    <h2 class="mb-4">Bags</h1>
                   </div>
                 </div>
                 </div>
@@ -123,7 +109,7 @@
                   <div class="row">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">                           
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">See what people had to say about:</button>
+                        <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">Chose your luggage type: </button>
                       </li>
                     </ul>
                   </div>
@@ -131,98 +117,99 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <!--Odabir airport ili kompanija-->
+                            <!--odabir prtljaga-->
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
+                                <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="airoprts.html">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                            <div class="custom-block bg-white shadow-lg">         
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Airports</h5>
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
+                                                            <h5 class="mb-2">Light (included)</h5>
+                                                            <p class="mb-0">Dimensions:10x10x20. Maximum weight 5kg. This is hand luggage.</p>
+                                                        </div>                                                     
                                                     </div>
-                                                    <img src="images/airport.jpg" class="custom-block-image img-fluid" alt="">
-                                                </a>
+                                                    <img src="images/backpack.jpeg" class="custom-block-image img-fluid" alt="">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="companies.html">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                            <div class="custom-block bg-white shadow-lg">                                               
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">AvioCompanies</h5>
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
+                                                            <h5 class="mb-2">Small Suitcase</h5>
+                                                                <p class="mb-0">Dimensions:20x20x20. Maximum weight 8kg. This is cabbin luggage.</p>
+                                                        </div>                                                       
                                                     </div>
-                                                    <img src="images/plane.jpeg" class="custom-block-image img-fluid" alt="">
-                                                </a>
+                                                    <img src="images/smallSuitcase.jpeg" class="custom-block-image img-fluid" alt=""><br>
+                                                    <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
+                                                    <p class="mb-0">Number of suitcases: </p> <br>
+                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-12">
+                                            <div class="custom-block bg-white shadow-lg">                                             
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">Big Suitcase</h5>
+
+                                                                <p class="mb-0">Dimensions:50x20x20. Maximum weight 23kg. This is check in luggage.</p>
+                                                        </div>                                                   
+                                                    </div>
+                                                    <img src="images/bigSuitcase.png" class="custom-block-image img-fluid" alt=""><br>
+                                                    <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
+                                                    <p>Number of suitcases: </p>
+                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">                                             
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                    </div><br><br>
+                    <div class="d-flex">
+                        <a href="#section_3" style="margin-left: 650px; margin-top: 50px;" onclick="toggleSection('#section_3');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>      
                     </div>
+                    
                 </div>
             </section>
-            <!--FAQ iskreno cisto filler-->
-            <section class="faq-section section-padding" id="section_3">
+            <!--kraj-->
+            <section class="faq-section section-padding" id="section_3" style="display: none; background-color: #b9cfde;">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <h2 class="mb-4">Frequently Asked Questions</h2>
-                        </div>
-                        <div class="clearfix"></div>
+                    <div class="col-lg-9 col-9 mx-auto" style="background-color: #b9cfde;">
+                        <div style="background-color: #b9cfde;">
+                            <div class="ms-lg-5">
+                                <h2 class="mb-4">Getting ready</h2>
+                                <div style=" margin-top: 30px">
+                                    <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                                        <p>Company: AvioCmp</p>
+                                                        <p><b>Take Off information</b></p>
+                                                        <p>Airport: X</p>
+                                                        <p>Date and time: D</p><br> 
+                                                        <p><b>Land information</b></p>
+                                                        <p>Airport: X</p>
+                                                        <p>Date and time: D</p><br>
+                                                        <p>Ticket price: </p>
+                                                        <p> My luggage: </p>
+                                                        <p>Luggage price: </p>
+                                                        <p><b>Price total: </b></p>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-6 col-12 align-items-center">
+                                                        <p>Passenger: Name Surname</p>
+                                                        <p>Passport number: </p>
+                                                        <p>Nationality: </p>
+                                                        <p>Phone: </p><br> 
+                                                        <p>I want to receive ticket in my email: 
+                                                        <input type="checkbox" id="mail" name="mail" value="M"></p><br>
 
-                        <div class="col-lg-5 col-12">
-                            <img src="images/flightA.jpeg" class="img-fluid" alt="FAQs">
-                        </div>
-
-                        <div class="col-lg-6 col-12 m-auto">
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        What is Flight Hunter?
-                                        </button>
-                                    </h2>
-
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Flight Hunter is your number one helper with booking flights. <strong>We offer multiple flights, companiens and prices for your favourite destinations. </strong> The only thing separating you from your dream destination is only a few clicks away. 
+                                                        <input type="button" class="custom-btn" style="margin-left: 90px;" value="   Buy   ">
+                                                    </div>
+                                                </div>                                          
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How to find a flight?
-                                    </button>
-                                    </h2>
-
-                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            ............. <strong>!!!</strong> ................................................................................
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        How do I chose between two identical flights?
-                                    </button>
-                                    </h2>
-
-                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            You can always check other peoples feedbacks on certain airports or companies. Hopefully, our previous clients experiances will help you decide between similar flights.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                </div>                      
                         </div>
                     </div>
                 </div>

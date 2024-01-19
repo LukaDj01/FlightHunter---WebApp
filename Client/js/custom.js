@@ -87,3 +87,7 @@
 
     textField.disabled = !checkbox.checked;
 }
+
+function toggleSection(sectionId) {
+  $(sectionId).toggle();
+}
