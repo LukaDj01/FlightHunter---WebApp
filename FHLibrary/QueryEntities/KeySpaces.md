@@ -1,3 +1,5 @@
+CREATE KEYSPACE "FlightHunter" WITH replication = {'class':'SimpleStrategy', 'replication_factor': 1};
+
 CREATE TABLE "Flight" (
     serial_number text,
     capacity int,
