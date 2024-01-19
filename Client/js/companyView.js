@@ -3,10 +3,10 @@ import { AvioCompany } from "./AvioCompany.js";
 
 
 
-const urlString = window.location.search;
+/*const urlString = window.location.search;
 const urlParam=new URLSearchParams(urlString);
-const email = urlParam.get('email');
-//let email = window.localStorage.getItem("emailAC");
+const email = urlParam.get('email');*/
+let email = window.localStorage.getItem("emailAC");
 
 let avioCompany;
 let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioCompany/${email}`); // email avio kompanije

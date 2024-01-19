@@ -1,9 +1,9 @@
 import { Passenger } from "./Passenger.js";
 
-const urlString = window.location.search;
+/*const urlString = window.location.search;
 const urlParam=new URLSearchParams(urlString);
-const email = urlParam.get('email');
-//let email = window.localStorage.getItem("emailPass");
+const email = urlParam.get('email');*/
+let email = window.localStorage.getItem("emailPass");
 
 let passenger;
 let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${email}`);
