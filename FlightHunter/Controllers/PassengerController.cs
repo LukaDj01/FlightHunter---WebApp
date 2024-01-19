@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FHLibrary;
 using FHLibrary.DTOsNeo;
 using FlightHunter.Services;
+using FHLibrary.DTOsCass;
 namespace FlightHunter.Controllers;
 
 [ApiController]
@@ -83,6 +84,12 @@ public class PassengerController : ControllerBase
             return BadRequest(error);
         }
 
+        (IsError, var ticketsCass, error) = await CassandraDataProvider.GetTicketsPass(email);
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
         /*(IsError, var fbs, error) = await Neo4JDataProvider.GetFeedbacksAC(email); // za putnika ako bude potrebe
         if (IsError)
         {
@@ -102,7 +109,7 @@ public class PassengerController : ControllerBase
                         purchaseDate = ticket.purchaseDate,
                         price = ticket.price,
                         seatNumber = ticket.seatNumber,
-                        isExpired = ticket.isExpired
+                        isExpired = true
                     };
                     (IsError, var expiredFlight, error) = await Neo4JDataProvider.GetExpiredFlightTicket(ticket.id!);
                     if (IsError)
@@ -116,6 +123,85 @@ public class PassengerController : ControllerBase
                         return BadRequest(error);
                     }
                     t.luggages = luggages;
+                    passenger.tickets!.Add(t);
+                }
+            }
+
+            if(ticketsCass != null)
+            {
+                foreach (var ticket in ticketsCass!)
+                {
+                    TicketsView t = new TicketsView
+                    {
+                        id = ticket.id,
+                        purchaseDate = ticket.purchaseDate,
+                        price = ticket.price,
+                        seatNumber = ticket.seatNumber,
+                        isExpired = false
+                    };
+                    (IsError, var flightCass, error) = await CassandraDataProvider.GetFlight(ticket.flightSerialNumber!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    if(flightCass != null)
+                    {
+                        ExpiredFlightView f = new ExpiredFlightView
+                            {
+                                serial_number = flightCass.serial_number,
+                                capacity = flightCass.capacity,
+                                available_seats = flightCass.available_seats,
+                                dateTimeLand = flightCass.dateTimeLand,
+                                dateTimeTakeOff = flightCass.dateTimeTakeOff,
+                                gateLand = flightCass.gateLand,
+                                gateTakeOff = flightCass.gateTakeOff
+                            };
+                            (IsError, var avioCompany, error) = await Neo4JDataProvider.GetAvioCompany(flightCass.avioCompanyEmail!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            f.avioCompany = avioCompany;
+                            (IsError, var takeOffAirport, error) = await Neo4JDataProvider.GetAirport(flightCass.takeOffAirportPib!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            f.takeOffAirport = takeOffAirport;
+                            (IsError, var landAirport, error) = await Neo4JDataProvider.GetAirport(flightCass.landAirportPib!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            f.landAirport = landAirport;
+                            (IsError, var plane, error) = await Neo4JDataProvider.GetPlane(flightCass.planeSerialNumber!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            f.plane = plane;
+                            t.flight = f;
+                    }
+                    
+                    (IsError, var luggagesCass, error) = await CassandraDataProvider.GetLuggages(ticket.id!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    if(luggagesCass != null)
+                    {
+                        foreach (var luggageCass in luggagesCass!)
+                        {
+                            LuggageView l = new LuggageView
+                            {
+                                number = luggageCass.number,
+                                weight = luggageCass.weight,
+                                dimension = luggageCass.dimension,
+                                pricePerKG = luggageCass.pricePerKG
+                            };
+                            t.luggages!.Add(l);
+                        }
+                    }
                     passenger.tickets!.Add(t);
                 }
             }

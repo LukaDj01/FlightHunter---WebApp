@@ -82,8 +82,8 @@ import { AvioCompany } from "./AvioCompany.js";
 		})
         }).then(p=>{
             if(p.ok){
-                //window.localStorage.setItem("emailPass", email);
-                let url ="./profile.html?email="+email;
+                window.localStorage.setItem("emailPass", email);
+                let url ="./profile.html";
                 location.href=url;
             }
             else
@@ -142,8 +142,8 @@ RegisterACBtn.addEventListener("click", function(){
 		})
         }).then(p=>{
             if(p.ok){
-                //window.localStorage.setItem("emailAC", emailac);
-                let url ="./companies.html?email="+emailac;
+                window.localStorage.setItem("emailAC", emailac);
+                let url ="./companies.html";
                 location.href=url;
             }
             else
@@ -174,8 +174,8 @@ let loginBtn = document.querySelector(".LogIn");
                 }
             });
             if (response.status===200) {
-                //window.localStorage.setItem("emailPass", email);
-                let url ="./profile.html?email="+email;
+                window.localStorage.setItem("emailPass", email);
+                let url ="./profile.html";
                 location.href=url;
             } else {
                 response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
@@ -186,8 +186,8 @@ let loginBtn = document.querySelector(".LogIn");
                 });
 
                 if (response.status===200) {
-                    //window.localStorage.setItem("emailAC", email);
-                    let url ="./companies.html?email="+email;
+                    window.localStorage.setItem("emailAC", email);
+                    let url ="./companies.html";
                     location.href=url;
                 } else {
                     console.log("Login failed. Please check your credentials.");

@@ -542,7 +542,29 @@ public static class Neo4JDataProvider
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             ExpiredFlightView? expFlight = ((IRawGraphClient)c).ExecuteGetCypherResults<ExpiredFlightView>(query).FirstOrDefault();
+            
+            if(expFlight!=null)
+            {
+                query = new CypherQuery("MATCH (ef:ExpiredFlight {serial_number: '" + expFlight.serial_number + "'})<-[:ORGANIZE]-(ac:AvioCompany) return ac",
+                                                                new Dictionary<string, object>(), CypherResultMode.Set);
+                
+                expFlight.avioCompany = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).FirstOrDefault();
 
+                query = new CypherQuery("MATCH (ef:ExpiredFlight {serial_number: '" + expFlight.serial_number + "'})<-[:LAND]-(a:Airport) return a",
+                                                                new Dictionary<string, object>(), CypherResultMode.Set);
+                
+                expFlight.landAirport = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+
+                query = new CypherQuery("MATCH (ef:ExpiredFlight {serial_number: '" + expFlight.serial_number + "'})<-[:TAKE_OFF]-(a:Airport) return a",
+                                                                new Dictionary<string, object>(), CypherResultMode.Set);
+                
+                expFlight.takeOffAirport = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+
+                query = new CypherQuery("MATCH (ef:ExpiredFlight {serial_number: '" + expFlight.serial_number + "'})<-[:FLY]-(p:Plane) return p",
+                                                                new Dictionary<string, object>(), CypherResultMode.Set);
+                
+                expFlight.plane = ((IRawGraphClient)c).ExecuteGetCypherResults<PlaneView>(query).FirstOrDefault();
+            }
             return expFlight!;
         }
         catch (Exception e )
