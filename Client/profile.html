@@ -40,9 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_3">Settings</a>
                         </li>   
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_4">Contact us</a>
-                        </li>    
+                         
                                                 
                     </ul>
                     <!--LOGOVANJE/PRIJAVLJIVANJE-->
@@ -129,7 +127,7 @@
                                     <i class="bi bi-star-fill" data-index="4"></i>
                                     <i class="bi bi-star-fill" data-index="5"></i>
                                   </div>
-                                <label for="comment">Comment:</label><br>
+                                <br>
                                 <textarea type="text" class="form-control1 comment" id="comment" name="comment"  placeholder="Write your review here!"></textarea>
                                 <div class="d-flex align-items-center"><input type="button" class="custom-btn" value="Submit"> </div>                                           
                               </form>                            
@@ -141,17 +139,43 @@
         <!--Settings-->
         <section class="section-padding contact-section" id="section_3" style="background-color: #b9cfde;">
             <div class="container ">
-                
+                <div class="col-lg-9 col-9 mx-auto" style="background-color: #b9cfde;">
+                    <div style="background-color: #b9cfde;">
+                        <div class="ms-lg-5">
+                            <h2 class="mb-4">Profile settings</h2>
+                            <div style=" margin-top: 30px">
+                                <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                            <input type="text" class="form-control" id="email" name="email" style="width: 300px;" placeholder="user@gmail.com" disabled>
+                                            <input type="datetime-local" class="form-control" id="birthday" name="birthday" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Serbian" style="width: 300px;" disabled>
+                                            <input type="checkbox" id="nameCB" name="nameNB" value="N" onclick="upis('nameCB', 'name')">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Ime" style="width: 300px;" disabled>
+                                            <input type="checkbox" id="surCB" name="surCB" value="S" onclick="upis('surCB', 'surname')">
+                                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Prezime" style="width: 300px;" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="col-lg-6 col-12 align-items-center">
+                                            <input type="checkbox" id="passportCB" name="nameNB" value="N" onclick="upis('passportCB', 'passport')">
+                                            <input type="text" class="form-control" id="passport" name="passport" placeholder="12345" style="width: 300px;" disabled>
+                                            <input type="checkbox" id="phoneCB" name="nameNB" value="P" onclick="upis('phoneCB', 'phone')">
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="061234567" style="width: 300px;" disabled>
+                                            <input type="checkbox" id="strCB" name="nameNB" value="S" onclick="upis('strCB', 'street')">
+                                            <input type="text" class="form-control" id="street" name="street" placeholder="Ulica" style="width: 300px;" disabled>
+                                            <input type="checkbox" id="noCB" name="nameNB" value="No" onclick="upis('noCB', 'stNo')">
+                                            <input type="number" class="form-control" id="stNo" name="stNo" placeholder="broj" min="1" style="width: 300px;" disabled>
+                                            <input type="button" class="custom-btn addFlight" style="margin-left: 90px;" value="Update">
+                                        </div>                                     
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>                      
+                    </div>
                 </div>
-                
             </section>
 
-            <section class="section-padding contact-section" id="section_4" style="background-color: #b9cfde;">
-                <div class="container ">
-              
-                </div>
-                    
-            </section>
+            
             
 <footer class="site-footer section-padding">
             <div class="container">
