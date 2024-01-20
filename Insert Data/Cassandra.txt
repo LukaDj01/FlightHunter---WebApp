@@ -1,0 +1,106 @@
+
+//TABELE
+
+CREATE TABLE "Flight" (serial_number text,capacity int,available_seats int,"avioCompanyEmail" text,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("serial_number"));
+CREATE TABLE "FlightAC" ("avioCompanyEmail" text,serial_number text,capacity int,available_seats int,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"dateTimeLand" text,"dateTimeTakeOff" text,"gateLand" text,"gateTakeOff" text,PRIMARY KEY ("avioCompanyEmail", serial_number));
+CREATE TABLE "TicketFlight" ("flightSerialNumber" text,"passengerEmail" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("flightSerialNumber", "passengerEmail", "purchaseDate"));
+CREATE TABLE "TicketPass" ("passengerEmail" text,"flightSerialNumber" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("passengerEmail", "flightSerialNumber", "purchaseDate"));
+CREATE TABLE "Luggage" ("ticketId" text,number text,weight float,dimension text,"pricePerKG" float,PRIMARY KEY ("ticketId", number));
+CREATE TABLE "SearchFlight" ("stateLand" text,"stateTakeOff" text,"avioCompanyEmail" text,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"flightSerialNumber" text,PRIMARY KEY ("stateLand", "stateTakeOff"));
+
+
+
+
+
+
+
+//PODACI
+
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('3456edf76tt', 100,100,'air@srbija.com','7545556','8363910','3641ft','2024-03-1T16:00:00','2024-03-1T14:00:00','4','10')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('air@srbija.com','3456edf76tt', 100,100,'7545556','8363910','3641ft','2024-03-1T16:00:00','2024-03-1T14:00:00','4','10')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('34567s7a678', 100,99,'air@srbija.com','7930237','8363910','1g31h3','2024-03-2T15:00:00','2024-03-2T12:00:00','10','9')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('air@srbija.com','34567s7a678', 100,99,'7930237','8363910','1g31h3','2024-03-2T15:00:00','2024-03-2T12:00:00','10','9')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('2356e5r789', 70,70,'easy@jet.uk','3424232','8363910','01242b1','2024-03-3T20:00:00','2024-03-3T18:00:00','15','2')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('easy@jet.uk','2356e5r789', 70,70,'3424232','8363910','01242b1','2024-03-3T20:00:00','2024-03-3T20:00:00','15','2')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('ab1cde2f3g', 120, 120, 'wiz@air.com', '6567767', '1321323', '1321jh3', '2024-03-05T15:30:00', '2024-03-05T14:45:00', '7', '5')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('wiz@air.com', 'ab1cde2f3g', 120, 120, '6567767', '1321323', '1321jh3', '2024-03-05T15:30:00', '2024-03-05T14:45:00','7','5')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values (1a2b3c4d5e', 80, 79, 'ryan@air.com', '3424232', '2432111', '241h124', '2024-03-05T17:45:00', '2024-03-05T16:30:00', '3', '8')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('ryan@air.com', '1a2b3c4d5e',80, 79, '3424232', '2432111', '241h124', '2024-03-05T17:45:00', '2024-03-05T16:30:00', '3', '8')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('x1y2z3a4b', 130, 129, 'easy@jet.uk', '7999883', '1455225', '01242b1', '2024-03-06T14:15:00', '2024-03-06T12:45:00', '5', '9')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('easy@jet.uk', 'x1y2z3a4b', 130, 129, '7999883', '1455225', '01242b1', '2024-03-06T14:15:00', '2024-03-06T12:45:00', '5', '9')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('p5q6r7s8t', 140, 139, 'lufthansa@avio.com', '0909021', '7930237', '42y724', '2024-03-06T16:30:00', '2024-03-06T15:00:00', '8', '2')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('lufthansa@avio.com', 'p5q6r7s8t', 140, 139, '0909021', '7930237', '42y724', '2024-03-06T16:30:00', '2024-03-06T15:00:00', '8', '2')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('m8n9o1p2q', 130, 130, 'air@france.com', '2423424', '2432111', '1yo2j441', '2024-03-07T12:45:00', '2024-03-07T11:15:00', '6', '3')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('air@france.com', 'm8n9o1p2q', 130, 130, '2423424', '2432111', '1yo2j441', '2024-03-07T12:45:00', '2024-03-07T11:15:00', '6', '3')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('u4v5w6x7y', 80, 80, 'swiss@air.com', '7545556', '2423424', '12321y3', '2024-03-07T15:30:00', '2024-03-07T14:00:00', '2', '7')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('swiss@air.com', 'u4v5w6x7y', 80, 80, '7545556', '2423424', '12321y3', '2024-03-07T15:30:00', '2024-03-07T14:00:00', '2', '7')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('z1a2b3c4d', 110, 110, 'wiz@air.com', '6567767', '1321323', '432j324', '2024-03-07T18:00:00', '2024-03-07T16:30:00', '8', '4')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('wiz@air.com', 'z1a2b3c4d', 110, 110, '6567767', '1321323', '432j324', '2024-03-07T18:00:00', '2024-03-07T16:30:00', '8', '4')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('abcde12345', 70, 70, 'lufthansa@avio.com', '0909021', '7999883', '42y724', '2024-03-08T11:30:00', '2024-03-08T10:00:00', '3', '6')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ( 'lufthansa@avio.com', 'abcde12345', 70, 70, '0909021', '7999883', '42y724', '2024-03-08T11:30:00', '2024-03-08T10:00:00', '3', '6')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('12345abcde', 100, 100, 'ryan@air.com', '3424232', '1455225', '241h124', '2024-03-08T14:45:00', '2024-03-08T13:15:00', '6', '9')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('ryan@air.com', '12345abcde', 100, 100, '3424232', '1455225', '241h124', '2024-03-08T14:45:00', '2024-03-08T13:15:00', '6', '9')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('a1b2c3d4e5', 120, 119, 'easy@jet.uk', '1455225', '0909021', '01242b1', '2024-03-09T12:15:00', '2024-03-09T11:00:00', '2', '8')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('easy@jet.uk', 'a1b2c3d4e5', 120, 119, '1455225', '0909021', '01242b1', '2024-03-09T12:15:00', '2024-03-09T11:00:00', '2', '8')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('x9y8z7a6b', 70, 70, 'air@france.com', '2432111', '7545556', '1yo2j441', '2024-03-09T14:30:00', '2024-03-09T13:00:00', '4', '7')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff")  values ('air@france.com', 'x9y8z7a6b', 70, 70, '2432111', '7545556', '1yo2j441', '2024-03-09T14:30:00', '2024-03-09T13:00:00', '4', '7')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+insert into "Flight" (serial_number, capacity, available_seats, "avioCompanyEmail", "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('wdwdwd23', 110, 109, 'ryan@air.com', '6567767', '3424232', '241h124', '2024-03-09T17:45:00', '2024-03-09T16:30:00', '7', '3')
+insert into "FlightAC" ("avioCompanyEmail", serial_number, capacity, available_seats, "landAirportPib", "takeOffAirportPib", "planeSerialNumber", "dateTimeLand", "dateTimeTakeOff", "gateLand", "gateTakeOff") values ('ryan@air.com', 'wdwdwd23', 110, 109, '6567767', '3424232', '241h124', '2024-03-09T17:45:00', '2024-03-09T16:30:00', '7', '3')
+insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","landAirportPib","takeOffAirportPib","planeSerialNumber","flightSerialNumber") values()
+
+
+// KARTE
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('masadjelic@gmail.com', 'p5q6r7s8t','2024-01-20', '1',50,'3')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('p5q6r7s8t', 'masadjelic@gmail.com','2024-01-20','1',50,'3')
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('luka@gmail.com', 'a1b2c3d4e5','2024-01-20','2',10,'2')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('a1b2c3d4e5', 'luka@gmail.com','2024-01-20','2',10,'2')
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('julija@gmail.com', '34567s7a678','2024-01-20','3',70,'5')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('34567s7a678', 'julija@gmail.com','2024-01-20','3',70,'5')
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('anastasija@gmail.com','1a2b3c4d5e','2024-01-20','4',100,'7')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('1a2b3c4d5e', 'anastasija@gmail.com','2024-01-20','4',100,'7')
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('peraperic@gmail.com','x1y2z3a4b','2024-01-20','5', 19,'2')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('x1y2z3a4b', 'peraperic@gmail.com','2024-01-20','5', 19,'2')
+
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('jovanjovanovic@gmail.com','wdwdwd23','2024-01-20','6', 120,'32')
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('wdwdwd23', 'jovanjovanovic@gmail.com','2024-01-20','6', 120,'32')
+
+
+
+
+//PRTLJAG
+insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('2', '1',8,'55x40x23',2)
+insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('4', '1',23,'70x50x35', 1.5)

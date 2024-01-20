@@ -898,6 +898,137 @@ public static class Neo4JDataProvider
     }
     
 
+    public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacksAirport()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(a:Airport) return f",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<FeedbackView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+     public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacksAC()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(a:AvioCompany) return f",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<FeedbackView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<PassengerView, string>> GetPassFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id:'" + id + "'}]->() return p",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+            PassengerView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
+
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }           
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<AvioCompanyView, string>> GetACFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (ac:AvioCompany)<-[f:FEEDBACK {id:'" + id + "'}]-() return ac",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AvioCompanyView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).FirstOrDefault();
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }                            
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<AirportView, string>> GetAirportFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (a:Airport)<-[f:FEEDBACK {id:'" + id + "'}]-() return a",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AirportView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }              
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
      public async static Task<Result<bool, string>> AddFeedbackPassAirport(FeedbackView f, string passEmail, string apPib)
     {
         try
@@ -1353,5 +1484,5 @@ public static class Neo4JDataProvider
 
     #endregion
 
-    
+
 }
