@@ -256,6 +256,27 @@ public class PassengerController : ControllerBase
 
         return Ok(pass);
     }
+    
+    [HttpPut]
+    [Route("UpdatePassenger/{email}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdatePassenger([FromBody] PassengerView p, string email)
+    {
+        (bool IsError, var passenger, string? error) = await Neo4JDataProvider.UpdatePassenger(p, email);
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        if (passenger==null)
+        {
+            return BadRequest("Putnik kompanija nije validan.");
+        }
+
+        return Ok($"Uspešno ažuriran putnik. email: {passenger.email}");
+    }
     //delete
     [HttpDelete]
     [Route("DeletePassenger/{email}")]

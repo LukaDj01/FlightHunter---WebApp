@@ -101,3 +101,85 @@ signOutBtn.addEventListener("click", function () {
     let url = "./login-register.html";
     location.href = url;
 });
+
+let nameSurname = document.querySelector(".nameSurname");
+nameSurname.innerHTML=`${passenger.first_name} ${passenger.last_name}`;
+
+let emailTitle = document.querySelector(".emailTitle");
+emailTitle.innerHTML=`${passenger.email}`;
+
+let passEmailEdit = document.querySelector(".passEmailEdit");
+passEmailEdit.value=`${passenger.email}`;
+let passBirthdayEdit = document.querySelector(".passBirthdayEdit");
+passBirthdayEdit.value=`${passenger.birth_date}`;
+let passNationalityEdit = document.querySelector(".passNationalityEdit");
+passNationalityEdit.value=`${passenger.nationality}`;
+let passNameEdit = document.querySelector(".passNameEdit");
+passNameEdit.value=`${passenger.first_name}`;
+let passSurnameEdit = document.querySelector(".passSurnameEdit");
+passSurnameEdit.value=`${passenger.last_name}`;
+let passPassportEdit = document.querySelector(".passPassportEdit");
+passPassportEdit.value=`${passenger.passport}`;
+let passPhoneEdit = document.querySelector(".passPhoneEdit");
+passPhoneEdit.value=`${passenger.phone}`;
+let passStreetEdit = document.querySelector(".passStreetEdit");
+passStreetEdit.value=`${passenger.addr_street}`;
+let passStreetNumEdit = document.querySelector(".passStreetNumEdit");
+passStreetNumEdit.value=`${passenger.addr_stNo}`;
+
+let updateBtn = document.querySelector(".updateBtn");
+updateBtn.addEventListener("click", function () {
+    if(passNameEdit.value=="")
+    {
+        console.log("polje za ime je prazno");
+        return;
+    }
+    if(passSurnameEdit.value=="")
+    {
+        console.log("polje za prezime je prazno");
+        return;
+    }
+    if(passPassportEdit.value=="")
+    {
+        console.log("polje za pasos je prazno");
+        return;
+    }
+    if(passPhoneEdit.value=="")
+    {
+        console.log("polje za telefon je prazno");
+        return;
+    }
+    if(passStreetEdit.value=="")
+    {
+        console.log("polje za ulicu je prazno");
+        return;
+    }
+    if(passStreetNumEdit.value=="")
+    {
+        console.log("polje za broj ulice je prazno");
+        return;
+    }
+
+    fetch(`http://localhost:5163/Passenger/UpdatePassenger/${passenger.email}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			passport: passPassportEdit.value,
+        	phone: passPhoneEdit.value,
+			first_name: passNameEdit.value,
+        	last_name: passSurnameEdit.value,
+			addr_street: passStreetEdit.value,
+        	addr_stNo: passStreetNumEdit.value
+		})
+	}).then(p=>{
+		if(p.ok){
+			location.reload();
+		}
+		else
+		{
+			console.log("greska azuriranje putnika");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+});

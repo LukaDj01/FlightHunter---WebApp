@@ -768,6 +768,38 @@ public static class Neo4JDataProvider
         return true;
     }*/
 
+    
+    public async static Task<Result<PassengerView, string>> UpdatePassenger(PassengerView p, string email)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("start n=node(*) where (n:Passenger) and n.email ='" + email + "' set n.first_name = '"+ p.first_name
+                                                                                                        + "' set n.last_name = '"+ p.last_name
+                                                                                                        + "' set n.passport = '"+ p.passport
+                                                                                                        + "' set n.phone = '"+ p.phone
+                                                                                                        + "' set n.addr_street = '"+ p.addr_street
+                                                                                                        + "' set n.addr_stNo = '"+ p.addr_stNo
+                                                                                                        +"' return n limit 1",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            PassengerView? passenger = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
+
+            return passenger!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
     public async static Task<Result<bool, string>> DeletePassenger(string email)
     {
         try

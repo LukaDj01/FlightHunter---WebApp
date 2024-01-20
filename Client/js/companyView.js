@@ -230,8 +230,19 @@ avioCompany.planes.forEach(plane=>{
 	tableData.innerHTML= plane.type;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
+	tableData.innerHTML= plane.serialNumber;
+	tableRow.appendChild(tableData);
+	tableData = document.createElement("td");
 	tableData.innerHTML= plane.fuel;
 	tableRow.appendChild(tableData);
 	planesTable.appendChild(tableRow);
 });
 
+
+/*let signOutBtn = document.querySelector(".signOut");
+
+signOutBtn.addEventListener("click", function () {
+    window.localStorage.removeItem("emailAC");
+    let url = "./login-register.html";
+    location.href = url;
+});*/

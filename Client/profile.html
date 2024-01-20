@@ -59,8 +59,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-12 mx-auto">
-                        <h3 class="text-white text-center">Name Surname</h1>
-                        <h6 class="text-center">Email</h6>
+                        <h3 class="text-white text-center nameSurname">Name Surname</h1>
+                        <h6 class="text-center emailTitle">Email</h6>
                     </div>
                 </div>
             </div>
@@ -147,25 +147,25 @@
                                 <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                                            <input type="text" class="form-control" id="email" name="email" style="width: 300px;" placeholder="user@gmail.com" disabled>
-                                            <input type="datetime-local" class="form-control" id="birthday" name="birthday" style="width: 300px;" disabled>
-                                            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Serbian" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passEmailEdit" id="email" name="email" style="width: 300px;" disabled>
+                                            <input type="datetime-local" class="form-control passBirthdayEdit" id="birthday" name="birthday" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passNationalityEdit" id="nationality" name="nationality" placeholder="" style="width: 300px;" disabled>
                                             <input type="checkbox" id="nameCB" name="nameNB" value="N" onclick="upis('nameCB', 'name')">
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Ime" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passNameEdit" id="name" name="name" placeholder="" style="width: 300px;" disabled>
                                             <input type="checkbox" id="surCB" name="surCB" value="S" onclick="upis('surCB', 'surname')">
-                                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Prezime" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passSurnameEdit" id="surname" name="surname" placeholder="" style="width: 300px;" disabled>
                                         </div>
                                         <br>
                                         <div class="col-lg-6 col-12 align-items-center">
                                             <input type="checkbox" id="passportCB" name="nameNB" value="N" onclick="upis('passportCB', 'passport')">
-                                            <input type="text" class="form-control" id="passport" name="passport" placeholder="12345" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passPassportEdit" id="passport" name="passport" placeholder="" style="width: 300px;" disabled>
                                             <input type="checkbox" id="phoneCB" name="nameNB" value="P" onclick="upis('phoneCB', 'phone')">
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="061234567" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passPhoneEdit" id="phone" name="phone" placeholder="" style="width: 300px;" disabled>
                                             <input type="checkbox" id="strCB" name="nameNB" value="S" onclick="upis('strCB', 'street')">
-                                            <input type="text" class="form-control" id="street" name="street" placeholder="Ulica" style="width: 300px;" disabled>
+                                            <input type="text" class="form-control passStreetEdit" id="street" name="street" placeholder="" style="width: 300px;" disabled>
                                             <input type="checkbox" id="noCB" name="nameNB" value="No" onclick="upis('noCB', 'stNo')">
-                                            <input type="number" class="form-control" id="stNo" name="stNo" placeholder="broj" min="1" style="width: 300px;" disabled>
-                                            <input type="button" class="custom-btn addFlight" style="margin-left: 90px;" value="Update">
+                                            <input type="number" class="form-control passStreetNumEdit" id="stNo" name="stNo" placeholder="" min="1" style="width: 300px;" disabled>
+                                            <input type="button" class="custom-btn updateBtn" style="margin-left: 90px;" value="Update">
                                         </div>                                     
                                         </form>
                                     </div>
