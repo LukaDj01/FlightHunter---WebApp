@@ -1,9 +1,9 @@
 import { Passenger } from "./Passenger.js";
 
-const urlString = window.location.search;
+/*const urlString = window.location.search;
 const urlParam=new URLSearchParams(urlString);
-const email = urlParam.get('email');
-//let email = window.localStorage.getItem("emailPass");
+const email = urlParam.get('email');*/
+let email = window.localStorage.getItem("emailPass");
 
 let passenger;
 let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${email}`);
@@ -96,13 +96,8 @@ radioBtns.forEach(radioBtn => {
 
 let signOutBtn = document.querySelector(".signOut");
 
-signOutBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    // Clear stored user credentials or perform any other sign-out actions
-    window.localStorage.removeItem("emailPass"); // Assuming you stored the email in localStorage
-    window.localStorage.removeItem("emailAC");   // Assuming you stored the email in localStorage
-
-    // Redirect to the login page or any other appropriate page
+signOutBtn.addEventListener("click", function () {
+    window.localStorage.removeItem("emailPass");
     let url = "./login-register.html";
     location.href = url;
 });

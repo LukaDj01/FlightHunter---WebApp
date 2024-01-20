@@ -80,7 +80,7 @@
                 }).then(p=>{
                     if(p.ok){
                         window.localStorage.setItem("emailPass", email);
-                        let url ="./profile.html";
+                        let url ="./index.html";
                         location.href=url;
                     }
                     else
@@ -173,7 +173,7 @@ let loginBtn = document.querySelector(".LogIn");
             });
             if (response.status===200) {
                 window.localStorage.setItem("emailPass", email);
-                let url ="./profile.html";
+                let url ="./index.html";
                 location.href=url;
             } else {
                 response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
