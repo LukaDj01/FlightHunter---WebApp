@@ -91,11 +91,11 @@ public class FeedbackController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetAllFeedbacks")]
+    [Route("GetAllFeedbacksAirport")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetAllFeedbacks()
+    public async Task<IActionResult> GetAllFeedbacksAirport()
     {
-        (bool IsError, var feedback, string? error) = await Neo4JDataProvider.GetAllFeedbacks();
+        (bool IsError, var feedbacks, string? error) = await Neo4JDataProvider.GetAllFeedbacksAirport();
 
 
         if (IsError)
@@ -103,15 +103,35 @@ public class FeedbackController : ControllerBase
             return BadRequest(error);
         }
 
-        return Ok(feedback);
+        if(feedbacks!=null)
+        {
+            foreach (var feedback in feedbacks)
+            {
+                (IsError, var pass, error) = await Neo4JDataProvider.GetPassFeedback(feedback.id!);
+                if (IsError)
+                {
+                    return BadRequest(error);
+                }
+                feedback.passenger=pass!;
+                (IsError, var a, error) = await Neo4JDataProvider.GetAirportFeedback(feedback.id!);
+                if (IsError)
+                {
+                    return BadRequest(error);
+                }
+                //feedback.avioCompany=ac!;
+                feedback.airport=a!;
+            }
+        }
+        
+        return Ok(feedbacks);
     }
 
      [HttpGet]
-    [Route("GetPassFeedback/{id}")]
+    [Route("GetAllFeedbacksAC")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetPassFeedback(string id)
+    public async Task<IActionResult> GetAllFeedbacksAC()
     {
-        (bool IsError, var feedback, string? error) = await Neo4JDataProvider.GetPassFeedback(id);
+        (bool IsError, var feedbacks, string? error) = await Neo4JDataProvider.GetAllFeedbacksAC();
 
 
         if (IsError)
@@ -119,12 +139,28 @@ public class FeedbackController : ControllerBase
             return BadRequest(error);
         }
 
-        return Ok(feedback);
+        if(feedbacks!=null)
+        {
+            foreach (var feedback in feedbacks)
+            {
+                (IsError, var pass, error) = await Neo4JDataProvider.GetPassFeedback(feedback.id!);
+                if (IsError)
+                {
+                    return BadRequest(error);
+                }
+                feedback.passenger=pass!;
+                (IsError, var ac, error) = await Neo4JDataProvider.GetACFeedback(feedback.id!);
+                if (IsError)
+                {
+                    return BadRequest(error);
+                }
+                feedback.avioCompany=ac!;  
+            }
+        }
+        
+        return Ok(feedbacks);
     }
 
-
-    
-    
     [HttpDelete]
     [Route("DeleteFeedback/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
