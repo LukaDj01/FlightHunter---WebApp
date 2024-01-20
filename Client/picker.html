@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+
+<body>
+
+<div>
+  <input type="text" id="datepicker" class="form-control">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+
+
+
+    $(document).ready(function(){
+
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; 
+      var yyyy = today.getFullYear();
+      //format 
+      if(dd < 10) {
+        dd = '0' + dd;
+      } 
+      if(mm < 10) {
+        mm = '0' + mm;
+      } 
+      today = yyyy + '-' + mm + '-' + dd;
+
+      var endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 3);
+      var ddEnd = endDate.getDate();
+      var mmEnd = endDate.getMonth() + 1; 
+      var yyyyEnd = endDate.getFullYear(); 
+      //format
+      if(ddEnd < 10) {
+        ddEnd = '0' + ddEnd;
+      } 
+      if(mmEnd < 10) {
+        mmEnd = '0' + mmEnd;
+      }  
+      endDate = yyyyEnd + '-' + mmEnd + '-' + ddEnd;
+
+      //lista za datume,  nju kreiras
+      var lista = ['2024-03-12', '2024-03-22'];
+
+
+    $('#datepicker').datepicker({
+    format: 'yyyy-mm-dd',
+    startDate: today,
+    endDate: endDate,
+    autoclose: true,
+    beforeShowDay: function(date){
+       
+        var dateString = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+        return {
+        enabled: (lista.indexOf(dateString) !== -1),
+        };
+    }
+    });
+    });
+</script>
+
+</body>
+</html>
