@@ -154,6 +154,22 @@ public static class Neo4JDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
+            
+
+            var queryMaxId = new CypherQuery("MATCH (a:Airport) return max(a.id)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
+
+            var id = "";
+            if(maxId!=null)
+            {
+                int mId = Int32.Parse(maxId);
+                id = (++mId).ToString();
+            }
+            else
+                id="1";
+
 
             Dictionary<string, object> queryDict = new Dictionary<string, object>
             {
@@ -167,7 +183,7 @@ public static class Neo4JDataProvider
             };
 
             var query = new Neo4jClient.Cypher.CypherQuery(
-            $"CREATE (n:Airport {{ pib:'{a.pib}', name:'{a.name}', phone: '{a.phone}', address: '{a.address}', city: '{a.city}', state: '{a.state}', gateNumber: '{a.gateNumber}'}}) return n",
+            $"CREATE (n:Airport {{ pib:'{id}', name:'{a.name}', phone: '{a.phone}', address: '{a.address}', city: '{a.city}', state: '{a.state}', gateNumber: '{a.gateNumber}'}}) return n",
             queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
 
             ((IRawGraphClient)c).ExecuteCypher(query);

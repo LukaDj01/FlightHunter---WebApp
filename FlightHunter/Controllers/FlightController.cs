@@ -48,20 +48,66 @@ public class FlightController : ControllerBase
             return BadRequest("Desila se greska");
     }
     
-    /*[HttpGet]
-    [Route("GetExpiredFlights")]
+    [HttpGet]
+    [Route("GetFlightsSearch/{pib1}/{pib2}/{emailAC}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetExpiredFlight()
+    public async Task<IActionResult> GetFlightsSearch(string pib1, string pib2, string emailAC)
     {
-        (bool IsError, var expiredFlights, string? error) = await Neo4JDataProvider.GetExpiredFlights();
-
+        (bool IsError, var flights, string? error) = await CassandraDataProvider.GetFlightsSearch(pib1, pib2, emailAC);
+        var flightsForReturn = new List<FlightView>();
         if (IsError)
         {
             return BadRequest(error);
         }
+        if(flights != null)
+            {
+                foreach (var flight in flights)
+                {
+                    (IsError, var flightCass, error) = await CassandraDataProvider.GetFlight(flight.serial_number!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    if(flightCass!=null)
+                    {   
+                        FlightView ef = new FlightView
+                        {
+                            serial_number = flightCass.serial_number,
+                            capacity = flightCass.capacity,
+                            available_seats = flightCass.available_seats,
+                            gateTakeOff = flightCass.gateTakeOff,
+                            gateLand = flightCass.gateLand,
+                            dateTimeTakeOff = flightCass.dateTimeTakeOff,
+                            dateTimeLand = flightCass.dateTimeLand
+                        };
+                        if(ef.available_seats>0)
+                        {
+                            (IsError, var takeOffAirport, error) = await Neo4JDataProvider.GetAirport(flightCass.takeOffAirportPib!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            ef.takeOffAirport = takeOffAirport;
+                            (IsError, var landAirport, error) = await Neo4JDataProvider.GetAirport(flightCass.landAirportPib!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            ef.landAirport = landAirport;
+                            (IsError, var avioCompany, error) = await Neo4JDataProvider.GetAvioCompany(flightCass.avioCompanyEmail!);
+                            if (IsError)
+                            {
+                                return BadRequest(error);
+                            }
+                            ef.avioCompany = avioCompany;
+                            flightsForReturn.Add(ef);
+                        }
+                    }
+                }
+            }
 
-        return Ok(expiredFlights);
-    }*/
+        return Ok(flightsForReturn);
+    }
     
     /*[HttpGet]
     [Route("GetExpiredFlight/{serial_number}")]
