@@ -572,6 +572,15 @@ tr:nth-child(even) {
   padding: 10px;
   
 }
+.feedback-items {
+  flex: 0 0 auto;
+  width:98%; 
+  height: 20%;
+  margin-right: 10px;
+  border: 1px solid #ccc; 
+  padding: 10px;
+  
+}
 
 .comment-container {
   margin-bottom: 10px; 

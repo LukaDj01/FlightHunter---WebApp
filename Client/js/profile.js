@@ -183,3 +183,82 @@ updateBtn.addEventListener("click", function () {
 		}
 	}).catch(errorMsg=>console.log(errorMsg));
 });
+let AddFeedbackBtn = document.querySelector(".addFeedback");
+AddFeedbackBtn.addEventListener("click", function () {
+    let comment = document.querySelector(".comment").value;
+    if (comment === "") {
+        console.log("Napisite komentar");
+        return;
+    }
+
+    let rate = getSelectedRating();
+    if (rate < 0 || rate > 5 || isNaN(rate)) {
+        console.log("Unesite ocenu od 1 do 5");
+        return;
+    }
+
+    let feedbackType;
+    if (document.getElementById("rbAC").checked) {
+        feedbackType = "Avio Company";
+    } else if (document.getElementById("rbAirport").checked) {
+        feedbackType = "Airport";
+    } else {
+        console.log("Please select the type of feedback (Avio Company or Airport).");
+        return;
+    }
+    let list = document.querySelector(".airportAClist");
+    let emailACorA = list.options[list.selectedIndex].value;
+    
+    if (list === "" || list === "Izaberi") {
+        console.log("Izaberite ponudjeno");
+        return;
+    }
+    let passEmailForUrl = passenger.email;
+    let currentDate = new Date();
+    
+    console.log("Podaci: " + rate + "" + comment + "" + date + "" + emailACorA + "" + passEmailForUrl + "" + list);
+    // Assuming passEmail, acEmail, and airportPib are defined somewhere in your code
+    let url;
+    let requestBody = {
+        comment: comment,
+        rate: rate,
+        date: currentDate.toISOString(),
+    };
+
+    if (feedbackType === "Avio Company") {
+        url = `http://localhost:5163/AvioCompany/AddFeedback/${passEmailForUrl}/${emailACorA}`;
+    } else if (feedbackType === "Airport") {
+        url = `http://localhost:5163/Airport/AddFeedback/${passEmailForUrl}/${emailACorA}`;
+    }
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+    })
+    .then((p) => {
+        if (p.ok) {
+            location.reload();
+        } else {
+            console.log("Something went wrong while adding feedback.");
+        }
+    })
+    .catch((errorMsg) => console.log(errorMsg));
+});
+
+function getSelectedRating() {
+    
+    let selectedStarIndex = document.querySelector(".rating .bi-star-fill.selected");
+    return selectedStarIndex ? parseInt(selectedStarIndex.getAttribute("data-index")) : NaN;
+}
+
+document.querySelector(".rating").addEventListener("click", handleRating);
+
+function handleRating(event) {
+    if (event.target.classList.contains("bi-star-fill")) {
+        let clickedIndex = event.target.getAttribute("data-index");
+        // logika za hendlovanje kliknutih zvezda
+    }
+}
