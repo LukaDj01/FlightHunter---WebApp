@@ -113,33 +113,33 @@ MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}), (ap1:Airport {pib: '090902
 
 //FEEDBACKS AC
 
-MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'1',date:'',comment:'Super',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'2',date:'',comment:'Amazing',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'3',date:'',comment:'The best',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'4',date:'',comment:'I Love it',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (p)-[:FEEDBACK {id:'5',date:'',comment:'I hate it',rate:'1'}]->(ac)
-MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (p)-[:FEEDBACK {id:'6',date:'',comment:'Nice flight attendants',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (p)-[:FEEDBACK {id:'7',date:'',comment:'Very plesant',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (p)-[:FEEDBACK {id:'8',date:'',comment:'OK',rate:'4'}]->(ac)
-MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (p)-[:FEEDBACK {id:'9',date:'',comment:'its nothing special',rate:'3'}]->(ac)
-MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (p)-[:FEEDBACK {id:'10',date:'',comment:'people were so rude',rate:'2'}]->(ac)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@france.com'}) CREATE (p)-[:FEEDBACK {id:'11',date:'',comment:'nice',rate:'4'}]->(ac)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@france.com'}) CREATE (p)-[:FEEDBACK {id:'12',date:'',comment:'AMAZING',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (p)-[:FEEDBACK {id:'13',date:'',comment:'Its not ecological...',rate:'2'}]->(ac)
-MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (p)-[:FEEDBACK {id:'14',date:'',comment:'Cool',rate:'4'}]->(ac)
+MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'1',date:'2024-01-20',comment:'Super',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'2',date:'2024-01-20',comment:'Amazing',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'3',date:'2024-01-20',comment:'The best',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'4',date:'2024-01-20',comment:'I Love it',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (p)-[:FEEDBACK {id:'5',date:'2024-01-20',comment:'I hate it',rate:'1'}]->(ac)
+MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (p)-[:FEEDBACK {id:'6',date:'2024-01-20',comment:'Nice flight attendants',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (p)-[:FEEDBACK {id:'7',date:'2024-01-20',comment:'Very plesant',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (p)-[:FEEDBACK {id:'8',date:'2024-01-20',comment:'OK',rate:'4'}]->(ac)
+MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (p)-[:FEEDBACK {id:'9',date:'2024-01-20',comment:'its nothing special',rate:'3'}]->(ac)
+MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (p)-[:FEEDBACK {id:'10',date:'2024-01-20',comment:'people were so rude',rate:'2'}]->(ac)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@france.com'}) CREATE (p)-[:FEEDBACK {id:'11',date:'2024-01-20',comment:'nice',rate:'4'}]->(ac)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@france.com'}) CREATE (p)-[:FEEDBACK {id:'12',date:'2024-01-20',comment:'AMAZING',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (p)-[:FEEDBACK {id:'13',date:'2024-01-20',comment:'Its not ecological...',rate:'2'}]->(ac)
+MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (p)-[:FEEDBACK {id:'14',date:'2024-01-20',comment:'Cool',rate:'4'}]->(ac)
 
 
 //FEEDBAKS
 
-MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'15',date:'',comment:'OK',rate:'4'}]->(ap)
-MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'16',date:'',comment:'OK',rate:'4'}]->(ap)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'17',date:'',comment:'OK',rate:'5'}]->(ap)
-MATCH (p:Passenger {email: 'julija@gmail.com'}), (ap:Airport {pib: '7545556'}) CREATE (p)-[:FEEDBACK {id:'19',date:'',comment:'OK',rate:'4'}]->(ap)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '3424232'}) CREATE (p)-[:FEEDBACK {id:'20',date:'',comment:'OK',rate:'5'}]->(ap)
-MATCH (p:Passenger {email: 'julija@gmail.com'}), (ap:Airport {pib: '2423424'}) CREATE (p)-[:FEEDBACK {id:'21',date:'',comment:'OK',rate:'5'}]->(ap)
-MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ap:Airport {pib: '0909021'}) CREATE (p)-[:FEEDBACK {id:'24',date:'OK',comment:'4',rate:''}]->(ap)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '1455225'}) CREATE (p)-[:FEEDBACK {id:'25',date:'',comment:'OK',rate:'5'}]->(ap)
-MATCH (p:Passenger {email: 'peraperic@gmail.com'}), (ap:Airport {pib: '7930237'}) CREATE (p)-[:FEEDBACK {id:'26',date:'',comment:'OK',rate:'5'}]->(ap)
+MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'15',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
+MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'16',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'17',date:'2024-01-20',comment:'OK',rate:'5'}]->(ap)
+MATCH (p:Passenger {email: 'julija@gmail.com'}), (ap:Airport {pib: '7545556'}) CREATE (p)-[:FEEDBACK {id:'19',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '3424232'}) CREATE (p)-[:FEEDBACK {id:'20',date:'2024-01-20',comment:'OK',rate:'5'}]->(ap)
+MATCH (p:Passenger {email: 'julija@gmail.com'}), (ap:Airport {pib: '2423424'}) CREATE (p)-[:FEEDBACK {id:'21',date:'2024-01-20',comment:'OK',rate:'5'}]->(ap)
+MATCH (p:Passenger {email: 'jovanjovanovic@gmail.com'}), (ap:Airport {pib: '0909021'}) CREATE (p)-[:FEEDBACK {id:'24',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ap:Airport {pib: '1455225'}) CREATE (p)-[:FEEDBACK {id:'25',date:'2024-01-20',comment:'OK',rate:'5'}]->(ap)
+MATCH (p:Passenger {email: 'peraperic@gmail.com'}), (ap:Airport {pib: '7930237'}) CREATE (p)-[:FEEDBACK {id:'26',date:'2024-01-20',comment:'OK',rate:'5'}]->(ap)
 
 
 
