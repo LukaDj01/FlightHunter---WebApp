@@ -882,7 +882,7 @@ public static class Neo4JDataProvider
     }
     
 
-    public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacks()
+    public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacksAirport()
     {
         try
         {
@@ -891,7 +891,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return f",
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(a:Airport) return f",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
 
             List<FeedbackView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
@@ -907,7 +907,7 @@ public static class Neo4JDataProvider
         }
     }
 
-    public async static Task<Result<List<PassengerView>, string>> GetPassFeedback(string id)
+     public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacksAC()
     {
         try
         {
@@ -915,32 +915,94 @@ public static class Neo4JDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
-            var query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id:'" + id + "'}]->() return p.email, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.phone, p.passport, p.birth_date, p.nationality, p.password",
+
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->(a:AvioCompany) return f",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<FeedbackView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<PassengerView, string>> GetPassFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id:'" + id + "'}]->() return p",
                                     new Dictionary<string, object>(), CypherResultMode.Set);
 
+            PassengerView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<PassengerView>(query).FirstOrDefault();
 
-            List<PassengerView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<Dictionary<string, object>>(query)
-                                    .Select(result => result["p"] as Dictionary<string, object>)
-                                    .Select(data => new PassengerView
-                                    {
-                                        email = data["email"]?.ToString(),
-                                        first_name = data["first_name"]?.ToString(),
-                                        last_name = data["last_name"]?.ToString(),
-                                        birth_date = data.ContainsKey("birth_date") && data["birth_date"] is DateTime birthDate
-                                        ? birthDate
-                                        : default(DateTime),
-                                        password = data["password"]?.ToString(),
-                                        phone = data["phone"]?.ToString(),
-                                        nationality = data["nationality"]?.ToString(),
-                                        addr_stNo = data.ContainsKey("addr_stNo") && data["addr_stNo"] is int streetNumber
-                                         ? streetNumber
-                                        : default(int),
-                                        addr_street = data["addr_street"]?.ToString(),
-                                        passport = data["passport"]?.ToString()
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }           
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
 
-                                        
-                                    })
-                                    .ToList();
+    public async static Task<Result<AvioCompanyView, string>> GetACFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (ac:AvioCompany)<-[f:FEEDBACK {id:'" + id + "'}]-() return ac",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AvioCompanyView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).FirstOrDefault();
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }                            
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<AirportView, string>> GetAirportFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (a:Airport)<-[f:FEEDBACK {id:'" + id + "'}]-() return a",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+            AirportView? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<AirportView>(query).FirstOrDefault();
+            if (feeds == null)
+            {
+                Console.WriteLine($"Nema podataka : {id}");
+            }              
             return feeds!;
         }
         catch (Exception e)
