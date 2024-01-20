@@ -882,6 +882,75 @@ public static class Neo4JDataProvider
     }
     
 
+    public async static Task<Result<List<FeedbackView>, string>> GetAllFeedbacks()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return f",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<FeedbackView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<FeedbackView>(query).ToList();
+
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
+    public async static Task<Result<List<PassengerView>, string>> GetPassFeedback(string id)
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+            var query = new CypherQuery("MATCH (p:Passenger)-[f:FEEDBACK {id:'" + id + "'}]->() return p.email, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.phone, p.passport, p.birth_date, p.nationality, p.password",
+                                    new Dictionary<string, object>(), CypherResultMode.Set);
+
+
+            List<PassengerView>? feeds = ((IRawGraphClient)c).ExecuteGetCypherResults<Dictionary<string, object>>(query)
+                                    .Select(result => result["p"] as Dictionary<string, object>)
+                                    .Select(data => new PassengerView
+                                    {
+                                        email = data["email"]?.ToString(),
+                                        first_name = data["first_name"]?.ToString(),
+                                        last_name = data["last_name"]?.ToString(),
+                                        birth_date = data.ContainsKey("birth_date") && data["birth_date"] is DateTime birthDate
+                                        ? birthDate
+                                        : default(DateTime),
+                                        password = data["password"]?.ToString(),
+                                        phone = data["phone"]?.ToString(),
+                                        nationality = data["nationality"]?.ToString(),
+                                        addr_stNo = data.ContainsKey("addr_stNo") && data["addr_stNo"] is int streetNumber
+                                         ? streetNumber
+                                        : default(int),
+                                        addr_street = data["addr_street"]?.ToString(),
+                                        passport = data["passport"]?.ToString()
+
+                                        
+                                    })
+                                    .ToList();
+            return feeds!;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
      public async static Task<Result<bool, string>> AddFeedbackPassAirport(FeedbackView f, string passEmail, string apPib)
     {
         try
@@ -1337,5 +1406,5 @@ public static class Neo4JDataProvider
 
     #endregion
 
-    
+
 }

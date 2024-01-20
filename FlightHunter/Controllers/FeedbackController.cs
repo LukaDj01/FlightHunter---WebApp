@@ -89,6 +89,41 @@ public class FeedbackController : ControllerBase
 
         return Ok(feed);
     }
+
+    [HttpGet]
+    [Route("GetAllFeedbacks")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAllFeedbacks()
+    {
+        (bool IsError, var feedback, string? error) = await Neo4JDataProvider.GetAllFeedbacks();
+
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(feedback);
+    }
+
+     [HttpGet]
+    [Route("GetPassFeedback/{id}")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetPassFeedback(string id)
+    {
+        (bool IsError, var feedback, string? error) = await Neo4JDataProvider.GetPassFeedback(id);
+
+
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(feedback);
+    }
+
+
+    
     
     [HttpDelete]
     [Route("DeleteFeedback/{id}")]

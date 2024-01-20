@@ -10,9 +10,9 @@ let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${
 await promPassenger.json().then(p=>{
     passenger = new Passenger(p.email, p.password, p.passport, p.phone, p.birth_date, p.nationality, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.feedbacks, p.tickets);
 });
-//console.log(passenger);
+console.log(passenger);
 
-let tickcetsTable = document.querySelector(".ticket_flightsTable");
+/*let tickcetsTable = document.querySelector(".ticket_flightsTable");
 passenger.tickets.forEach(ticket=>{
 	let tableRow = document.createElement("tr");
 	tableRow.value = ticket.id;
@@ -37,7 +37,7 @@ passenger.tickets.forEach(ticket=>{
 	tableRow.appendChild(tableData);
 	tickcetsTable.appendChild(tableRow);
 });
-
+*/
 
 let airportAClist = document.querySelector('.airportAClist');
 let op = document.createElement("option");
