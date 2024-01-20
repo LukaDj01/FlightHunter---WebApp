@@ -18,6 +18,7 @@ public class TicketCassController : ControllerBase
         {
             return BadRequest("Invalid input data");
         }
+        ticketView.id=Guid.NewGuid().ToString("N");
 
         var result = await CassandraDataProvider.AddTicket(ticketView, passenger_email, flightSerialNumber);
 
@@ -26,7 +27,7 @@ public class TicketCassController : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok($"Uspešno dodata karta. ID karte: {ticketView.id}");
+        return Ok(ticketView.id);
     }
 
     [HttpGet]

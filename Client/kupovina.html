@@ -46,9 +46,8 @@
                   <!--LOGOVANJE/PRIJAVLJIVANJE-->
                   <div class="d-none d-lg-block nav-item dropdown">
                     <a href="login-register.html" id="button" class="navbar-icon bi-person smoothscroll inactive" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                      <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                      <ul class="dropdown-menu dropdown-menu-light dropDownProfil" aria-labelledby="navbarLightDropdownMenuLink">
+                        
                       </ul>
 
                   </div>
@@ -75,19 +74,19 @@
                   <div class="col-lg-5 col-12 mb-4 mb-lg-0">
                     <div class="custom-block bg-white shadow-lg align-items-center">
                       <div class="d-flex align-items-center">
-                        <div style="margin-left: 70px;"> 
+                        <div> 
                           <h5 class="mb-2">Lets travel!</h5>
                           <div>
                             <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5 mb-lg-3" role="search">
                               <label for="from">From:</label>
-                              <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
+                              <select type="text" class="form-control takeOffField" id="from" name="from" placeholder="..." style="width: 300px;"></select>
                               <label for="to">To:</label><br>
-                              <input  type="text" class="form-control land" id="to" name="to" placeholder="...">
-                                <label for="from">From:</label>
-                                <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
+                              <select  type="text" class="form-control landField" id="to" name="to" placeholder="..."></select>
+                              <label for="to">AvioCompany:</label><br>
+                              <select type="text" class="form-control avioCompanyField" id="avioCompany" name="avioCompany" placeholder="..." style="width: 300px;"></select>
                               <label for="departureDate">Departure Date:</label><br>
-                              <input type="date" class="form-control date" id="departureDate" placeholder="departureDate">
-                              <a href="#section_2" style="margin-left: 130px;" onclick="toggleSection('#section_2');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>                                    
+                              <input type="date" class="form-control dateField" id="departureDate" value="" placeholder="departureDate">
+                              <a href="#section_2" style="margin-left: 130px;" class="navbar-icon bi-arrow-down smoothscroll nextBtn1" role="button" aria-expanded="false"></a>                                    
                             </form> 
                           </div>
                         </div>
@@ -143,7 +142,7 @@
                                                     <img src="images/smallSuitcase.jpeg" class="custom-block-image img-fluid" alt=""><br>
                                                     <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
                                                     <p class="mb-0">Number of suitcases: </p> <br>
-                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">
+                                                    <input type="number" class="form-control smallLuggage" id="smallN" name="smallN" value="0" min="0" max="4" style="width: 100px; margin-left: 120px;">
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12">
@@ -158,7 +157,7 @@
                                                     <img src="images/bigSuitcase.png" class="custom-block-image img-fluid" alt=""><br>
                                                     <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
                                                     <p>Number of suitcases: </p>
-                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">                                             
+                                                    <input type="number" class="form-control bigLuggage" id="smallN" name="smallN" value="0" min="0" max="4" style="width: 100px; margin-left: 120px;">                                             
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +165,7 @@
                             </div>
                     </div><br><br>
                     <div class="d-flex">
-                        <a href="#section_3" style="margin-left: 650px; margin-top: 50px;" onclick="toggleSection('#section_3');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>      
+                        <a href="#section_3" style="margin-left: 650px; margin-top: 50px;" onclick="toggleSection('#section_3');" class="navbar-icon bi-arrow-down smoothscroll nextBtn2" role="button" aria-expanded="false"></a>      
                     </div>
                     
                 </div>
@@ -182,28 +181,28 @@
                                     <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                                                        <p>Company: AvioCmp</p>
+                                                        <p class="avioCompanyView"></p>
                                                         <p><b>Take Off information</b></p>
-                                                        <p>Airport: X</p>
-                                                        <p>Date and time: D</p><br> 
+                                                        <p class="airportTakeOffView"></p>
+                                                        <p class="dateTakeOffView"></p><br> 
                                                         <p><b>Land information</b></p>
-                                                        <p>Airport: X</p>
-                                                        <p>Date and time: D</p><br>
-                                                        <p>Ticket price: </p>
-                                                        <p> My luggage: </p>
-                                                        <p>Luggage price: </p>
-                                                        <p><b>Price total: </b></p>
+                                                        <p class="airportLandView"></p>
+                                                        <p class="dateLandView"></p><br>
+                                                        <p class="ticketPriceView"></p>
+                                                        <p class="luggageView"></p>
+                                                        <p class="luggagePriceView"></p>
+                                                        <p class="priceTotalView"><b></b></p>
                                                     </div>
                                                     <br>
                                                     <div class="col-lg-6 col-12 align-items-center">
-                                                        <p>Passenger: Name Surname</p>
-                                                        <p>Passport number: </p>
-                                                        <p>Nationality: </p>
-                                                        <p>Phone: </p><br> 
+                                                        <p class="passNameView"></p>
+                                                        <p class="passPassportView"></p>
+                                                        <p class="passNationalityView"></p>
+                                                        <p class="passPhoneView"></p><br> 
                                                         <p>I want to receive ticket in my email: 
                                                         <input type="checkbox" id="mail" name="mail" value="M"></p><br>
 
-                                                        <input type="button" class="custom-btn" style="margin-left: 90px;" value="   Buy   ">
+                                                        <input type="button" class="custom-btn buyBtn" style="margin-left: 90px;" value="   Buy   ">
                                                     </div>
                                                 </div>                                          
                                             </form>
@@ -306,7 +305,7 @@
                 </div>
             </div>
         </footer>
-
+        
 
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
@@ -314,7 +313,7 @@
         <script src="js/jquery.sticky.js"></script>
         <script src="js/click-scroll.js"></script>
         <script src="js/custom.js"></script>
-        <script src="js/companyView.js" type="module"></script>
+        <script src="js/kupovina.js" type="module"></script>
 
     </body>
 </html>

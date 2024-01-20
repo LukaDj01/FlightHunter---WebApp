@@ -246,3 +246,11 @@ signOutBtn.addEventListener("click", function () {
     let url = "./login-register.html";
     location.href = url;
 });*/
+
+
+let signOutBtn = document.querySelector(".signOutBtn");
+signOutBtn.addEventListener("click", function () {
+	window.localStorage.removeItem("emailAC");
+	let url = "./login-register.html";
+	location.href = url;
+});
