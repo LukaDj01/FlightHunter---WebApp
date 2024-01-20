@@ -129,7 +129,7 @@ MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'sw
 MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (p)-[:FEEDBACK {id:'14',date:'2024-01-20',comment:'Cool',rate:'4'}]->(ac)
 
 
-//FEEDBAKS
+//FEEDBAKS AP
 
 MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'15',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
 MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ap:Airport {pib: '8363910'}) CREATE (p)-[:FEEDBACK {id:'16',date:'2024-01-20',comment:'OK',rate:'4'}]->(ap)
