@@ -29,9 +29,9 @@ CREATE (n:Airport {{ pib:'3424232', name:'Heathrow', phone: '+443810053', addres
 CREATE (n:Airport {{ pib:'2423424', name:'ViennaAirport', phone: '+43000909', address: 'Ad BB', city: 'Vienna', state: 'Austria', gateNumber: '15'}}) return n
 CREATE (n:Airport {{ pib:'2432111', name:'Zurich', phone: '+410094543', address: 'Ad BB', city: 'Zurich', state: 'Switzerland', gateNumber: '20'}}) return n
 CREATE (n:Airport {{ pib:'7999883', name:'Marco Polo', phone: '+3909456', address: 'Ad BB', city: 'Venice', state: 'Italy', gateNumber: '10'}}) return n
-CREATE (n:Airport {{ pib:'0909021', name:'Berlin Brandenburg', phone: '+490343909', Ad: 'Surcin BB', city: 'Berlin', state: 'Germany', gateNumber: '10'}}) return n
-CREATE (n:Airport {{ pib:'1455225', name:'EuroAirport B-M-F', phone: '+4107653909', Ad: 'Surcin BB', city: 'Basel', state: 'Switzerland', gateNumber: '5'}}) return n
-CREATE (n:Airport {{ pib:'7930237', name:'Eleftherios Venizelos', phone: '+3015909', Ad: 'Surcin BB', city: 'Athens', state: 'Greece', gateNumber: '10'}}) return n
+CREATE (n:Airport {{ pib:'0909021', name:'Berlin Brandenburg', phone: '+490343909', address: 'Surcin BB', city: 'Berlin', state: 'Germany', gateNumber: '10'}}) return n
+CREATE (n:Airport {{ pib:'1455225', name:'EuroAirport B-M-F', phone: '+4107653909', address: 'Surcin BB', city: 'Basel', state: 'Switzerland', gateNumber: '5'}}) return n
+CREATE (n:Airport {{ pib:'7930237', name:'Eleftherios Venizelos', phone: '+3015909', address: 'Surcin BB', city: 'Athens', state: 'Greece', gateNumber: '10'}}) return n
 
 
 //KARTE
@@ -48,13 +48,13 @@ CREATE (a:Ticket {id:'23s45d6s5',purchaseDate:'2024-01-02',price:'97e',seatNumbe
 CREATE (a:Ticket {id:'34f56d7s9',purchaseDate:'2024-01-10',price:'14e',seatNumber:'97',isExpired:'true'}) return a
 
 (PRTLJAG)
-MATCH (t:Ticket {id: '234567898'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'213',weight:'8',dimension:'55x40x23',pricePerKG:'2'}) return l
-MATCH (t:Ticket {id: '4596s8990'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'412',weight:'8',dimension:'55x40x23',pricePerKG:'2.5'}) return l
-MATCH (t:Ticket {id: '3456789ee'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'13',weight:'23',dimension:'70x50x35',pricePerKG:'1.8'}) return l
-MATCH (t:Ticket {id: '5678967f9'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'145',weight:'8',dimension:'55x40x23',pricePerKG:'3'}) return l
-MATCH (t:Ticket {id: '987f8d8s8'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'56',weight:'8',dimension:'55x40x23',pricePerKG:'2.8'}) return l
-MATCH (t:Ticket {id: '23s45d6s5'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'643',weight:'8',dimension:'55x40x23',pricePerKG:'2'}) return l
-MATCH (t:Ticket {id: '34f56d7s9'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'35',weight:'23',dimension:'70x50x35',pricePerKG:'1.9'}) return l
+MATCH (t:Ticket {id: '234567898'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'2'}) return l
+MATCH (t:Ticket {id: '4596s8990'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'2.5'}) return l
+MATCH (t:Ticket {id: '3456789ee'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'23',dimension:'70x50x35',pricePerKG:'1.8'}) return l
+MATCH (t:Ticket {id: '5678967f9'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'3'}) return l
+MATCH (t:Ticket {id: '987f8d8s8'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'2.8'}) return l
+MATCH (t:Ticket {id: '23s45d6s5'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'2'}) return l
+MATCH (t:Ticket {id: '34f56d7s9'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'23',dimension:'70x50x35',pricePerKG:'1.9'}) return l
 
 
 (Putnici i karte)
