@@ -53,7 +53,6 @@ radioBtns.forEach(radioBtn => {
         {
             fetch(`http://localhost:5163/AvioCompany/GetAvioCompaniesForRate/${passenger.email}`)
             .then(p=>{
-                console.log(p);
                 if(p.ok){
                     p.json().then(acs=>{
                         acs.forEach(ac => {
@@ -183,6 +182,8 @@ updateBtn.addEventListener("click", function () {
 		}
 	}).catch(errorMsg=>console.log(errorMsg));
 });
+let numStarsRate = document.querySelector(".rating");
+numStarsRate.value="0";
 let AddFeedbackBtn = document.querySelector(".addFeedback");
 AddFeedbackBtn.addEventListener("click", function () {
     let comment = document.querySelector(".comment").value;
@@ -191,8 +192,8 @@ AddFeedbackBtn.addEventListener("click", function () {
         return;
     }
 
-    let rate = getSelectedRating();
-    if (rate < 0 || rate > 5 || isNaN(rate)) {
+    let rate = numStarsRate.value;
+    if (rate == "0") {
         console.log("Unesite ocenu od 1 do 5");
         return;
     }
@@ -206,37 +207,37 @@ AddFeedbackBtn.addEventListener("click", function () {
         console.log("Please select the type of feedback (Avio Company or Airport).");
         return;
     }
-    let list = document.querySelector(".airportAClist");
-    let emailACorA = list.options[list.selectedIndex].value;
+    let emailACorA = airportAClist.options[airportAClist.selectedIndex].value;
     
-    if (list === "" || list === "Izaberi") {
+    if (emailACorA === "Izaberi") {
         console.log("Izaberite ponudjeno");
         return;
     }
     let passEmailForUrl = passenger.email;
     let currentDate = new Date();
     
-    console.log("Podaci: " + rate + "" + comment + "" + date + "" + emailACorA + "" + passEmailForUrl + "" + list);
+    //console.log("Podaci: ", parseInt(rate) ,comment, emailACorA , passEmailForUrl);
     // Assuming passEmail, acEmail, and airportPib are defined somewhere in your code
     let url;
     let requestBody = {
+        date: currentDate,
         comment: comment,
-        rate: rate,
-        date: currentDate.toISOString(),
+        rate: parseInt(rate)
     };
-
+    
     if (feedbackType === "Avio Company") {
-        url = `http://localhost:5163/AvioCompany/AddFeedback/${passEmailForUrl}/${emailACorA}`;
+        url = `http://localhost:5163/Feedback/AddFeedbackPassAC/${passEmailForUrl}/${emailACorA}`;
     } else if (feedbackType === "Airport") {
-        url = `http://localhost:5163/Airport/AddFeedback/${passEmailForUrl}/${emailACorA}`;
+        url = `http://localhost:5163/Feedback/AddFeedbackPassAirport/${passEmailForUrl}/${emailACorA}`;
     }
+
 
     fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(requestBody)
     })
     .then((p) => {
         if (p.ok) {
@@ -248,17 +249,11 @@ AddFeedbackBtn.addEventListener("click", function () {
     .catch((errorMsg) => console.log(errorMsg));
 });
 
-function getSelectedRating() {
-    
-    let selectedStarIndex = document.querySelector(".rating .bi-star-fill.selected");
-    return selectedStarIndex ? parseInt(selectedStarIndex.getAttribute("data-index")) : NaN;
-}
-
 document.querySelector(".rating").addEventListener("click", handleRating);
 
 function handleRating(event) {
     if (event.target.classList.contains("bi-star-fill")) {
         let clickedIndex = event.target.getAttribute("data-index");
-        // logika za hendlovanje kliknutih zvezda
+        numStarsRate.value=clickedIndex;
     }
 }
