@@ -60,14 +60,12 @@ CREATE TABLE "Luggage" (
 );
 
 CREATE TABLE "SearchFlight" (
-    "stateLand" text,
-    "stateTakeOff" text,
-    "avioCompanyEmail" text,
-    "landAirportPib" text,
     "takeOffAirportPib" text,
-    "planeSerialNumber" text,
+    "landAirportPib" text,
+    "avioCompanyEmail" text,
+    "dateTimeTakeOff" text,
     "flightSerialNumber" text,
-    PRIMARY KEY ("stateLand", "stateTakeOff")
+    PRIMARY KEY ("takeOffAirportPib", "landAirportPib", "avioCompanyEmail", "dateTimeTakeOff", "flightSerialNumber")
 );
 
 
@@ -83,4 +81,4 @@ CREATE TABLE "TicketPass" ("passengerEmail" text,"flightSerialNumber" text,"purc
 
 CREATE TABLE "Luggage" ("ticketId" text,number text,weight float,dimension text,"pricePerKG" float,PRIMARY KEY ("ticketId", number));
 
-CREATE TABLE "SearchFlight" ("stateLand" text,"stateTakeOff" text,"avioCompanyEmail" text,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"flightSerialNumber" text,PRIMARY KEY ("stateLand", "stateTakeOff"));
+CREATE TABLE "SearchFlight" ("takeOffAirportPib" text,"landAirportPib" text,"avioCompanyEmail" text,"dateTimeTakeOff" text,"flightSerialNumber" text,PRIMARY KEY ("takeOffAirportPib", "landAirportPib", "avioCompanyEmail", "dateTimeTakeOff", "flightSerialNumber"));

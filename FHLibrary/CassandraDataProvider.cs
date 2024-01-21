@@ -146,6 +146,62 @@ public static class CassandraDataProvider
         {
         }
     }
+
+    
+    public async static Task<Result<List<FlightInput>, string>> GetFlightsSearch(string pib1, string pib2, string emailAC)
+    {
+        try
+        {
+            ISession s = CassandraSessionManager.GetSession();
+            List<FlightInput> flights = new List<FlightInput>();
+
+            if (s == null)
+            {
+                return "Nemoguće otvoriti sesiju. Cassandra";
+            }
+            var query = "select * from \"SearchFlight\"";
+            if(pib1!="" && pib1!=null && pib1!="o")
+            {
+                query = "select * from \"SearchFlight\" where \"takeOffAirportPib\" = '" + pib1 + "'";
+                if(pib2!="" && pib2!=null && pib2!="o")
+                {
+                    query = "select * from \"SearchFlight\" where \"takeOffAirportPib\" = '" + pib1 + "' and \"landAirportPib\" = '" + pib2 + "'";
+                    if(emailAC!="" && emailAC!=null && emailAC!="o")
+                    {
+                        query = "select * from \"SearchFlight\" where \"takeOffAirportPib\" = '" + pib1 + "' and \"landAirportPib\" = '" + pib2 + "' and \"avioCompanyEmail\" = '" + emailAC + "'";
+                            
+                    }
+                }
+            }
+
+            List<Row>? flightsData = s.Execute(query).ToList();
+            
+            foreach (var flightData in flightsData)
+            {
+                if(flightData != null)
+                {
+                    FlightInput flight = new FlightInput
+                    {
+                        serial_number = flightData["flightSerialNumber"] != null ? flightData["flightSerialNumber"].ToString() : string.Empty,
+                        avioCompanyEmail = flightData["avioCompanyEmail"] != null ? flightData["avioCompanyEmail"].ToString() : string.Empty,
+                        takeOffAirportPib = flightData["takeOffAirportPib"] != null ? flightData["takeOffAirportPib"].ToString() : string.Empty,
+                        landAirportPib = flightData["landAirportPib"] != null ? flightData["landAirportPib"].ToString() : string.Empty,
+                        dateTimeTakeOff = flightData["dateTimeTakeOff"] != null ? DateTime.Parse(flightData["dateTimeTakeOff"].ToString()!) : new DateTime(),
+                    };
+                    flights.Add(flight);
+                }
+            }
+            
+            return flights;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
     public async static Task<Result<bool, string>> UpdateFlightBuyTicket(string serial_number)
     {
         try
@@ -201,6 +257,7 @@ public static class CassandraDataProvider
 
             s.Execute("insert into \"Flight\" (serial_number, capacity, available_seats, \"avioCompanyEmail\", \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + acEmail +"','" + pib1 +"','" + pib2 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
             s.Execute("insert into \"FlightAC\" (\"avioCompanyEmail\", serial_number, capacity, available_seats, \"landAirportPib\", \"takeOffAirportPib\", \"planeSerialNumber\", \"dateTimeLand\", \"dateTimeTakeOff\", \"gateLand\", \"gateTakeOff\")  values ('" + acEmail +"','" + f.serial_number +"', " + f.capacity +"," + f.available_seats +",'" + pib1 +"','" + pib2 +"','" + serialNumber +"','" + f.dateTimeLand +"','" + f.dateTimeTakeOff +"','" + f.gateLand +"','" + f.gateTakeOff +"')");
+            s.Execute("insert into \"SearchFlight\" (\"takeOffAirportPib\", \"landAirportPib\", \"avioCompanyEmail\", \"dateTimeTakeOff\", \"flightSerialNumber\") values ('" + pib2 +"','" + pib1 +"', '" + acEmail +"','" + f.dateTimeTakeOff +"','" + f.serial_number +"')");
         }
         catch (Exception e )
         {
@@ -222,9 +279,22 @@ public static class CassandraDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Cassandra";
             }
+            
+            FlightInput flight = new FlightInput();
+            Row? flightData = s.Execute("select * from \"Flight\" where serial_number = '" + serial_number + "'").FirstOrDefault();
+
+            if(flightData != null)
+            {
+                flight.serial_number = flightData["serial_number"] != null ? flightData["serial_number"].ToString() : string.Empty;
+                flight.avioCompanyEmail = flightData["avioCompanyEmail"] != null ? flightData["avioCompanyEmail"].ToString() : string.Empty;
+                flight.takeOffAirportPib = flightData["takeOffAirportPib"] != null ? flightData["takeOffAirportPib"].ToString() : string.Empty;
+                flight.landAirportPib = flightData["landAirportPib"] != null ? flightData["landAirportPib"].ToString() : string.Empty;
+                flight.dateTimeTakeOff = flightData["dateTimeTakeOff"] != null ? DateTime.Parse(flightData["dateTimeTakeOff"].ToString()!) : new DateTime();
+            }
 
             s.Execute("delete from \"Flight\" where serial_number = '" + serial_number + "'");
             s.Execute("delete from \"FlightAC\" where \"avioCompanyEmail\" = '" + avioCompanyEmail + "' and serial_number = '" + serial_number + "'");
+            s.Execute("delete from \"SearchFlight\" where \"takeOffAirportPib\" = '" + flight.takeOffAirportPib + "' and \"landAirportPib\" = '" + flight.landAirportPib + "' and \"avioCompanyEmail\" = '" + flight.avioCompanyEmail + "' and \"dateTimeTakeOff\" = '" + flight.dateTimeTakeOff + "' and \"flightSerialNumber\" = '" + flight.serial_number + "'");
         }
         catch (Exception e )
         {
@@ -250,8 +320,6 @@ public static class CassandraDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Cassandra";
             }
-            
-            t.id = generateID();
 
             s.Execute("insert into \"TicketPass\" (\"passengerEmail\", \"flightSerialNumber\", \"purchaseDate\", id, price, \"seatNumber\")  values ('" + passenger_email +"', '" + flightSerialNumber +"','" + t.purchaseDate +"','" + t.id +"'," + t.price +",'" + t.seatNumber +"')");
             s.Execute("insert into \"TicketFlight\" (\"flightSerialNumber\", \"passengerEmail\", \"purchaseDate\", id, price, \"seatNumber\")  values ('" + flightSerialNumber +"', '" + passenger_email +"','" + t.purchaseDate +"','" + t.id +"'," + t.price +",'" + t.seatNumber +"')");
@@ -389,17 +457,8 @@ public static class CassandraDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Cassandra";
             }
-            Row? luggageData = s.Execute("select * from \"Luggage\" where \"ticketId\" = '" + tId + "' order by number desc").FirstOrDefault();
-
-            int number = 1;
-            if(luggageData != null)
-            {
-                int num = luggageData["number"] != null ? int.Parse(luggageData["number"].ToString()!) : 0;
-                if(num>=number) number = num+1;
-            }
             
-
-            RowSet luggage = s.Execute("insert into \"Luggage\" (\"ticketId\", number, weight, dimension, \"pricePerKG\")  values ('" + tId +"', '" + number.ToString() +"'," + t.weight +",'" + t.dimension +"'," + t.pricePerKG +")");
+            RowSet luggage = s.Execute("insert into \"Luggage\" (\"ticketId\", number, weight, dimension, \"pricePerKG\")  values ('" + tId +"', '" + t.number +"'," + t.weight +",'" + t.dimension +"'," + t.pricePerKG +")");
         }
         catch (Exception e )
         {
