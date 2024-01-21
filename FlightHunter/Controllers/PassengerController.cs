@@ -98,35 +98,6 @@ public class PassengerController : ControllerBase
 
         if(passenger!=null)
         {
-            //passenger.feedbacks=fbs;
-            if(tickets != null)
-            {
-                foreach (var ticket in tickets!)
-                {
-                    TicketsView t = new TicketsView
-                    {
-                        id = ticket.id,
-                        purchaseDate = ticket.purchaseDate,
-                        price = ticket.price,
-                        seatNumber = ticket.seatNumber,
-                        isExpired = true
-                    };
-                    (IsError, var expiredFlight, error) = await Neo4JDataProvider.GetExpiredFlightTicket(ticket.id!);
-                    if (IsError)
-                    {
-                        return BadRequest(error);
-                    }
-                    t.flight = expiredFlight;
-                    (IsError, var luggages, error) = await Neo4JDataProvider.GetLuggagesTicket(ticket.id!);
-                    if (IsError)
-                    {
-                        return BadRequest(error);
-                    }
-                    t.luggages = luggages;
-                    passenger.tickets!.Add(t);
-                }
-            }
-
             if(ticketsCass != null)
             {
                 foreach (var ticket in ticketsCass!)
@@ -202,6 +173,34 @@ public class PassengerController : ControllerBase
                             t.luggages!.Add(l);
                         }
                     }
+                    passenger.tickets!.Add(t);
+                }
+            }
+            //passenger.feedbacks=fbs;
+            if(tickets != null)
+            {
+                foreach (var ticket in tickets!)
+                {
+                    TicketsView t = new TicketsView
+                    {
+                        id = ticket.id,
+                        purchaseDate = ticket.purchaseDate,
+                        price = ticket.price,
+                        seatNumber = ticket.seatNumber,
+                        isExpired = true
+                    };
+                    (IsError, var expiredFlight, error) = await Neo4JDataProvider.GetExpiredFlightTicket(ticket.id!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    t.flight = expiredFlight;
+                    (IsError, var luggages, error) = await Neo4JDataProvider.GetLuggagesTicket(ticket.id!);
+                    if (IsError)
+                    {
+                        return BadRequest(error);
+                    }
+                    t.luggages = luggages;
                     passenger.tickets!.Add(t);
                 }
             }

@@ -2,6 +2,7 @@ import { Feedback } from "./Feedback.js";
 import { Passenger } from "./Passenger.js";
 let email = window.localStorage.getItem("emailPass");
 let dropDownProfil = document.querySelector(".dropDownProfil");
+let aboutF = document.querySelector(".aboutF");
 let passenger;
 if(email!=null)
 {
@@ -69,12 +70,38 @@ if (feedbackAirportAC == "airport") {
       //console.log(feedbacks);
     });
   });
+  
+  let airportTitle = document.createElement("option");
+  airportTitle.innerHTML="All airports";
+  airportTitle.value=0;
+  aboutF.appendChild(airportTitle);
+  let promAirports = await fetch(`http://localhost:5163/Airport/GetAirports`);
+  await promAirports.json().then(airports=>{
+		airports.forEach(airport=>{
+			airportTitle = document.createElement("option");
+      airportTitle.innerHTML=`${airport.city} (${airport.name})`;
+      airportTitle.value=airport.pib;
+      aboutF.appendChild(airportTitle);
+		});
+});
+  aboutF.onchange=()=>{
+    let airport = aboutF.options[aboutF.selectedIndex].value;
+    console.log(airport);
+    if(airport==0){
+      renderFeedbacks(allFeedbacks);
+    }
+    else{
+      let newFeedbacks = allFeedbacks.filter(fb=>fb.airport.pib==airport);
+      renderFeedbacks(newFeedbacks);
+    }
+  }
+
   renderFeedbacks(allFeedbacks);
   function renderFeedbacks(feedbacks) {
     let feedbackList = document.querySelector(".feedbacksL");
     feedbackList.innerHTML = "";
 
-    allFeedbacks.forEach((fb) => {
+    feedbacks.forEach((fb) => {
       let div1 = document.createElement("div");
       div1.classList.add("feedback-items");
 
@@ -103,12 +130,13 @@ if (feedbackAirportAC == "airport") {
 
       let p5 = document.createElement("p");
       p5.classList.add("airport");
-      p5.innerHTML = `Airport: ${fb.airport.name}`;
+      p5.innerHTML = `Airport: ${fb.airport.city} (${fb.airport.name})`;
       div1.appendChild(p5);
 
       feedbackList.appendChild(div1);
     });
   }
+
 } else {
   //console.log("USAO U ELSE");
   let allFeedbacksAC = [];
@@ -137,13 +165,37 @@ if (feedbackAirportAC == "airport") {
       //console.log(feedbacksac);
     });
   });
+  
+  let avioCompanyTitle = document.createElement("option");
+  avioCompanyTitle.innerHTML="All avio companies";
+  avioCompanyTitle.value=0;
+  aboutF.appendChild(avioCompanyTitle);
+  let promAvioCompanies = await fetch(`http://localhost:5163/AvioCompany/GetAllAvioCompanies`);
+  await promAvioCompanies.json().then(avioCompanies=>{
+		avioCompanies.forEach(avioCompany=>{
+			avioCompanyTitle = document.createElement("option");
+      avioCompanyTitle.innerHTML=`${avioCompany.name}`;
+      avioCompanyTitle.value=avioCompany.email;
+      aboutF.appendChild(avioCompanyTitle);
+		});
+});
+  aboutF.onchange=()=>{
+    let avioCompany = aboutF.options[aboutF.selectedIndex].value;
+    if(avioCompany==0){
+      renderFeedbacksAC(allFeedbacksAC);
+    }
+    else{
+      let newFeedbacks = allFeedbacksAC.filter(fb=>fb.avioCompany.email==avioCompany);
+      renderFeedbacksAC (newFeedbacks);
+    }
+  }
 
   renderFeedbacksAC(allFeedbacksAC);
-  function renderFeedbacksAC() {
+  function renderFeedbacksAC(feedbacks) {
     let feedbackListAC = document.querySelector(".feedbacksL");
     feedbackListAC.innerHTML = "";
 
-    allFeedbacksAC.forEach((fbac) => {
+    feedbacks.forEach((fbac) => {
       let div1ac = document.createElement("div");
       div1ac.classList.add("feedback-items");
 
@@ -179,3 +231,4 @@ if (feedbackAirportAC == "airport") {
     });
   }
 }
+

@@ -12,7 +12,7 @@ await promPassenger.json().then(p=>{
 });
 //console.log(passenger);
 
-/*let tickcetsTable = document.querySelector(".ticket_flightsTable");
+let tickcetsTable = document.querySelector(".ticket_flightsTable");
 passenger.tickets.forEach(ticket=>{
 	let tableRow = document.createElement("tr");
 	tableRow.value = ticket.id;
@@ -37,7 +37,6 @@ passenger.tickets.forEach(ticket=>{
 	tableRow.appendChild(tableData);
 	tickcetsTable.appendChild(tableRow);
 });
-*/
 
 let airportAClist = document.querySelector('.airportAClist');
 let op = document.createElement("option");

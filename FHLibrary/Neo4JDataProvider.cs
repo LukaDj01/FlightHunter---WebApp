@@ -116,6 +116,32 @@ public static class Neo4JDataProvider
         {
         }
     }
+    
+    public async static Task<Result<List<AvioCompanyView>, string>> GetAllAvioCompanies()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (ac:AvioCompany) return ac",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<AvioCompanyView>? avioCompanies = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).ToList();
+
+            return avioCompanies!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
 
     
     public async static Task<Result<bool, string>> DeleteAvioCompany(string email)
