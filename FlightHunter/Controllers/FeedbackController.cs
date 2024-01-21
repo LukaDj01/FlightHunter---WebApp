@@ -118,7 +118,6 @@ public class FeedbackController : ControllerBase
                 {
                     return BadRequest(error);
                 }
-                //feedback.avioCompany=ac!;
                 feedback.airport=a!;
             }
         }
@@ -126,7 +125,7 @@ public class FeedbackController : ControllerBase
         return Ok(feedbacks);
     }
 
-     [HttpGet]
+    [HttpGet]
     [Route("GetAllFeedbacksAC")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllFeedbacksAC()

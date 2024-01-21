@@ -77,9 +77,10 @@
                         <div class="custom-block-overlay-text d-flex justify-content-center align-items-center">
                           <div>
                             <h5 class="text-white mb-2">Map</h5>
-                              <div>
-                                <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15860239.074969538!2d19.918804495097728!3d56.38162179278152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2srs!4v1704378277940!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                              </div>
+                            <div>
+                              <!-- Adjusted width and height for the map -->
+                              <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15860239.074969538!2d19.918804495097728!3d56.38162179278152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2srs!4v1704378277940!5m2!1sen!2srs" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
                           </div>
                         </div>
                         <div class="section-overlay"></div>
@@ -88,84 +89,34 @@
                   </div>
                   <div class="col-lg-5 col-12 mb-4 mb-lg-0">
                     <div class="custom-block bg-white shadow-lg align-items-center">
-                      <div class="d-flex align-items-center">
-                        <div> 
-                          <h5 class="mb-2">Lets travel!</h5>
-                          <div>
+                      <div class="d-flex flex-column align-items-center">
+                        <div>
+                          <h5 class="mb-2">Let's travel!</h5>
+                          <div class="form-group text-center">
                             <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5 mb-lg-3" role="search">
+                              
                               <label for="from">From:</label>
-                              <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
-                              <label for="to">To:</label><br>
-                              <select  type="text" class="form-control land" id="to" name="to" placeholder="..."><br>
-                              <label for="departureDate">Departure Date:</label><br>
-                              <input type="date" class="form-control date" id="departureDate" placeholder="departureDate">
-                              <input type="button" class="custom-btn" value="Search">                                               
-                            </form> 
+                              <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;" class="mb-3">
+                              
+                              <label for="to">To:</label>
+                              <select type="text" class="form-control land" id="to" name="to" placeholder="..." class="mb-3"></select>
+
+                              <label for="departureDate">Departure Date:</label>
+                              <input type="date" class="form-control date" id="departureDate" placeholder="departureDate" class="mb-3">
+                  
+                              <input type="button" class="custom-btn mt-3" value="Search">
+                            </form>
                           </div>
                         </div>
-                      </div>                              
+                      </div>
                     </div>
                   </div>
+                  
+                  
                 </div>
               </div>
             </section>
-            <!--Pregled feedbackova-->
-            <section class="explore-section section-padding" id="section_2">
-              <div class="container">
-                <div class="row">
-                  <div class="col-12 text-center">
-                    <h2 class="mb-4">Feedbacks</h1>
-                  </div>
-                </div>
-                </div>
-                <div class="container-fluid">
-                  <div class="row">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">                           
-                      <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">See what people had to say about:</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <!--Odabir airport ili kompanija-->
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="feedbacksView.html" onclick="window.localStorage.setItem('feedback', 'airport')">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Airports</h5>
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-                                                    </div>
-                                                    <img src="images/airport.jpg" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="feedbacksView.html" onclick="window.localStorage.setItem('feedback', 'avioCompany')">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">AvioCompanies</h5>
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-                                                    </div>
-                                                    <img src="images/plane.jpeg" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </section>
+            
             <!--FAQ iskreno cisto filler-->
             <section class="faq-section section-padding" id="section_3">
                 <div class="container">
@@ -204,7 +155,7 @@
 
                                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            ............. <strong>!!!</strong> ................................................................................
+                                          Discover your next flight seamlessly with our intuitive search feature – your gateway to hassle-free travel planning
                                         </div>
                                     </div>
                                 </div>
@@ -227,42 +178,39 @@
                 </div>
             </section>
             <!--KOntakt, isto filler-->
-            <section class="contact-section section-padding section-bg" id="section_4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-5">Contact</h2>
-                        </div>
+   <section class="contact-section section-padding section-bg" id="section_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12 text-center">
+                <h2 class="mb-5">Contact</h2>
+            </div>
 
-                        <div class="col-lg-5 col-12 mb-4 mb-lg-0">
-                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.615912455868!2d21.892436166483307!3d43.33043360815552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b733e02e006f%3A0x2fd8f95c1eacfcfb!2sFaculty%20of%20Electronic%20Engineering!5e1!3m2!1sen!2srs!4v1704380879440!5m2!1sen!2srs" width="500" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12 mb-3 mb-lg- mb-md-0 ms-auto">
-                            <h4 class="mb-3">Office</h4>
-                            <p>Office no. 123</p>
-                            <p>Aleksandra Medvedeva 14, 1800 Niš, Serbia</p>
-                            <hr>
-                            <p class="d-flex align-items-center mb-1">
-                                <span class="me-2">Phone</span>
+            <div class="col-lg-3 col-md-6 col-12 mb-3 mb-lg- mb-md-0">
+                <h4 class="mb-3">Office</h4>
+                <p>Office no. 123</p>
+                <p>Aleksandra Medvedeva 14, 1800 Niš, Serbia</p>
+                <hr>
+                <p class="d-flex align-items-center mb-1">
+                    <span class="me-2">Phone</span>
+                    <a href="tel: +38118123123" class="site-footer-link">+38118123123</a>
+                </p>
+                <p class="d-flex align-items-center">
+                    <span class="me-2">Email</span>
+                    <a href="mailto:info@lighthunter.com" class="site-footer-link">info@flighthunter.com</a>
+                </p>
+            </div>
 
-                                <a href="tel: +38118123123" class="site-footer-link">
-                                    +38118123123
-                                </a>
-                            </p>
-                            <p class="d-flex align-items-center">
-                                <span class="me-2">Email</span>
-                                <a href="mailto:info@lighthunter.com" class="site-footer-link">
-                                    info@flighthunter.com
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12 mx-auto">
-                            <p>Some text how everyone can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla</p>                           
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+            <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.615912455868!2d21.892436166483307!3d43.33043360815552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b733e02e006f%3A0x2fd8f95c1eacfcfb!2sFaculty%20of%20Electronic%20Engineering!5e1!3m2!1sen!2srs!4v1704380879440!5m2!1sen!2srs" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                <p>Connect with us effortlessly through our user-friendly contact options for all your inquiries and needs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <footer class="site-footer section-padding">
             <div class="container">
