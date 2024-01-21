@@ -13,7 +13,7 @@ let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioComp
 await promAvioCompany.json().then(ac=>{
 		avioCompany = new AvioCompany(ac.email, ac.password, ac.name, ac.phone, ac.state, ac.expiredFlights, ac.flights, ac.feedbacks, ac.planes);
 });
-console.log(avioCompany);
+//console.log(avioCompany);
 
 let flightsTable = document.querySelector(".flightsTable");
 avioCompany.flights.forEach(flight=>{
@@ -251,7 +251,7 @@ signOutBtn.addEventListener("click", function () {
 let signOutBtn = document.querySelector(".signOutBtn");
 signOutBtn.addEventListener("click", function () {
 	window.localStorage.removeItem("emailAC");
-	let url = "./login-register.html";
+	let url = "./index.html";
 	location.href = url;
 });
 

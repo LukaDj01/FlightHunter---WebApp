@@ -46,7 +46,7 @@ if(email!=null)
 
     signOutBtn.addEventListener("click", function () {
         window.localStorage.removeItem("emailPass");
-        let url = "./login-register.html";
+        let url = "./index.html";
         location.href = url;
     });
 }

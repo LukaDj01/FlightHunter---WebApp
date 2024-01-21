@@ -7,6 +7,9 @@ const pib1 = urlParam.get('pib1');
 const pib2 = urlParam.get('pib2');
 const ac = urlParam.get('ac');
 const date = urlParam.get('date');
+//console.log(pib1, pib2, ac, date);
+
+
 
 let email = window.localStorage.getItem("emailPass");
 
@@ -62,15 +65,20 @@ takeOffTitle.value = 0;
 takeOffField.appendChild(takeOffTitle);
 let promAirports = await fetch(`http://localhost:5163/Airport/GetAirports`);
 await promAirports.json().then(airports=>{
+        let index;
+        let i=0;
 		airports.forEach(airport=>{
 			takeOffTitle = document.createElement("option");
 			takeOffTitle.innerHTML= `${airport.city} (${airport.name})`;
 			takeOffTitle.value = airport.pib;
 			takeOffField.appendChild(takeOffTitle);
+            i++;
+            if(airport.pib==pib1)
+                index=i;
 		});
         if(pib1!=null)
         {
-            takeOffField.selectedIndex=7;
+            takeOffField.selectedIndex=i;
         }
 });
 
@@ -91,11 +99,11 @@ takeOffField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(landField.lastChild.value!=0){
+                    landField.removeChild(landField.lastChild);
+                }
                 flights.forEach(flight=>{
                     //console.log(flight);
-                    while(landField.lastChild.value!=0){
-                        landField.removeChild(landField.lastChild);
-                    }
                     landTitle = document.createElement("option");
                     landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
                     landTitle.value = flight.landAirport.pib;
@@ -129,10 +137,10 @@ landField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(avioCompanyField.lastChild.value!=0){
+                    avioCompanyField.removeChild(avioCompanyField.lastChild);
+                }
                 flights.forEach(flight=>{
-                    while(avioCompanyField.lastChild.value!=0){
-                        avioCompanyField.removeChild(avioCompanyField.lastChild);
-                    }
                     avioCompanyTitle = document.createElement("option");
                     avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
                     avioCompanyTitle.value = flight.avioCompany.email;
@@ -166,10 +174,10 @@ avioCompanyField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(dateField.lastChild.value!=0){
+                    dateField.removeChild(dateField.lastChild);
+                }
                 flights.forEach(flight=>{
-                    while(dateField.lastChild.value!=0){
-                        dateField.removeChild(dateField.lastChild);
-                    }
                     let dateView = new Date(flight.dateTimeTakeOff);
                     dateTitle = document.createElement("option");
 	                dateTitle.innerHTML= `${dateView.getDate()}.${(dateView.getMonth()+1)}.${dateView.getFullYear()}.`;
@@ -201,7 +209,7 @@ dateField.onchange=()=>{
 		if(p.ok){
 			p.json().then(flights=>{
                 flights.forEach(flight=>{
-                    console.log(flight);
+                    //console.log(flight);
                     selectedFlight=flight;
                 });
             });
@@ -389,3 +397,117 @@ buyBtn.addEventListener("click", function () {
         }
     }).catch(errorMsg=>console.log(errorMsg));
 });
+
+if(pib1!=null)
+{
+    await fetch(`http://localhost:5163/Flight/GetFlightsSearch/${pib1}/${pib2}/${ac}/${date}`)
+    .then(p=>{
+		if(p.ok){
+			p.json().then(flights=>{
+                flights.forEach(flight=>{
+                    //console.log(flight);
+                    selectedFlight=flight;
+                });
+                fetch(`http://localhost:5163/Flight/GetFlightsSearch/${selectedFlight.takeOffAirport.pib}/o/o/o`)
+                .then(p=>{
+                    if(p.ok){
+                        p.json().then(flights=>{
+                            while(landField.lastChild.value!=0){
+                                landField.removeChild(landField.lastChild);
+                            }
+                            let indeks;
+                            let i = 0;
+                            flights.forEach(flight=>{
+                                //console.log(flight);
+                                landTitle = document.createElement("option");
+                                landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
+                                landTitle.value = flight.landAirport.pib;
+                                landField.appendChild(landTitle);
+                                i++;
+                                if(flight.landAirport.pib == pib2)
+                                {
+                                    indeks = i;
+                                }
+                            });
+                            if(pib2!=null)
+                            {
+                                landField.selectedIndex=i;
+                            }
+                            fetch(`http://localhost:5163/Flight/GetFlightsSearch/${selectedFlight.takeOffAirport.pib}/${selectedFlight.landAirport.pib}/o/o`)
+                            .then(p=>{
+                                if(p.ok){
+                                    p.json().then(flights=>{
+                                        while(avioCompanyField.lastChild.value!=0){
+                                            avioCompanyField.removeChild(avioCompanyField.lastChild);
+                                        }
+                                        let indeks;
+                                        let i = 0;
+                                        flights.forEach(flight=>{
+                                            avioCompanyTitle = document.createElement("option");
+                                            avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
+                                            avioCompanyTitle.value = flight.avioCompany.email;
+                                            avioCompanyField.appendChild(avioCompanyTitle);
+                                            i++;
+                                            if(flight.avioCompany.email == ac)
+                                            {
+                                                indeks = i;
+                                            }
+                                        });
+                                        if(ac!=null)
+                                        {
+                                            avioCompanyField.selectedIndex=i;
+                                        }
+                                    });
+                                    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${selectedFlight.takeOffAirport.pib}/${selectedFlight.landAirport.pib}/${selectedFlight.avioCompany.email}/o`)
+                                    .then(p=>{
+                                        if(p.ok){
+                                            p.json().then(flights=>{
+                                                while(dateField.lastChild.value!=0){
+                                                    dateField.removeChild(dateField.lastChild);
+                                                }
+                                                let indeks;
+                                                let i = 0;
+                                                flights.forEach(flight=>{
+                                                    let dateView = new Date(flight.dateTimeTakeOff);
+                                                    dateTitle = document.createElement("option");
+                                                    dateTitle.innerHTML= `${dateView.getDate()}.${(dateView.getMonth()+1)}.${dateView.getFullYear()}.`;
+                                                    dateTitle.value = flight.dateTimeTakeOff;
+                                                    dateField.appendChild(dateTitle);
+                                                    i++;
+                                                    if(flight.dateTimeTakeOff == date)
+                                                    {
+                                                        indeks = i;
+                                                    }
+                                                });
+                                                if(date!=null)
+                                                {
+                                                    dateField.selectedIndex=i;
+                                                }
+                                            });
+                                        }
+                                        else
+                                        {
+                                            console.log("greska preuzimanje letova sa izabranom avio kompanijom");
+                                        }
+                                    }).catch(errorMsg=>console.log(errorMsg));
+                                }
+                                else
+                                {
+                                    console.log("greska preuzimanje letova sa izabranim dolaznim aerodromom");
+                                }
+                            }).catch(errorMsg=>console.log(errorMsg));
+                        });
+                    }
+                    else
+                    {
+                        console.log("greska preuzimanje letova sa izabranim polaznim aerodromom");
+                    }
+	            }).catch(errorMsg=>console.log(errorMsg));
+            });
+		}
+		else
+		{
+			console.log("greska preuzimanje letova sa izabranim polaznim datumom");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+}

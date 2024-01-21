@@ -1,7 +1,7 @@
 import { Feedback } from "./Feedback.js";
 let feedbackAirportAC = window.localStorage.getItem("feedback");
 if (feedbackAirportAC == "airport") {
-  console.log("USAO U IF");
+  //console.log("USAO U IF");
   let allFeedbacks = [];
   let promAllFeedbacks = await fetch(
     `http://localhost:5163/Feedback/GetAllFeedbacksAirport/`,
@@ -24,7 +24,7 @@ if (feedbackAirportAC == "airport") {
       );
       allFeedbacks.push(feedbacks);
 
-      console.log(feedbacks);
+      //console.log(feedbacks);
     });
   });
   renderFeedbacks(allFeedbacks);
@@ -68,7 +68,7 @@ if (feedbackAirportAC == "airport") {
     });
   }
 } else {
-  console.log("USAO U ELSE");
+  //console.log("USAO U ELSE");
   let allFeedbacksAC = [];
   let promAllFeedbacksAC = await fetch(
     `http://localhost:5163/Feedback/GetAllFeedbacksAC/`,
@@ -92,7 +92,7 @@ if (feedbackAirportAC == "airport") {
       );
       allFeedbacksAC.push(feedbacksac);
 
-      console.log(feedbacksac);
+      //console.log(feedbacksac);
     });
   });
 

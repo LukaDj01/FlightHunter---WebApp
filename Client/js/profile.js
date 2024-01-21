@@ -10,7 +10,7 @@ let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${
 await promPassenger.json().then(p=>{
     passenger = new Passenger(p.email, p.password, p.passport, p.phone, p.birth_date, p.nationality, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.feedbacks, p.tickets);
 });
-console.log(passenger);
+//console.log(passenger);
 
 /*let tickcetsTable = document.querySelector(".ticket_flightsTable");
 passenger.tickets.forEach(ticket=>{
@@ -97,7 +97,7 @@ let signOutBtn = document.querySelector(".signOut");
 
 signOutBtn.addEventListener("click", function () {
     window.localStorage.removeItem("emailPass");
-    let url = "./login-register.html";
+	let url = "./index.html";
     location.href = url;
 });
 
