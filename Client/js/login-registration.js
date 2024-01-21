@@ -80,8 +80,7 @@
                 }).then(p=>{
                     if(p.ok){
                         window.localStorage.setItem("emailPass", email);
-                        let url ="./index.html";
-                        location.href=url;
+                        location.reload();
                     }
                     else
                     {
@@ -141,8 +140,7 @@ RegisterACBtn.addEventListener("click", function(){
         }).then(p=>{
             if(p.ok){
                 window.localStorage.setItem("emailAC", emailac);
-                let url ="./companies.html";
-                location.href=url;
+                location.reload();
             }
             else
             {
@@ -173,8 +171,11 @@ let loginBtn = document.querySelector(".LogIn");
             });
             if (response.status===200) {
                 window.localStorage.setItem("emailPass", email);
-                let url ="./index.html";
-                location.href=url;
+                /*let buying = window.localStorage.getItem("buying");
+                if(buying === "yes")*/
+                history.back();
+                /*let url ="./index.html";
+                location.href=url;*/
             } else {
                 response = await fetch(`http://localhost:5163/AvioCompany/LoginAvioCompany/${email}/${password}`, {
                 method: "GET",

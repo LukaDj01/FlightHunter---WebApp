@@ -276,6 +276,9 @@ let totalPrice = 0;
 let ticketPrice = 450;
 let lugPrice=5*40;
 nextBtn2.addEventListener("click", function () {
+    if(passenger==null){
+        location.href="./login-register.html";
+    }
     let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
     let landAirport = landField.options[landField.selectedIndex].value;
     let avioCompany = avioCompanyField.options[avioCompanyField.selectedIndex].value;
