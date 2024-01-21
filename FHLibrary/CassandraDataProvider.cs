@@ -148,7 +148,7 @@ public static class CassandraDataProvider
     }
 
     
-    public async static Task<Result<List<FlightInput>, string>> GetFlightsSearch(string pib1, string pib2, string emailAC)
+    public async static Task<Result<List<FlightInput>, string>> GetFlightsSearch(string pib1, string pib2, string emailAC, string date)
     {
         try
         {
@@ -169,7 +169,11 @@ public static class CassandraDataProvider
                     if(emailAC!="" && emailAC!=null && emailAC!="o")
                     {
                         query = "select * from \"SearchFlight\" where \"takeOffAirportPib\" = '" + pib1 + "' and \"landAirportPib\" = '" + pib2 + "' and \"avioCompanyEmail\" = '" + emailAC + "'";
-                            
+                        if(date!="" && date!=null && date!="o")
+                        {
+                            query = "select * from \"SearchFlight\" where \"takeOffAirportPib\" = '" + pib1 + "' and \"landAirportPib\" = '" + pib2 + "' and \"avioCompanyEmail\" = '" + emailAC + "' and \"dateTimeTakeOff\" = '" + DateTime.Parse(date) + "'";
+                                
+                        }    
                     }
                 }
             }

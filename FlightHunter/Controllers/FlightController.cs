@@ -49,11 +49,11 @@ public class FlightController : ControllerBase
     }
     
     [HttpGet]
-    [Route("GetFlightsSearch/{pib1}/{pib2}/{emailAC}")]
+    [Route("GetFlightsSearch/{pib1}/{pib2}/{emailAC}/{date}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetFlightsSearch(string pib1, string pib2, string emailAC)
+    public async Task<IActionResult> GetFlightsSearch(string pib1, string pib2, string emailAC, string date)
     {
-        (bool IsError, var flights, string? error) = await CassandraDataProvider.GetFlightsSearch(pib1, pib2, emailAC);
+        (bool IsError, var flights, string? error) = await CassandraDataProvider.GetFlightsSearch(pib1, pib2, emailAC, date);
         var flightsForReturn = new List<FlightView>();
         if (IsError)
         {

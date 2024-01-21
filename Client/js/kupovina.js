@@ -1,6 +1,13 @@
 import { Passenger } from "./Passenger.js";
 import { Luggage } from "./Luggage.js";
 
+const urlString = window.location.search;
+const urlParam=new URLSearchParams(urlString);
+const pib1 = urlParam.get('pib1');
+const pib2 = urlParam.get('pib2');
+const ac = urlParam.get('ac');
+const date = urlParam.get('date');
+
 let email = window.localStorage.getItem("emailPass");
 
 let passenger=null;
@@ -61,6 +68,10 @@ await promAirports.json().then(airports=>{
 			takeOffTitle.value = airport.pib;
 			takeOffField.appendChild(takeOffTitle);
 		});
+        if(pib1!=null)
+        {
+            takeOffField.selectedIndex=7;
+        }
 });
 
 let landField = document.querySelector(".landField");
@@ -76,7 +87,7 @@ takeOffField.onchange=()=>{
         return;
     }
     //console.log(takeoffAirport);
-    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/o/o`)
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/o/o/o`)
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
@@ -114,7 +125,7 @@ landField.onchange=()=>{
         return;
     }
     //console.log(landAirport);
-    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/o`)
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/o/o`)
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
@@ -131,13 +142,17 @@ landField.onchange=()=>{
 		}
 		else
 		{
-			console.log("greska preuzimanje letova sa izabranim polaznim aerodromom");
+			console.log("greska preuzimanje letova sa izabranim dolaznim aerodromom");
 		}
 	}).catch(errorMsg=>console.log(errorMsg));
 };
 
-//ovo treba posle biranja datum da se odradi
-let selectedFlight;
+let dateField = document.querySelector(".dateField");
+let dateTitle = document.createElement("option");
+dateTitle.innerHTML= "Departure date";
+dateTitle.value = 0;
+dateField.appendChild(dateTitle);
+
 avioCompanyField.onchange=()=>{
     let landAirport = landField.options[landField.selectedIndex].value;
     let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
@@ -147,7 +162,41 @@ avioCompanyField.onchange=()=>{
         return;
     }
     //console.log(landAirport);
-    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/${avioCompany}`)
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/${avioCompany}/o`)
+    .then(p=>{
+		if(p.ok){
+			p.json().then(flights=>{
+                flights.forEach(flight=>{
+                    while(dateField.lastChild.value!=0){
+                        dateField.removeChild(dateField.lastChild);
+                    }
+                    let dateView = new Date(flight.dateTimeTakeOff);
+                    dateTitle = document.createElement("option");
+	                dateTitle.innerHTML= `${dateView.getDate()}.${(dateView.getMonth()+1)}.${dateView.getFullYear()}.`;
+                    dateTitle.value = flight.dateTimeTakeOff;
+                    dateField.appendChild(dateTitle);
+                });
+            });
+		}
+		else
+		{
+			console.log("greska preuzimanje letova sa izabranom avio kompanijom");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+};
+
+let selectedFlight;
+dateField.onchange=()=>{
+    let landAirport = landField.options[landField.selectedIndex].value;
+    let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
+    let avioCompany = avioCompanyField.options[avioCompanyField.selectedIndex].value;
+    let date = dateField.options[dateField.selectedIndex].value;
+    if(landAirport==0 || takeoffAirport==0 || avioCompany==0 || date==0)
+    {
+        return;
+    }
+    //console.log(landAirport);
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/${avioCompany}/${date}`)
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
@@ -159,12 +208,11 @@ avioCompanyField.onchange=()=>{
 		}
 		else
 		{
-			console.log("greska preuzimanje letova sa izabranim polaznim aerodromom");
+			console.log("greska preuzimanje letova sa izabranim polaznim datumom");
 		}
 	}).catch(errorMsg=>console.log(errorMsg));
 };
 
-let dateField = document.querySelector(".dateField");
 let nextBtn1 = document.querySelector(".nextBtn1");
 
 nextBtn1.addEventListener("click", function () {
