@@ -21,17 +21,17 @@ CREATE (n:AvioCompany {email:'swiss@air.com', password:'sifra',name:'SwissAir', 
 
 //AERODROMI
 
-CREATE (n:Airport {{ pib:'8363910', name:'Nikola Tesla', phone: '+381000909', address: 'Surcin BB', city: 'Belgrade', state: 'Serbia', gateNumber: '20'}}) return n
-CREATE (n:Airport {{ pib:'6567767', name:'Constanine the Great', phone: '+3810564609', address: 'Ad', city: 'Nis', state: 'Serbia', gateNumber: '2'}}) return n
-CREATE (n:Airport {{ pib:'1321323', name:'Joze Pucnik', phone: '+386654909', address: 'Ad BB', city: 'Ljubljana', state: 'Slovenia', gateNumber: '9'}}) return n
-CREATE (n:Airport {{ pib:'7545556', name:'CDG', phone: '+33345909', address: 'Ad BB', city: 'Paris', state: 'France', gateNumber: '30'}}) return n
-CREATE (n:Airport {{ pib:'3424232', name:'Heathrow', phone: '+443810053', address: 'Ad BB', city: 'London', state: 'United Kingdom', gateNumber: '30'}}) return n
-CREATE (n:Airport {{ pib:'2423424', name:'ViennaAirport', phone: '+43000909', address: 'Ad BB', city: 'Vienna', state: 'Austria', gateNumber: '15'}}) return n
-CREATE (n:Airport {{ pib:'2432111', name:'Zurich', phone: '+410094543', address: 'Ad BB', city: 'Zurich', state: 'Switzerland', gateNumber: '20'}}) return n
-CREATE (n:Airport {{ pib:'7999883', name:'Marco Polo', phone: '+3909456', address: 'Ad BB', city: 'Venice', state: 'Italy', gateNumber: '10'}}) return n
-CREATE (n:Airport {{ pib:'0909021', name:'Berlin Brandenburg', phone: '+490343909', address: 'Surcin BB', city: 'Berlin', state: 'Germany', gateNumber: '10'}}) return n
-CREATE (n:Airport {{ pib:'1455225', name:'EuroAirport B-M-F', phone: '+4107653909', address: 'Surcin BB', city: 'Basel', state: 'Switzerland', gateNumber: '5'}}) return n
-CREATE (n:Airport {{ pib:'7930237', name:'Eleftherios Venizelos', phone: '+3015909', address: 'Surcin BB', city: 'Athens', state: 'Greece', gateNumber: '10'}}) return n
+CREATE (n:Airport { pib:'8363910', name:'Nikola Tesla', phone: '+381000909', address: 'Surcin BB', city: 'Belgrade', state: 'Serbia', gateNumber: '20'}) return n
+CREATE (n:Airport { pib:'6567767', name:'Constanine the Great', phone: '+3810564609', address: 'Ad', city: 'Nis', state: 'Serbia', gateNumber: '2'}) return n
+CREATE (n:Airport { pib:'1321323', name:'Joze Pucnik', phone: '+386654909', address: 'Ad BB', city: 'Ljubljana', state: 'Slovenia', gateNumber: '9'}) return n
+CREATE (n:Airport { pib:'7545556', name:'CDG', phone: '+33345909', address: 'Ad BB', city: 'Paris', state: 'France', gateNumber: '30'}) return n
+CREATE (n:Airport { pib:'3424232', name:'Heathrow', phone: '+443810053', address: 'Ad BB', city: 'London', state: 'United Kingdom', gateNumber: '30'}) return n
+CREATE (n:Airport { pib:'2423424', name:'ViennaAirport', phone: '+43000909', address: 'Ad BB', city: 'Vienna', state: 'Austria', gateNumber: '15'}) return n
+CREATE (n:Airport { pib:'2432111', name:'Zurich', phone: '+410094543', address: 'Ad BB', city: 'Zurich', state: 'Switzerland', gateNumber: '20'}) return n
+CREATE (n:Airport { pib:'7999883', name:'Marco Polo', phone: '+3909456', address: 'Ad BB', city: 'Venice', state: 'Italy', gateNumber: '10'}) return n
+CREATE (n:Airport { pib:'0909021', name:'Berlin Brandenburg', phone: '+490343909', address: 'Surcin BB', city: 'Berlin', state: 'Germany', gateNumber: '10'}) return n
+CREATE (n:Airport { pib:'1455225', name:'EuroAirport B-M-F', phone: '+4107653909', address: 'Surcin BB', city: 'Basel', state: 'Switzerland', gateNumber: '5'}) return n
+CREATE (n:Airport { pib:'7930237', name:'Eleftherios Venizelos', phone: '+3015909', address: 'Surcin BB', city: 'Athens', state: 'Greece', gateNumber: '10'}) return n
 
 
 //KARTE
