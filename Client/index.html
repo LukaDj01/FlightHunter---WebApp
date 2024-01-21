@@ -116,6 +116,65 @@
                 </div>
               </div>
             </section>
+
+
+            <!--Pregled feedbackova-->
+            <section class="explore-section section-padding" id="section_2">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <h2 class="mb-4">Feedbacks</h1>
+                  </div>
+                </div>
+                </div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">                           
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">See what people had to say about:</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <!--Odabir airport ili kompanija-->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <a href="feedbacksView.html" onclick="window.localStorage.setItem('feedback', 'airport')">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">Airports</h5>
+                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        </div>
+                                                    </div>
+                                                    <img src="images/airport.jpg" class="custom-block-image img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <a href="feedbacksView.html" onclick="window.localStorage.setItem('feedback', 'avioCompany')">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">AvioCompanies</h5>
+                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        </div>
+                                                    </div>
+                                                    <img src="images/plane.jpeg" class="custom-block-image img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </section>
             
             <!--FAQ iskreno cisto filler-->
             <section class="faq-section section-padding" id="section_3">

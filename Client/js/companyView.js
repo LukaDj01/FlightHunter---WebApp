@@ -254,3 +254,9 @@ signOutBtn.addEventListener("click", function () {
 	let url = "./login-register.html";
 	location.href = url;
 });
+
+let name = document.querySelector(".name");
+name.innerHTML=`${avioCompany.name}`;
+
+let state = document.querySelector(".state");
+state.innerHTML=`${avioCompany.state}`;
