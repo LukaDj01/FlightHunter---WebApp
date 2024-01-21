@@ -94,12 +94,13 @@
       <section>
         <div class="container">
           <br>
-          <div>
-          <p>I want to know about: </p>
-          <select type="text" class="form-control aboutF" id="aboutF" name="aboutF" placeholder="..." style:="width: 300px;"></select>
-          </div>
-          <br />
-          <div class="feedback-container feedbacksL">
+          <form form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+            <div style="display: flex; align-items: center;">
+              <h5 for="aboutF" style="margin-bottom: 25px; margin-right: 25px;">I want to know about:</h5>
+              <select type="text" class="form-control aboutF" id="aboutF" name="aboutF" placeholder="..." style="width: 300px;"></select>
+          </div></form>
+          <br>
+          <div class="feedback-container1 feedbacksL">
             <div class="feedback-items">
               <p class="user" style="font-size: 14px">User: <b></b></p>
               <p class="rate" style="font-size: 14px">Rating:</p>
