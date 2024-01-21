@@ -15,7 +15,7 @@
   
       function scrollToDiv(element,navheight){
         var offset = element.offset();
-        var offsetTop = offset.top;
+        var offsetTop = offset;
         var totalScroll = offsetTop-navheight;
   
         $('body,html').animate({
@@ -28,7 +28,7 @@
       function isScrollIntoView(elem, index) {
         var docViewTop = $(window).scrollTop();
         var docViewBottom = docViewTop + $(window).height();
-        var elemTop = $(elem).offset().top;
+        var elemTop = $(elem).offset();
         var elemBottom = elemTop + $(window).height()*.5;
         if(elemBottom <= docViewBottom && elemTop >= docViewTop) {
           $(elem).addClass('active');
