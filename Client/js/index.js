@@ -220,3 +220,6 @@ searchBtn.addEventListener("click", function () {
     //console.log(takeoffAirport, landAirport, avioCompany, date);
     location.href=`../Client/kupovina.html?pib1=${takeoffAirport}&pib2=${landAirport}&ac=${avioCompany}&date=${date}`;
 });
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });

@@ -20,10 +20,10 @@ passenger.tickets.forEach(ticket=>{
 	tableData.innerHTML= ticket.id;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
-	tableData.innerHTML= ticket.flight.takeOffAirport.city;
+	tableData.innerHTML= `${ticket.flight.takeOffAirport.city} (${ticket.flight.takeOffAirport.name})`;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
-	tableData.innerHTML= ticket.flight.landAirport.city;
+	tableData.innerHTML= `${ticket.flight.landAirport.city} (${ticket.flight.landAirport.name})`;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
 	let date = new Date(ticket.flight.dateTimeTakeOff);

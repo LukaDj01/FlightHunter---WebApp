@@ -345,18 +345,13 @@ nextBtn2.addEventListener("click", function () {
     passPassportView.innerHTML=`Passport number: ${passenger.passport}`;
     passNationalityView.innerHTML=`Nationality: ${passenger.nationality}`;
     passPhoneView.innerHTML=`Phone: ${passenger.phone}`;
-    
-
-
 });
 
 let buyBtn = document.querySelector(".buyBtn");
 buyBtn.addEventListener("click", function () {
     let date = new Date();
     //console.log("kupi", passenger.email, selectedFlight.serial_number, date.toISOString(), (ticketPrice+lugPrice), selectedFlight.available_seats.toString());
-    sendEmail();
-    console.log("dalje");
-    /*fetch(`http://localhost:5163/TicketCass/AddTicket/${passenger.email}/${selectedFlight.serial_number}`, {
+    fetch(`http://localhost:5163/TicketCass/AddTicket/${passenger.email}/${selectedFlight.serial_number}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -392,6 +387,12 @@ buyBtn.addEventListener("click", function () {
                         }
                     }).catch(errorMsg=>console.log(errorMsg));
                 });
+                let sendTicketEmail = document.querySelector(".sendTicketEmail");
+                if(sendTicketEmail.checked)
+                {
+                    let poruka = `Ticket ID: ${ticketID}, From: ${selectedFlight.takeOffAirport.city} (${selectedFlight.takeOffAirport.name}), To: ${selectedFlight.landAirport.city} (${selectedFlight.landAirport.name}), Date: ${selectedFlight.dateTimeTakeOff}, AvioCompany: ${selectedFlight.avioCompany.name}, Seat No.: ${selectedFlight.available_seats}`;
+                    sendEmail(poruka);
+                }
                 location.reload();
             });
         }
@@ -399,7 +400,7 @@ buyBtn.addEventListener("click", function () {
         {
             console.log("greska kupovina karte");
         }
-    }).catch(errorMsg=>console.log(errorMsg));*/
+    }).catch(errorMsg=>console.log(errorMsg));
 });
 
 if(pib1!=null)
@@ -525,15 +526,14 @@ var Email = { send: function (a) { return new Promise(function (n, e) { a.nocach
     { var e = t.responseText; null != n && n(e) }, t.send() }, createCORSRequest: function (e, n) 
     { var t = new XMLHttpRequest; return "withCredentials" in t ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t } };
 
-function sendEmail(){
-    let poruka = "karta";
+function sendEmail(poruka){
     //function send email
     Email.send({
         Host : "smtp.elasticemail.com",
-        Username : "lukaaa@elfak.rs",
-        Password : "taS@n3vAEQ3VmKj",
-        To : "lukad4508@gmail.com",
-        From : "lukaaa@elfak.rs",
+        Username : "samanoku@elfak.rs",
+        Password : "87FCB833ABCDB11D7B729D833B989545D9C7",
+        To : passenger.email,
+        From : "samanoku@elfak.rs",
         Subject : "Informacije o kupljenoj karti",
         Body : JSON.stringify(poruka)
     })

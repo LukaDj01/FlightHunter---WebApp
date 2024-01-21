@@ -260,3 +260,6 @@ name.innerHTML=`${avioCompany.name}`;
 
 let state = document.querySelector(".state");
 state.innerHTML=`${avioCompany.state}`;
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });
