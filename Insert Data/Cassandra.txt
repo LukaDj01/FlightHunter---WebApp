@@ -1,3 +1,7 @@
+//KEYSPACE
+
+CREATE KEYSPACE "FlightHunter" WITH replication = {'class':'SimpleStrategy', 'replication_factor': 1};
+
 
 //TABELE
 
@@ -80,27 +84,27 @@ insert into "SearchFlight" ("stateLand","stateTakeOff" ,"avioCompanyEmail","land
 
 // KARTE
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('masadjelic@gmail.com', 'p5q6r7s8t','2024-01-20', '1',50,'3')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('p5q6r7s8t', 'masadjelic@gmail.com','2024-01-20','1',50,'3')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('masadjelic@gmail.com', 'p5q6r7s8t','2024-01-20', '1',50,'3');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('p5q6r7s8t', 'masadjelic@gmail.com','2024-01-20','1',50,'3');
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('luka@gmail.com', 'a1b2c3d4e5','2024-01-20','2',10,'2')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('a1b2c3d4e5', 'luka@gmail.com','2024-01-20','2',10,'2')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('luka@gmail.com', 'a1b2c3d4e5','2024-01-20','2',10,'2');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('a1b2c3d4e5', 'luka@gmail.com','2024-01-20','2',10,'2');
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('julija@gmail.com', '34567s7a678','2024-01-20','3',70,'5')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('34567s7a678', 'julija@gmail.com','2024-01-20','3',70,'5')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('julija@gmail.com', '34567s7a678','2024-01-20','3',70,'5');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('34567s7a678', 'julija@gmail.com','2024-01-20','3',70,'5');
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('anastasija@gmail.com','1a2b3c4d5e','2024-01-20','4',100,'7')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('1a2b3c4d5e', 'anastasija@gmail.com','2024-01-20','4',100,'7')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('anastasija@gmail.com','1a2b3c4d5e','2024-01-20','4',100,'7');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('1a2b3c4d5e', 'anastasija@gmail.com','2024-01-20','4',100,'7');
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('peraperic@gmail.com','x1y2z3a4b','2024-01-20','5', 19,'2')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('x1y2z3a4b', 'peraperic@gmail.com','2024-01-20','5', 19,'2')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber")  values ('peraperic@gmail.com','x1y2z3a4b','2024-01-20','5', 19,'2');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('x1y2z3a4b', 'peraperic@gmail.com','2024-01-20','5', 19,'2');
 
-insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('jovanjovanovic@gmail.com','wdwdwd23','2024-01-20','6', 120,'32')
-insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('wdwdwd23', 'jovanjovanovic@gmail.com','2024-01-20','6', 120,'32')
+insert into "TicketPass" ("passengerEmail", "flightSerialNumber", "purchaseDate", id, price, "seatNumber") values ('jovanjovanovic@gmail.com','wdwdwd23','2024-01-20','6', 120,'32');
+insert into "TicketFlight" ("flightSerialNumber", "passengerEmail", "purchaseDate", id, price, "seatNumber")  values ('wdwdwd23', 'jovanjovanovic@gmail.com','2024-01-20','6', 120,'32');
 
 
 
 
 //PRTLJAG
-insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('2', '1',8,'55x40x23',2)
-insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('4', '1',23,'70x50x35', 1.5)
+insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('2', '1',8,'55x40x23',2);
+insert into "Luggage" ("ticketId", number, weight, dimension, "pricePerKG")  values ('4', '1',23,'70x50x35', 1.5);
