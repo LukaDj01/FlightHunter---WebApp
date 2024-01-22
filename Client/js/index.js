@@ -97,11 +97,11 @@ takeOffField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(landField.lastChild.value!=0){
+                    landField.removeChild(landField.lastChild);
+                }
                 flights.forEach(flight=>{
                     //console.log(flight);
-                    while(landField.lastChild.value!=0){
-                        landField.removeChild(landField.lastChild);
-                    }
                     landTitle = document.createElement("option");
                     landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
                     landTitle.value = flight.landAirport.pib;
@@ -135,10 +135,10 @@ landField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(avioCompanyField.lastChild.value!=0){
+                    avioCompanyField.removeChild(avioCompanyField.lastChild);
+                }
                 flights.forEach(flight=>{
-                    while(avioCompanyField.lastChild.value!=0){
-                        avioCompanyField.removeChild(avioCompanyField.lastChild);
-                    }
                     avioCompanyTitle = document.createElement("option");
                     avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
                     avioCompanyTitle.value = flight.avioCompany.email;
@@ -172,10 +172,10 @@ avioCompanyField.onchange=()=>{
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                while(dateField.lastChild.value!=0){
+                    dateField.removeChild(dateField.lastChild);
+                }
                 flights.forEach(flight=>{
-                    while(dateField.lastChild.value!=0){
-                        dateField.removeChild(dateField.lastChild);
-                    }
                     let dateView = new Date(flight.dateTimeTakeOff);
                     dateTitle = document.createElement("option");
 	                  dateTitle.innerHTML= `${dateView.getDate()}.${(dateView.getMonth()+1)}.${dateView.getFullYear()}.`;

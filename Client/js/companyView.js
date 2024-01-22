@@ -17,6 +17,7 @@ await promAvioCompany.json().then(ac=>{
 
 let flightsTable = document.querySelector(".flightsTable");
 avioCompany.flights.forEach(flight=>{
+	//console.log(flight);
 	let tableRow = document.createElement("tr");
 	tableRow.value = flight.serial_number;
 	let tableData = document.createElement("td");
@@ -165,8 +166,8 @@ AddFlightBtn.addEventListener("click", function(){
 		body: JSON.stringify({
 			capacity: capacity,
         	available_seats: capacity,
-			dateTimeLand: dateLand,
-        	dateTimeTakeOff: dateTakeOff,
+			dateTimeLand: new Date(dateLand).toISOString(),
+        	dateTimeTakeOff: new Date(dateTakeOff).toISOString(),
 			gateLand: gateLand,
         	gateTakeOff: gateTakeOff
 		})

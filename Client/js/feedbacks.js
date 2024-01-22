@@ -86,7 +86,7 @@ if (feedbackAirportAC == "airport") {
 });
   aboutF.onchange=()=>{
     let airport = aboutF.options[aboutF.selectedIndex].value;
-    console.log(airport);
+    //console.log(airport);
     if(airport==0){
       renderFeedbacks(allFeedbacks);
     }

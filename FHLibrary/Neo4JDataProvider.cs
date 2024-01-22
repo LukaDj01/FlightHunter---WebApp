@@ -1344,19 +1344,8 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH (p:Plane) return max(p.serialNumber)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var serialNumber = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                serialNumber = (++mId).ToString();
-            }
-            else
-                serialNumber="1";
+            var serialNumber = Guid.NewGuid().ToString("N");
+            serialNumber = serialNumber.Substring(0, serialNumber.Length/2);
 
             var query = new CypherQuery("MATCH (ac:AvioCompany {email: '"+acEmail+"'})"
                                         +" CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'" + serialNumber

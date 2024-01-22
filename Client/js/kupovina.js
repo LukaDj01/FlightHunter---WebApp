@@ -74,11 +74,14 @@ await promAirports.json().then(airports=>{
 			takeOffField.appendChild(takeOffTitle);
             i++;
             if(airport.pib==pib1)
+            {
                 index=i;
+                
+            }
 		});
         if(pib1!=null)
         {
-            takeOffField.selectedIndex=i;
+            takeOffField.selectedIndex=index;
         }
 });
 
