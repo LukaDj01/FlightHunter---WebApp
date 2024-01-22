@@ -19,6 +19,24 @@ CREATE (n:AvioCompany {email:'lufthansa@avio.com', password:'sifra',name:'Luftha
 CREATE (n:AvioCompany {email:'air@france.com', password:'sifra',name:'Air France', phone:'+51234567',state:'France'}) return n
 CREATE (n:AvioCompany {email:'swiss@air.com', password:'sifra',name:'SwissAir', phone:'+4912443',state:'Switzerland'}) return n
 
+//AVIONI 
+
+MATCH (ac:AvioCompany {email: 'air@srbija.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'3641ft',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
+MATCH (ac:AvioCompany {email: 'air@srbija.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1g31h3',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1321jh3',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'432j324',fuel:'Jet Fuel',type:'Airbus a380'}) return p
+MATCH (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'241h124',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'41jh244',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
+MATCH (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'01242b1',fuel:'Jet Fuel',type:'Airbus a380'}) return p
+MATCH (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'321huh2',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'42y724',fuel:'Jet Fuel',type:'Airbus a380'}) return p
+MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'124h21j',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'air@france.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1yo2j441',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
+MATCH (ac:AvioCompany {email: 'air@france.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'12u7wr21',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+MATCH (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'12321y3',fuel:'Jet Fuel',type:'Airbus a380'}) return p
+MATCH (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'313u134',fuel:'Jet Fuel',type:'Boeing 737'}) return p
+
+
 //AERODROMI
 
 CREATE (n:Airport { pib:'8363910', name:'Nikola Tesla', phone: '+381000909', address: 'Surcin BB', city: 'Belgrade', state: 'Serbia', gateNumber: '20'}) return n
@@ -56,22 +74,7 @@ MATCH (t:Ticket {id: '987f8d8s8'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',
 MATCH (t:Ticket {id: '23s45d6s5'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'8',dimension:'55x40x23',pricePerKG:'2'}) return l
 MATCH (t:Ticket {id: '34f56d7s9'}) CREATE (t)-[:HAVE]->(l:Luggage {  number:'1',weight:'23',dimension:'70x50x35',pricePerKG:'1.9'}) return l
 
-
-(Putnici i karte)
-MATCH (p:Passenger {email:'masadjelic@gmail.com'}), (t:Ticket {id:'234567898'}), (ef:ExpiredFlight {serial_number:'7m53435m'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'luka@gmail.com'}), (t:Ticket {id:'456965678'}), (ef:ExpiredFlight {serial_number:'42kjkn55'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'anastasija@gmail.com'}), (t:Ticket {id:'4596s8990'}), (ef:ExpiredFlight {serial_number:'jn4nj45n'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'julija@gmail.com'}), (t:Ticket {id:'s88098785'}), (ef:ExpiredFlight {serial_number:'643i45ji'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'peraperic@gmail.com'}), (t:Ticket {id:'5678f6780'}), (ef:ExpiredFlight {serial_number:'325njn2o'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'jovanjovanovic@gmail.com'}), (t:Ticket {id:'3456789ee'}), (ef:ExpiredFlight {serial_number:'45i92jj4'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'masadjelic@gmail.com'}), (t:Ticket {id:'5678967f9'}), (ef:ExpiredFlight {serial_number:'86j43kj5'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'luka@gmail.com'}), (t:Ticket {id:'987f8d8s8'}), (ef:ExpiredFlight {serial_number:'6324gj43'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'anastasija@gmail.com'}), (t:Ticket {id:'23s45d6s5'}), (ef:ExpiredFlight {serial_number:'145nio54'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-MATCH (p:Passenger {email:'julija@gmail.com'}), (t:Ticket {id:'34f56d7s9'}), (ef:ExpiredFlight {serial_number:'45k25256'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
-
-
 //PROSLI LETOVI
-
 CREATE (ef:ExpiredFlight {serial_number:'6324gj43',capacity:'100',available_seats:'4',gateTakeOff:'3',gateLand:'1',dateTimeTakeOff:'2024-01-04T18:00:00', dateTimeLand:'2024-01-04T19:30:00'}) return ef
 CREATE (ef:ExpiredFlight {serial_number:'342jnjk4',capacity:'100',available_seats:'10',gateTakeOff:'3',gateLand:'3',dateTimeTakeOff:'2024-01-04T12:00:00',dateTimeLand:'2024-01-04T14:00:00'}) return ef
 CREATE (ef:ExpiredFlight {serial_number:'3n422kj4',capacity:'70',available_seats:'1',gateTakeOff:'2',gateLand:'15',dateTimeTakeOff:'2024-01-05T08:00:00',dateTimeLand:'2024-01-05T09:00:00'}) return ef
@@ -90,6 +93,19 @@ CREATE (ef:ExpiredFlight {serial_number:'d542kjo4',capacity:'79',available_seats
 CREATE (ef:ExpiredFlight {serial_number:'n432j450',capacity:'70',available_seats:'5',gateTakeOff:'1',gateLand:'1',dateTimeTakeOff:'2024-01-12T19:00:00',dateTimeLand:'2024-01-12T21:00:00'}) return ef
 CREATE (ef:ExpiredFlight {serial_number:'45i92jj4',capacity:'70',available_seats:'10',gateTakeOff:'1',gateLand:'2',dateTimeTakeOff:'2024-01-13T12:00:00',dateTimeLand:'2024-01-13T13:00:00'}) return ef
 
+(Putnici i karte)
+MATCH (p:Passenger {email:'masadjelic@gmail.com'}), (t:Ticket {id:'234567898'}), (ef:ExpiredFlight {serial_number:'7m53435m'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'luka@gmail.com'}), (t:Ticket {id:'456965678'}), (ef:ExpiredFlight {serial_number:'42kjkn55'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'anastasija@gmail.com'}), (t:Ticket {id:'4596s8990'}), (ef:ExpiredFlight {serial_number:'jn4nj45n'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'julija@gmail.com'}), (t:Ticket {id:'s88098785'}), (ef:ExpiredFlight {serial_number:'643i45ji'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'peraperic@gmail.com'}), (t:Ticket {id:'5678f6780'}), (ef:ExpiredFlight {serial_number:'325njn2o'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'jovanjovanovic@gmail.com'}), (t:Ticket {id:'3456789ee'}), (ef:ExpiredFlight {serial_number:'45i92jj4'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'masadjelic@gmail.com'}), (t:Ticket {id:'5678967f9'}), (ef:ExpiredFlight {serial_number:'86j43kj5'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'luka@gmail.com'}), (t:Ticket {id:'987f8d8s8'}), (ef:ExpiredFlight {serial_number:'6324gj43'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'anastasija@gmail.com'}), (t:Ticket {id:'23s45d6s5'}), (ef:ExpiredFlight {serial_number:'145nio54'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+MATCH (p:Passenger {email:'julija@gmail.com'}), (t:Ticket {id:'34f56d7s9'}), (ef:ExpiredFlight {serial_number:'45k25256'}) CREATE (p)-[:BUYS]->(t)-[:FOR]->(ef)
+
+
 (AC organizuje let)
 MATCH (ac:AvioCompany {email: 'air@france.com'}), (ap1:Airport {pib: '1455225'}), (ap2:Airport {pib: '7545556'}), (p:Plane {serialNumber: '12u7wr21'}), (ef:ExpiredFlight {serial_number:'6324gj43'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
 MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}), (ap1:Airport {pib: '1321323'}), (ap2:Airport {pib: '0909021'}), (p:Plane {serialNumber: '42y724'}), (ef:ExpiredFlight {serial_number:'342jnjk4'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
@@ -106,15 +122,15 @@ MATCH (ac:AvioCompany {email: 'air@srbija.com'}), (ap1:Airport {pib: '8363910'})
 MATCH (ac:AvioCompany {email: 'air@srbija.com'}), (ap1:Airport {pib: '7545556'}), (ap2:Airport {pib: '8363910'}), (p:Plane {serialNumber: '3641ft'}), (ef:ExpiredFlight {serial_number:'245jnj4p'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
 MATCH (ac:AvioCompany {email: 'ryan@air.com'}), (ap1:Airport {pib: '7999883'}), (ap2:Airport {pib: '3424232'}), (p:Plane {serialNumber: '241h124'}), (ef:ExpiredFlight {serial_number:'d542kjo4'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
 MATCH (ac:AvioCompany {email: 'air@srbija.com'}), (ap1:Airport {pib: '1321323'}), (ap2:Airport {pib: '6567767'}), (p:Plane {serialNumber: '3641ft'}), (ef:ExpiredFlight {serial_number:'n432j450'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
-MATCH (ac:AvioCompany {email: 'air@france.com}), (ap1:Airport {pib: '7545556'}), (ap2:Airport {pib: '0909021'}), (p:Plane {serialNumber: '12u7wr21'}), (ef:ExpiredFlight {serial_number:'643i45ji'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
+MATCH (ac:AvioCompany {email: 'air@france.com'}), (ap1:Airport {pib: '7545556'}), (ap2:Airport {pib: '0909021'}), (p:Plane {serialNumber: '12u7wr21'}), (ef:ExpiredFlight {serial_number:'643i45ji'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
 MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}), (ap1:Airport {pib: '0909021'}), (ap2:Airport {pib: '8363910'}), (p:Plane {serialNumber: '124h21j'}), (ef:ExpiredFlight {serial_number:'45i92jj4'}) CREATE (ac)-[:ORGANIZE]->(ef), (ap1)-[:TAKE_OFF]->(ef), (ap2)-[:LAND]->(ef), (p)-[:FLY]->(ef)
 
 
 
 //FEEDBACKS AC
 
-MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'1',date:'2024-01-20',comment:'Super',rate:'5'}]->(ac)
-MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (p)-[:FEEDBACK {id:'2',date:'2024-01-20',comment:'Amazing',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'anastasija@gmail.com'}), (ac:AvioCompany {email: 'air@srbija.com'}) CREATE (p)-[:FEEDBACK {id:'1',date:'2024-01-20',comment:'Super',rate:'5'}]->(ac)
+MATCH (p:Passenger {email: 'luka@gmail.com'}), (ac:AvioCompany {email: 'air@srbija.com'}) CREATE (p)-[:FEEDBACK {id:'2',date:'2024-01-20',comment:'Amazing',rate:'5'}]->(ac)
 MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'3',date:'2024-01-20',comment:'The best',rate:'5'}]->(ac)
 MATCH (p:Passenger {email: 'julija@gmail.com'}), (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (p)-[:FEEDBACK {id:'4',date:'2024-01-20',comment:'I Love it',rate:'5'}]->(ac)
 MATCH (p:Passenger {email: 'masadjelic@gmail.com'}), (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (p)-[:FEEDBACK {id:'5',date:'2024-01-20',comment:'I hate it',rate:'1'}]->(ac)
@@ -143,20 +159,4 @@ MATCH (p:Passenger {email: 'peraperic@gmail.com'}), (ap:Airport {pib: '7930237'}
 
 
 
-//AVIONI 
-
-MATCH (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'3641ft',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
-MATCH (ac:AvioCompany {email: 'air@serbia.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1g31h3',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1321jh3',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'wiz@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'432j324',fuel:'Jet Fuel',type:'Airbus a380'}) return p
-MATCH (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'241h124',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'ryan@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'41jh244',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
-MATCH (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'01242b1',fuel:'Jet Fuel',type:'Airbus a380'}) return p
-MATCH (ac:AvioCompany {email: 'easy@jet.uk'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'321huh2',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'42y724',fuel:'Jet Fuel',type:'Airbus a380'}) return p
-MATCH (ac:AvioCompany {email: 'lufthansa@avio.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'124h21j',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'air@france.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'1yo2j441',fuel:'Jet Fuel',type:'ATR 72-600'}) return p
-MATCH (ac:AvioCompany {email: 'air@france.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'12u7wr21',fuel:'Jet Fuel',type:'Boeing 737'}) return p
-MATCH (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'12321y3',fuel:'Jet Fuel',type:'Airbus a380'}) return p
-MATCH (ac:AvioCompany {email: 'swiss@air.com'}) CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'313u134',fuel:'Jet Fuel',type:'Boeing 737'}) return p
 

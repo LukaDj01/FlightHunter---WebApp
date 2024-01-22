@@ -6,7 +6,7 @@ CREATE TABLE "FlightAC" ("avioCompanyEmail" text,serial_number text,capacity int
 CREATE TABLE "TicketFlight" ("flightSerialNumber" text,"passengerEmail" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("flightSerialNumber", "passengerEmail", "purchaseDate"));
 CREATE TABLE "TicketPass" ("passengerEmail" text,"flightSerialNumber" text,"purchaseDate" text,id text,price float,"seatNumber" text,PRIMARY KEY ("passengerEmail", "flightSerialNumber", "purchaseDate"));
 CREATE TABLE "Luggage" ("ticketId" text,number text,weight float,dimension text,"pricePerKG" float,PRIMARY KEY ("ticketId", number));
-CREATE TABLE "SearchFlight" ("stateLand" text,"stateTakeOff" text,"avioCompanyEmail" text,"landAirportPib" text,"takeOffAirportPib" text,"planeSerialNumber" text,"flightSerialNumber" text,PRIMARY KEY ("stateLand", "stateTakeOff"));
+CREATE TABLE "SearchFlight" ("takeOffAirportPib" text,"landAirportPib" text,"avioCompanyEmail" text,"dateTimeTakeOff" text,"flightSerialNumber" text,PRIMARY KEY ("takeOffAirportPib", "landAirportPib", "avioCompanyEmail", "dateTimeTakeOff", "flightSerialNumber"));
 
 
 
