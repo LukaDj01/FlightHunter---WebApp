@@ -105,12 +105,17 @@ takeOffField.onchange=()=>{
                 while(landField.lastChild.value!=0){
                     landField.removeChild(landField.lastChild);
                 }
+                let unique=[];
                 flights.forEach(flight=>{
                     //console.log(flight);
-                    landTitle = document.createElement("option");
-                    landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
-                    landTitle.value = flight.landAirport.pib;
-                    landField.appendChild(landTitle);
+                    if(unique.indexOf(flight.landAirport.pib)<0)
+                    {
+                        unique.push(flight.landAirport.pib);
+                        landTitle = document.createElement("option");
+                        landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
+                        landTitle.value = flight.landAirport.pib;
+                        landField.appendChild(landTitle);
+                    }
                 });
             });
 		}
@@ -143,11 +148,16 @@ landField.onchange=()=>{
                 while(avioCompanyField.lastChild.value!=0){
                     avioCompanyField.removeChild(avioCompanyField.lastChild);
                 }
+                let unique=[];
                 flights.forEach(flight=>{
-                    avioCompanyTitle = document.createElement("option");
-                    avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
-                    avioCompanyTitle.value = flight.avioCompany.email;
-                    avioCompanyField.appendChild(avioCompanyTitle);
+                    if(unique.indexOf(flight.avioCompany.email)<0)
+                    {
+                        unique.push(flight.avioCompany.email);
+                        avioCompanyTitle = document.createElement("option");
+                        avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
+                        avioCompanyTitle.value = flight.avioCompany.email;
+                        avioCompanyField.appendChild(avioCompanyTitle);
+                    }
                 });
             });
 		}
@@ -343,7 +353,7 @@ nextBtn2.addEventListener("click", function () {
     luggageView.innerHTML=`My luggage: ${luggageNameList}`;
     luggagePriceView.innerHTML=`Luggage price: ${lugPrice}`;
     priceTotalView.innerHTML=`Price total: ${totalPrice}`;
-    
+    //console.log(luggages);
     passNameView.innerHTML=`Passenger: ${passenger.first_name} ${passenger.last_name}`;
     passPassportView.innerHTML=`Passport number: ${passenger.passport}`;
     passNationalityView.innerHTML=`Nationality: ${passenger.nationality}`;
@@ -353,6 +363,7 @@ nextBtn2.addEventListener("click", function () {
 let buyBtn = document.querySelector(".buyBtn");
 buyBtn.addEventListener("click", function () {
     let date = new Date();
+	date.setTime( date.getTime() - date.getTimezoneOffset()*60*1000 );
     //console.log("kupi", passenger.email, selectedFlight.serial_number, date.toISOString(), (ticketPrice+lugPrice), selectedFlight.available_seats.toString());
     fetch(`http://localhost:5163/TicketCass/AddTicket/${passenger.email}/${selectedFlight.serial_number}`, {
     method: "POST",
@@ -412,6 +423,7 @@ if(pib1!=null)
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
+                console.log(flights);
                 flights.forEach(flight=>{
                     //console.log(flight);
                     selectedFlight=flight;
@@ -535,7 +547,7 @@ function sendEmail(poruka){
         Host : "smtp.elasticemail.com",
         Username : "samanoku@elfak.rs",
         Password : "87FCB833ABCDB11D7B729D833B989545D9C7",
-        To : passenger.email,
+        To : "lukad4508@gmail.com", // passenger.email
         From : "samanoku@elfak.rs",
         Subject : "Informacije o kupljenoj karti",
         Body : JSON.stringify(poruka)

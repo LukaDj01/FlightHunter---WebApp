@@ -404,6 +404,7 @@ public static class CassandraDataProvider
                     {
                         flightSerialNumber = ticketData["flightSerialNumber"] != null ? ticketData["flightSerialNumber"].ToString() : string.Empty,
                         passengerEmail = ticketData["passengerEmail"] != null ? ticketData["passengerEmail"].ToString() : string.Empty,
+                        seatNumber = ticketData["seatNumber"] != null ? ticketData["seatNumber"].ToString() : string.Empty,
                         purchaseDate = ticketData["purchaseDate"] != null ? DateTime.Parse(ticketData["purchaseDate"].ToString()!) : new DateTime(),
                         id = ticketData["id"] != null ? ticketData["id"].ToString() : string.Empty,
                         price = ticketData["price"] != null ? float.Parse(ticketData["price"].ToString()!) : 0,

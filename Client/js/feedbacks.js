@@ -120,7 +120,9 @@ if (feedbackAirportAC == "airport") {
 
       let p3 = document.createElement("p");
       p3.classList.add("date");
-      p3.innerHTML = `Date: ${fb.date}`;
+      let date = new Date(fb.date);
+      let dateTimeString = `${date.getDate()}.${(date.getMonth()+1)}.${date.getFullYear()}. ${date.toLocaleTimeString()}`;
+      p3.innerHTML = `Date: ${dateTimeString}`;
       div1.appendChild(p3);
 
       let p4 = document.createElement("p");
@@ -214,7 +216,9 @@ if (feedbackAirportAC == "airport") {
 
       let p3ac = document.createElement("p");
       p3ac.classList.add("date");
-      p3ac.innerHTML = `Date: ${fbac.date}`;
+      let date = new Date(fbac.date);
+      let dateTimeString = `${date.getDate()}.${(date.getMonth()+1)}.${date.getFullYear()}. ${date.toLocaleTimeString()}`;
+      p3ac.innerHTML = `Date: ${dateTimeString}`;
       div1ac.appendChild(p3ac);
 
       let p4ac = document.createElement("p");

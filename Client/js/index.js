@@ -100,12 +100,17 @@ takeOffField.onchange=()=>{
                 while(landField.lastChild.value!=0){
                     landField.removeChild(landField.lastChild);
                 }
+                let unique=[];
                 flights.forEach(flight=>{
                     //console.log(flight);
-                    landTitle = document.createElement("option");
-                    landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
-                    landTitle.value = flight.landAirport.pib;
-                    landField.appendChild(landTitle);
+                    if(unique.indexOf(flight.landAirport.pib)<0)
+                    {
+                        unique.push(flight.landAirport.pib);
+                        landTitle = document.createElement("option");
+                        landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
+                        landTitle.value = flight.landAirport.pib;
+                        landField.appendChild(landTitle);
+                    }
                 });
             });
 		}
@@ -138,11 +143,16 @@ landField.onchange=()=>{
                 while(avioCompanyField.lastChild.value!=0){
                     avioCompanyField.removeChild(avioCompanyField.lastChild);
                 }
+                let unique=[];
                 flights.forEach(flight=>{
-                    avioCompanyTitle = document.createElement("option");
-                    avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
-                    avioCompanyTitle.value = flight.avioCompany.email;
-                    avioCompanyField.appendChild(avioCompanyTitle);
+                    if(unique.indexOf(flight.avioCompany.email)<0)
+                    {
+                        unique.push(flight.avioCompany.email);
+                        avioCompanyTitle = document.createElement("option");
+                        avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
+                        avioCompanyTitle.value = flight.avioCompany.email;
+                        avioCompanyField.appendChild(avioCompanyTitle);
+                    }
                 });
             });
 		}

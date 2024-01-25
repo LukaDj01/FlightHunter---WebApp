@@ -214,12 +214,13 @@ AddFeedbackBtn.addEventListener("click", function () {
     }
     let passEmailForUrl = passenger.email;
     let currentDate = new Date();
+	currentDate.setTime( currentDate.getTime() - currentDate.getTimezoneOffset()*60*1000 );
     
     //console.log("Podaci: ", parseInt(rate) ,comment, emailACorA , passEmailForUrl);
     // Assuming passEmail, acEmail, and airportPib are defined somewhere in your code
     let url;
     let requestBody = {
-        date: currentDate,
+        date: currentDate.toISOString(),
         comment: comment,
         rate: parseInt(rate)
     };
@@ -256,3 +257,6 @@ function handleRating(event) {
         numStarsRate.value=clickedIndex;
     }
 }
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });

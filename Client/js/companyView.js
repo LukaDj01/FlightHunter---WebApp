@@ -157,6 +157,12 @@ AddFlightBtn.addEventListener("click", function(){
 		console.log("Izaberite kapacitet");
 		return;
 	}
+	var dTakeOff = new Date(dateTakeOff);
+	dTakeOff.setTime( dTakeOff.getTime() - dTakeOff.getTimezoneOffset()*60*1000 );
+	var dLand = new Date(dateLand);
+	dLand.setTime( dLand.getTime() - dLand.getTimezoneOffset()*60*1000 );
+	//console.log(dTakeOff.toISOString());
+	//console.log(dLand.toISOString());
 	//console.log(avioCompany.email, airportTakeOff, airportLand,plane,capacity,dateLand, dateTakeOff, gateLand, gateTakeOff);
 	fetch(`http://localhost:5163/Flight/AddFlight/${avioCompany.email}/${airportTakeOff}/${airportLand}/${plane}`, {
 		method: "POST",
@@ -166,8 +172,8 @@ AddFlightBtn.addEventListener("click", function(){
 		body: JSON.stringify({
 			capacity: capacity,
         	available_seats: capacity,
-			dateTimeLand: new Date(dateLand).toISOString(),
-        	dateTimeTakeOff: new Date(dateTakeOff).toISOString(),
+			dateTimeLand: dLand.toISOString(),
+        	dateTimeTakeOff: dTakeOff.toISOString(),
 			gateLand: gateLand,
         	gateTakeOff: gateTakeOff
 		})
