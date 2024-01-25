@@ -346,9 +346,13 @@ nextBtn2.addEventListener("click", function () {
     totalPrice=ticketPrice+lugPrice;
     avioCompanyView.innerHTML=`Company: ${selectedFlight.avioCompany.name}`;
     airportTakeOffView.innerHTML=`Airport: ${selectedFlight.takeOffAirport.city} (${selectedFlight.takeOffAirport.name})`;
-    dateTakeOffView.innerHTML=`Date and time: ${selectedFlight.dateTimeTakeOff}`;
+    let dateTakeOff= new Date(selectedFlight.dateTimeTakeOff);
+    let dateTimeString = `${dateTakeOff.getDate()}.${(dateTakeOff.getMonth()+1)}.${dateTakeOff.getFullYear()}. ${dateTakeOff.toLocaleTimeString()}`;
+    dateTakeOffView.innerHTML=`Date and time: ${dateTimeString}`;
     airportLandView.innerHTML=`Airport: ${selectedFlight.landAirport.city} (${selectedFlight.landAirport.name})`;
-    dateLandView.innerHTML=`Date and time: ${selectedFlight.dateTimeLand}`;
+    let dateLand= new Date(selectedFlight.dateTimeLand);
+    dateTimeString = `${dateLand.getDate()}.${(dateLand.getMonth()+1)}.${dateLand.getFullYear()}. ${dateLand.toLocaleTimeString()}`;
+    dateLandView.innerHTML=`Date and time: ${dateTimeString}`;
     ticketPriceView.innerHTML=`Ticket price: ${ticketPrice}`; // dodati atribut cena u flight-ove (:
     luggageView.innerHTML=`My luggage: ${luggageNameList}`;
     luggagePriceView.innerHTML=`Luggage price: ${lugPrice}`;
@@ -423,7 +427,7 @@ if(pib1!=null)
     .then(p=>{
 		if(p.ok){
 			p.json().then(flights=>{
-                console.log(flights);
+                //console.log(flights);
                 flights.forEach(flight=>{
                     //console.log(flight);
                     selectedFlight=flight;
@@ -547,7 +551,7 @@ function sendEmail(poruka){
         Host : "smtp.elasticemail.com",
         Username : "samanoku@elfak.rs",
         Password : "87FCB833ABCDB11D7B729D833B989545D9C7",
-        To : "lukad4508@gmail.com", // passenger.email
+        To : "lukaluxy01@gmail.com", // passenger.email
         From : "samanoku@elfak.rs",
         Subject : "Informacije o kupljenoj karti",
         Body : JSON.stringify(poruka)

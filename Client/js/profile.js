@@ -54,11 +54,16 @@ radioBtns.forEach(radioBtn => {
             .then(p=>{
                 if(p.ok){
                     p.json().then(acs=>{
+                        let unique=[];
                         acs.forEach(ac => {
-                            let op = document.createElement("option");
-                            op.innerHTML = ac.name;
-                            op.value = ac.email;
-                            airportAClist.appendChild(op);
+                            if(unique.indexOf(ac.email)<0)
+                            {
+                                unique.push(ac.email);
+                                let op = document.createElement("option");
+                                op.innerHTML = ac.name;
+                                op.value = ac.email;
+                                airportAClist.appendChild(op);
+                            }
                         });
                     })
                 }
@@ -75,11 +80,16 @@ radioBtns.forEach(radioBtn => {
             .then(p=>{
                 if(p.ok){
                     p.json().then(as=>{
+                        let unique=[];
                         as.forEach(a => {
-                            let op = document.createElement("option");
-                            op.innerHTML = a.name;
-                            op.value = a.pib;
-                            airportAClist.appendChild(op);
+                            if(unique.indexOf(a.pib)<0)
+                            {
+                                unique.push(a.pib);
+                                let op = document.createElement("option");
+                                    op.innerHTML = a.name;
+                                    op.value = a.pib;
+                                    airportAClist.appendChild(op);
+                            }
                         });
                     })
                 }
