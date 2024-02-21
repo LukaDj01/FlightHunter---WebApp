@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlightHunter</title>
+    <title>Feedbacks</title>
     <!--CSS-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
     <link href="css/style.css" rel="stylesheet" />
   </head>
 
-  <body id="top">
+  <body>
     <main>
       <!--GORNJA NAVIGACIJA-->
       <nav class="navbar navbar-expand-lg">
@@ -30,7 +30,7 @@
             <span>FligtHunter</span>
           </a>
           <div class="d-lg-none ms-auto me-4">
-            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+            <a class="navbar-icon bi-person smoothscroll"></a>
           </div>
           <button
             class="navbar-toggler"
@@ -60,15 +60,10 @@
                 aria-expanded="false"
               ></a>
               <ul
-                class="dropdown-menu dropdown-menu-light"
+                class="dropdown-menu dropdown-menu-light dropDownProfil"
                 aria-labelledby="navbarLightDropdownMenuLink"
               >
-                <li>
-                  <a class="dropdown-item" href="profile.html">Profile</a>
-                </li>
-                <button class="dropdown-item signOut" id="button" type="button">
-                  Sign Out
-                </button>
+                
               </ul>
             </div>
           </div>
@@ -93,9 +88,14 @@
       <!--Pregled feedbackova-->
       <section>
         <div class="container">
-          <h5 style="margin-top: 20px">Mozda neki sort?</h5>
-          <br />
-          <div class="feedback-container feedbacksL">
+          <br>
+          <form form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+            <div style="display: flex; align-items: center;">
+              <h5 for="aboutF" style="margin-bottom: 25px; margin-right: 25px;">I want to know about:</h5>
+              <select type="text" class="form-control aboutF" id="aboutF" name="aboutF" placeholder="..." style="width: 300px;"></select>
+          </div></form>
+          <br>
+          <div class="feedback-container1 feedbacksL">
             <div class="feedback-items">
               <p class="user" style="font-size: 14px">User: <b></b></p>
               <p class="rate" style="font-size: 14px">Rating:</p>

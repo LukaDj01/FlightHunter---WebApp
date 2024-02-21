@@ -116,6 +116,32 @@ public static class Neo4JDataProvider
         {
         }
     }
+    
+    public async static Task<Result<List<AvioCompanyView>, string>> GetAllAvioCompanies()
+    {
+        try
+        {
+            if (c == null)
+            {
+                return "Nemoguće otvoriti sesiju. Neo4J";
+            }
+
+            var query = new CypherQuery("MATCH (ac:AvioCompany) return ac",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            List<AvioCompanyView>? avioCompanies = ((IRawGraphClient)c).ExecuteGetCypherResults<AvioCompanyView>(query).ToList();
+
+            return avioCompanies!;
+        }
+        catch (Exception e )
+        {
+            return e.Message;
+        }
+        finally
+        {
+        }
+    }
+
 
     
     public async static Task<Result<bool, string>> DeleteAvioCompany(string email)
@@ -154,6 +180,22 @@ public static class Neo4JDataProvider
             {
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
+            
+
+            var queryMaxId = new CypherQuery("MATCH (a:Airport) return max(a.id)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
+
+            var id = "";
+            if(maxId!=null)
+            {
+                int mId = Int32.Parse(maxId);
+                id = (++mId).ToString();
+            }
+            else
+                id="1";
+
 
             Dictionary<string, object> queryDict = new Dictionary<string, object>
             {
@@ -167,7 +209,7 @@ public static class Neo4JDataProvider
             };
 
             var query = new Neo4jClient.Cypher.CypherQuery(
-            $"CREATE (n:Airport {{ pib:'{a.pib}', name:'{a.name}', phone: '{a.phone}', address: '{a.address}', city: '{a.city}', state: '{a.state}', gateNumber: '{a.gateNumber}'}}) return n",
+            $"CREATE (n:Airport {{ pib:'{id}', name:'{a.name}', phone: '{a.phone}', address: '{a.address}', city: '{a.city}', state: '{a.state}', gateNumber: '{a.gateNumber}'}}) return n",
             queryDict, Neo4jClient.Cypher.CypherResultMode.Set);
 
             ((IRawGraphClient)c).ExecuteCypher(query);
@@ -847,19 +889,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return max(f.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var id = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                id = (++mId).ToString();
-            }
-            else
-                id="1";
+            var id = Guid.NewGuid().ToString("N");
 
             var query = new CypherQuery("MATCH (p:Passenger {email: '" + passEmail + "'}), (ac:AvioCompany {email: '" + acEmail + "'})"
                                         + " CREATE (p)-[:FEEDBACK {id:'" + id
@@ -1022,19 +1052,7 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH ()-[f:FEEDBACK]->() return max(f.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var id = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                id = (++mId).ToString();
-            }
-            else
-                id="1";
+            var id = Guid.NewGuid().ToString("N");
 
             var query = new CypherQuery("MATCH (p:Passenger {email: '" + passEmail + "'}), (ap:Airport {pib: '" + apPib + "'})"
                                         + " CREATE (p)-[:FEEDBACK {id:'" + id
@@ -1302,19 +1320,8 @@ public static class Neo4JDataProvider
                 return "Nemoguće otvoriti sesiju. Neo4J";
             }
 
-            var queryMaxId = new CypherQuery("MATCH (p:Plane) return max(p.serialNumber)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String? maxId = ((IRawGraphClient)c).ExecuteGetCypherResults<String>(queryMaxId).ToList().FirstOrDefault();
-
-            var serialNumber = "";
-            if(maxId!=null)
-            {
-                int mId = Int32.Parse(maxId);
-                serialNumber = (++mId).ToString();
-            }
-            else
-                serialNumber="1";
+            var serialNumber = Guid.NewGuid().ToString("N");
+            serialNumber = serialNumber.Substring(0, serialNumber.Length/2);
 
             var query = new CypherQuery("MATCH (ac:AvioCompany {email: '"+acEmail+"'})"
                                         +" CREATE (ac)-[:OWNS]->(p:Plane {serialNumber:'" + serialNumber

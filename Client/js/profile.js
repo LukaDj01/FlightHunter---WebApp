@@ -10,9 +10,9 @@ let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${
 await promPassenger.json().then(p=>{
     passenger = new Passenger(p.email, p.password, p.passport, p.phone, p.birth_date, p.nationality, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.feedbacks, p.tickets);
 });
-console.log(passenger);
+//console.log(passenger);
 
-/*let tickcetsTable = document.querySelector(".ticket_flightsTable");
+let tickcetsTable = document.querySelector(".ticket_flightsTable");
 passenger.tickets.forEach(ticket=>{
 	let tableRow = document.createElement("tr");
 	tableRow.value = ticket.id;
@@ -20,10 +20,10 @@ passenger.tickets.forEach(ticket=>{
 	tableData.innerHTML= ticket.id;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
-	tableData.innerHTML= ticket.flight.takeOffAirport.city;
+	tableData.innerHTML= `${ticket.flight.takeOffAirport.city} (${ticket.flight.takeOffAirport.name})`;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
-	tableData.innerHTML= ticket.flight.landAirport.city;
+	tableData.innerHTML= `${ticket.flight.landAirport.city} (${ticket.flight.landAirport.name})`;
 	tableRow.appendChild(tableData);
 	tableData = document.createElement("td");
 	let date = new Date(ticket.flight.dateTimeTakeOff);
@@ -37,7 +37,6 @@ passenger.tickets.forEach(ticket=>{
 	tableRow.appendChild(tableData);
 	tickcetsTable.appendChild(tableRow);
 });
-*/
 
 let airportAClist = document.querySelector('.airportAClist');
 let op = document.createElement("option");
@@ -55,11 +54,16 @@ radioBtns.forEach(radioBtn => {
             .then(p=>{
                 if(p.ok){
                     p.json().then(acs=>{
+                        let unique=[];
                         acs.forEach(ac => {
-                            let op = document.createElement("option");
-                            op.innerHTML = ac.name;
-                            op.value = ac.email;
-                            airportAClist.appendChild(op);
+                            if(unique.indexOf(ac.email)<0)
+                            {
+                                unique.push(ac.email);
+                                let op = document.createElement("option");
+                                op.innerHTML = ac.name;
+                                op.value = ac.email;
+                                airportAClist.appendChild(op);
+                            }
                         });
                     })
                 }
@@ -76,11 +80,16 @@ radioBtns.forEach(radioBtn => {
             .then(p=>{
                 if(p.ok){
                     p.json().then(as=>{
+                        let unique=[];
                         as.forEach(a => {
-                            let op = document.createElement("option");
-                            op.innerHTML = a.name;
-                            op.value = a.pib;
-                            airportAClist.appendChild(op);
+                            if(unique.indexOf(a.pib)<0)
+                            {
+                                unique.push(a.pib);
+                                let op = document.createElement("option");
+                                    op.innerHTML = a.name;
+                                    op.value = a.pib;
+                                    airportAClist.appendChild(op);
+                            }
                         });
                     })
                 }
@@ -97,7 +106,7 @@ let signOutBtn = document.querySelector(".signOut");
 
 signOutBtn.addEventListener("click", function () {
     window.localStorage.removeItem("emailPass");
-    let url = "./login-register.html";
+	let url = "./index.html";
     location.href = url;
 });
 
@@ -215,12 +224,13 @@ AddFeedbackBtn.addEventListener("click", function () {
     }
     let passEmailForUrl = passenger.email;
     let currentDate = new Date();
+	currentDate.setTime( currentDate.getTime() - currentDate.getTimezoneOffset()*60*1000 );
     
     //console.log("Podaci: ", parseInt(rate) ,comment, emailACorA , passEmailForUrl);
     // Assuming passEmail, acEmail, and airportPib are defined somewhere in your code
     let url;
     let requestBody = {
-        date: currentDate,
+        date: currentDate.toISOString(),
         comment: comment,
         rate: parseInt(rate)
     };
@@ -257,3 +267,6 @@ function handleRating(event) {
         numStarsRate.value=clickedIndex;
     }
 }
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });

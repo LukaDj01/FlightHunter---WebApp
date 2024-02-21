@@ -150,6 +150,20 @@ public class AvioCompanyController : ControllerBase
 
         return Ok(avioCompanies);
     }
+    
+    [HttpGet]
+    [Route("GetAllAvioCompanies")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAllAvioCompanies()
+    {
+        (bool IsError, var avioCompanies, string? error) = await Neo4JDataProvider.GetAllAvioCompanies();
+        if (IsError)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(avioCompanies);
+    }
     [HttpGet]
     [Route("LoginAvioCompany/{email}/{password}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

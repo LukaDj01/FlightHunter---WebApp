@@ -15,12 +15,12 @@
     <body>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="#top">
+                <a class="navbar-brand">
                     <img src="images/logo.png" style="height: 45px;" alt="FlightHunter Logo">
                     <span>FlightHunter</span>
                 </a>
                 <div class="d-lg-none ms-auto me-4">
-                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    <a class="navbar-icon bi-person smoothscroll"></a>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,8 +44,11 @@
                                                 
                     </ul>
                     <!--LOGOVANJE/PRIJAVLJIVANJE-->
-                    <div class="d-none d-lg-block">
-                        <a href="#top" id="button" class="navbar-icon bi-person smoothscroll"></a>
+                    <div class="d-none d-lg-block nav-item dropdown">
+                        <a href="login-register.html" id="button" class="navbar-icon bi-person smoothscroll inactive" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                          <button class="dropdown-item signOutBtn" id="button" type="button">Sign Out</button>
+                        </ul>
                     </div>
                     </div>
                 </div>
@@ -61,8 +64,8 @@
                     <div class="col-lg-8 col-12 mx-auto">
                         
                         <br><br>
-                        <h1 class="text-white text-center">Name of the AvioCmp</h1>
-                        <h6 class="text-center">Country name</h6>
+                        <h3 class="text-white text-center name">Name</h1>
+                            <h6 class="text-center state">State</h6>
                     </div>
                 </div>
             </div>
@@ -114,17 +117,10 @@
                     <div class="col-lg-14 col-12 mb-0" >
                         <div class="custom-block bg-white shadow-lg">
                             <div>
-                                <p>Sort by:  </p>
+                                <!-- <p>Sort by:  </p> -->
                             </div><br>
                             <div class="feedback-container feedbackList">
-                                <div class="feedback-item">
-                                    <div class="comment-container">
-                                        <p class="comment">Fine. Got free snacks on 2 hour ride.</p>
-                                    </div>
-                                    <p class="rate">Rating: 5 stars</p>
-                                    <p class="date">Date: January 10, 2024</p>
-                                    <p class="user">User: F789</p>
-                                </div>
+                                
                             </div>                            
                         </div>
                     </div>
@@ -230,7 +226,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-12 mb-4 pb-2">
-                        <a class="navbar-brand mb-2" href="#top">
+                        <a class="navbar-brand mb-2">
                             <img src="images/logo-dark.png" style="height: 45px;" alt="FlightHunter Logo">
                             <span>FlightHunter</span>
                         </a>
@@ -289,6 +285,7 @@
         <script src="js/click-scroll.js"></script>
         <script src="js/custom.js"></script>
         <script src="js/companyView.js" type="module"></script>
+        <!--<script src="js/feedbacks.js" type="module"></script>-->
 
     </body>
     </html>

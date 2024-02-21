@@ -13,10 +13,11 @@ let promAvioCompany = await fetch(`http://localhost:5163/AvioCompany/GetAvioComp
 await promAvioCompany.json().then(ac=>{
 		avioCompany = new AvioCompany(ac.email, ac.password, ac.name, ac.phone, ac.state, ac.expiredFlights, ac.flights, ac.feedbacks, ac.planes);
 });
-console.log(avioCompany);
+//console.log(avioCompany);
 
 let flightsTable = document.querySelector(".flightsTable");
 avioCompany.flights.forEach(flight=>{
+	//console.log(flight);
 	let tableRow = document.createElement("tr");
 	tableRow.value = flight.serial_number;
 	let tableData = document.createElement("td");
@@ -156,6 +157,12 @@ AddFlightBtn.addEventListener("click", function(){
 		console.log("Izaberite kapacitet");
 		return;
 	}
+	var dTakeOff = new Date(dateTakeOff);
+	dTakeOff.setTime( dTakeOff.getTime() - dTakeOff.getTimezoneOffset()*60*1000 );
+	var dLand = new Date(dateLand);
+	dLand.setTime( dLand.getTime() - dLand.getTimezoneOffset()*60*1000 );
+	//console.log(dTakeOff.toISOString());
+	//console.log(dLand.toISOString());
 	//console.log(avioCompany.email, airportTakeOff, airportLand,plane,capacity,dateLand, dateTakeOff, gateLand, gateTakeOff);
 	fetch(`http://localhost:5163/Flight/AddFlight/${avioCompany.email}/${airportTakeOff}/${airportLand}/${plane}`, {
 		method: "POST",
@@ -165,8 +172,8 @@ AddFlightBtn.addEventListener("click", function(){
 		body: JSON.stringify({
 			capacity: capacity,
         	available_seats: capacity,
-			dateTimeLand: dateLand,
-        	dateTimeTakeOff: dateTakeOff,
+			dateTimeLand: dLand.toISOString(),
+        	dateTimeTakeOff: dTakeOff.toISOString(),
 			gateLand: gateLand,
         	gateTakeOff: gateTakeOff
 		})
@@ -246,3 +253,20 @@ signOutBtn.addEventListener("click", function () {
     let url = "./login-register.html";
     location.href = url;
 });*/
+
+
+let signOutBtn = document.querySelector(".signOutBtn");
+signOutBtn.addEventListener("click", function () {
+	window.localStorage.removeItem("emailAC");
+	let url = "./index.html";
+	location.href = url;
+});
+
+let name = document.querySelector(".name");
+name.innerHTML=`${avioCompany.name}`;
+
+let state = document.querySelector(".state");
+state.innerHTML=`${avioCompany.state}`;
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });

@@ -46,9 +46,8 @@
                   <!--LOGOVANJE/PRIJAVLJIVANJE-->
                   <div class="d-none d-lg-block nav-item dropdown">
                     <a href="login-register.html" id="button" class="navbar-icon bi-person smoothscroll inactive" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                      <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                      <ul class="dropdown-menu dropdown-menu-light dropDownProfil" aria-labelledby="navbarLightDropdownMenuLink">
+                        
                       </ul>
 
                   </div>
@@ -73,21 +72,21 @@
               <div class="container">
                 <div class="row justify-content-center align-items-center">
                   <div class="col-lg-5 col-12 mb-4 mb-lg-0">
-                    <div class="custom-block bg-white shadow-lg align-items-center">
-                      <div class="d-flex align-items-center">
-                        <div style="margin-left: 70px;"> 
+                    <div class="custom-block bg-white shadow-lg ">
+                      <div class="d-flex flex-column align-items-center">
+                        <div> 
                           <h5 class="mb-2">Lets travel!</h5>
                           <div>
                             <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5 mb-lg-3" role="search">
                               <label for="from">From:</label>
-                              <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
+                              <select type="text" class="form-control takeOffField" id="from" name="from" placeholder="..." style="width: 300px;"></select>
                               <label for="to">To:</label><br>
-                              <input  type="text" class="form-control land" id="to" name="to" placeholder="...">
-                                <label for="from">From:</label>
-                                <input type="text" class="form-control takeOff" id="from" name="from" placeholder="..." style="width: 300px;">
+                              <select  type="text" class="form-control landField" id="to" name="to" placeholder="..."></select>
+                              <label for="to">AvioCompany:</label><br>
+                              <select type="text" class="form-control avioCompanyField" id="avioCompany" name="avioCompany" placeholder="..." style="width: 300px;"></select>
                               <label for="departureDate">Departure Date:</label><br>
-                              <input type="date" class="form-control date" id="departureDate" placeholder="departureDate">
-                              <a href="#section_2" style="margin-left: 130px;" onclick="toggleSection('#section_2');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>                                    
+                              <select type="text" class="form-control dateField" id="departureDate" name="departureDate" placeholder="..." style="width: 300px;"></select>
+                              <a href="#section_2" style="margin-left: 130px;" class="navbar-icon bi-arrow-down smoothscroll nextBtn1" role="button" aria-expanded="false"></a>                                    
                             </form> 
                           </div>
                         </div>
@@ -121,19 +120,23 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">         
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0 d-flex flex-column">
+                                            <div class="custom-block bg-white shadow-lg" style="height: fit-content;">         
                                                     <div class="d-flex">
                                                         <div>
                                                             <h5 class="mb-2">Light (included)</h5>
                                                             <p class="mb-0">Dimensions:10x10x20. Maximum weight 5kg. This is hand luggage.</p>
                                                         </div>                                                     
                                                     </div>
-                                                    <img src="images/backpack.jpeg" class="custom-block-image img-fluid" alt="">
+                                                    <img src="images/backpack.jpeg" class="custom-block-image img-fluid" alt=""><br>
+                                                    <p class="mb-0">Price per suitcase: 0</p> 
+                                                    <p class="mb-0">Number of suitcases:</p> <br>
+                                                    <input type="number" class="form-control" id="smallN" name="smallN" value="1" style="width: 100px;margin-left: 70px;" disabled>
+                                            
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">                                               
+                                            <div class="custom-block bg-white shadow-lg"style="height: fit-content;">                                               
                                                     <div class="d-flex">
                                                         <div>
                                                             <h5 class="mb-2">Small Suitcase</h5>
@@ -141,13 +144,13 @@
                                                         </div>                                                       
                                                     </div>
                                                     <img src="images/smallSuitcase.jpeg" class="custom-block-image img-fluid" alt=""><br>
-                                                    <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
+                                                    <p class="mb-0">Price per suitcase: 240</p> <!--Cena iz baze-->
                                                     <p class="mb-0">Number of suitcases: </p> <br>
-                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">
+                                                    <input type="number" class="form-control smallLuggage" id="smallN" name="smallN" value="0" min="0" max="4" style="width: 100px; margin-left: 70px;">
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">                                             
+                                            <div class="custom-block bg-white shadow-lg" style="height: fit-content;">                                             
                                                     <div class="d-flex">
                                                         <div>
                                                             <h5 class="mb-2">Big Suitcase</h5>
@@ -156,17 +159,17 @@
                                                         </div>                                                   
                                                     </div>
                                                     <img src="images/bigSuitcase.png" class="custom-block-image img-fluid" alt=""><br>
-                                                    <p class="mb-0">Price per suitcase: </p> <!--Cena iz baze--><br>
+                                                    <p class="mb-0">Price per suitcase: 460</p> <!--Cena iz baze-->
                                                     <p>Number of suitcases: </p>
-                                                    <input type="number" class="form-control" id="smallN" name="smallN" min="0" max="4" style="width: 100px; margin-left: 120px;">                                             
+                                                    <input type="number" class="form-control bigLuggage" id="smallN" name="smallN" value="0" min="0" max="4" style="width: 100px; margin-left: 70px;">                                             
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                     </div><br><br>
-                    <div class="d-flex">
-                        <a href="#section_3" style="margin-left: 650px; margin-top: 50px;" onclick="toggleSection('#section_3');" class="navbar-icon bi-arrow-down smoothscroll" role="button" aria-expanded="false"></a>      
+                    <div class="d-flex flex-column align-items-center">
+                        <a href="#section_3" style="margin-top: 50px;" onclick="toggleSection('#section_3');" class="navbar-icon bi-arrow-down smoothscroll nextBtn2" role="button" aria-expanded="false"></a>      
                     </div>
                     
                 </div>
@@ -182,28 +185,28 @@
                                     <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="add">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                                                        <p>Company: AvioCmp</p>
+                                                        <p class="avioCompanyView"></p>
                                                         <p><b>Take Off information</b></p>
-                                                        <p>Airport: X</p>
-                                                        <p>Date and time: D</p><br> 
+                                                        <p class="airportTakeOffView"></p>
+                                                        <p class="dateTakeOffView"></p><br> 
                                                         <p><b>Land information</b></p>
-                                                        <p>Airport: X</p>
-                                                        <p>Date and time: D</p><br>
-                                                        <p>Ticket price: </p>
-                                                        <p> My luggage: </p>
-                                                        <p>Luggage price: </p>
-                                                        <p><b>Price total: </b></p>
+                                                        <p class="airportLandView"></p>
+                                                        <p class="dateLandView"></p><br>
+                                                        <p class="ticketPriceView"></p>
+                                                        <p class="luggageView"></p>
+                                                        <p class="luggagePriceView"></p>
+                                                        <p class="priceTotalView"><b></b></p>
                                                     </div>
                                                     <br>
                                                     <div class="col-lg-6 col-12 align-items-center">
-                                                        <p>Passenger: Name Surname</p>
-                                                        <p>Passport number: </p>
-                                                        <p>Nationality: </p>
-                                                        <p>Phone: </p><br> 
+                                                        <p class="passNameView"></p>
+                                                        <p class="passPassportView"></p>
+                                                        <p class="passNationalityView"></p>
+                                                        <p class="passPhoneView"></p><br> 
                                                         <p>I want to receive ticket in my email: 
-                                                        <input type="checkbox" id="mail" name="mail" value="M"></p><br>
+                                                        <input type="checkbox" class="sendTicketEmail" id="mail" name="mail" value="M"></p><br>
 
-                                                        <input type="button" class="custom-btn" style="margin-left: 90px;" value="   Buy   ">
+                                                        <input type="button" class="custom-btn buyBtn" style="margin-left: 90px;" value="   Buy   ">
                                                     </div>
                                                 </div>                                          
                                             </form>
@@ -216,40 +219,37 @@
             </section>
             <!--KOntakt, isto filler-->
             <section class="contact-section section-padding section-bg" id="section_4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-5">Contact</h2>
-                        </div>
-
-                        <div class="col-lg-5 col-12 mb-4 mb-lg-0">
-                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.615912455868!2d21.892436166483307!3d43.33043360815552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b733e02e006f%3A0x2fd8f95c1eacfcfb!2sFaculty%20of%20Electronic%20Engineering!5e1!3m2!1sen!2srs!4v1704380879440!5m2!1sen!2srs" width="500" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12 mb-3 mb-lg- mb-md-0 ms-auto">
-                            <h4 class="mb-3">Office</h4>
-                            <p>Office no. 123</p>
-                            <p>Aleksandra Medvedeva 14, 1800 Niš, Serbia</p>
-                            <hr>
-                            <p class="d-flex align-items-center mb-1">
-                                <span class="me-2">Phone</span>
-
-                                <a href="tel: +38118123123" class="site-footer-link">
-                                    +38118123123
-                                </a>
-                            </p>
-                            <p class="d-flex align-items-center">
-                                <span class="me-2">Email</span>
-                                <a href="mailto:info@lighthunter.com" class="site-footer-link">
-                                    info@flighthunter.com
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12 mx-auto">
-                            <p>Some text how everyone can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla.Some text how everypne can reach us bla bla bla</p>                           
-                        </div>
-                    </div>
-                </div>
-            </section>
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-12 col-12 text-center">
+                          <h2 class="mb-5">Contact</h2>
+                      </div>
+          
+                      <div class="col-lg-4 col-md-6 col-12 mb-3 mb-lg- mb-md-0">
+                          <h4 class="mb-3">Office</h4>
+                          <p>Office no. 123</p>
+                          <p>Aleksandra Medvedeva 14, 1800 Niš, Serbia</p>
+                          <hr>
+                          <p class="d-flex align-items-center mb-1">
+                              <span class="me-2">Phone</span>
+                              <a href="tel: +38118123123" class="site-footer-link">+38118123123</a>
+                          </p>
+                          <p class="d-flex align-items-center">
+                              <span class="me-2">Email</span>
+                              <a href="mailto:info@lighthunter.com" class="site-footer-link">info@flighthunter.com</a>
+                          </p>
+                      </div>
+          
+                      <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                          <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.615912455868!2d21.892436166483307!3d43.33043360815552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b733e02e006f%3A0x2fd8f95c1eacfcfb!2sFaculty%20of%20Electronic%20Engineering!5e1!3m2!1sen!2srs!4v1704380879440!5m2!1sen!2srs" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      </div>
+          
+                      <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                          <p>Connect with us effortlessly through our user-friendly contact options for all your inquiries and needs.</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
         </main>
 
 <footer class="site-footer section-padding">
@@ -300,13 +300,13 @@
                         </div>
 
                         <p class="copyright-text mt-lg-5 mt-4">Copyright © 2024 FlightHunter Coo. All rights reserved.
-                        
+                        <br><br>Design: <a rel="nofollow" target="_blank">FlightHunter</a></p>
                     </div>
 
                 </div>
             </div>
         </footer>
-
+        
 
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
@@ -314,7 +314,7 @@
         <script src="js/jquery.sticky.js"></script>
         <script src="js/click-scroll.js"></script>
         <script src="js/custom.js"></script>
-        <script src="js/companyView.js" type="module"></script>
+        <script src="js/kupovina.js" type="module"></script>
 
     </body>
 </html>

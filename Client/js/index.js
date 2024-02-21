@@ -1,9 +1,7 @@
 import { Passenger } from "./Passenger.js";
 
 let email = window.localStorage.getItem("emailPass");
-
 let passenger;
-let signOutBtn = document.querySelector(".signOut");
 if (email != null) {
   let promPassenger = await fetch(
     `http://localhost:5163/Passenger/GetPassenger/${email}`
@@ -24,8 +22,14 @@ if (email != null) {
       p.tickets
     );
   });
-
-  let dropDownProfil = document.querySelector(".dropDownProfil");
+}
+let dropDownProfil = document.querySelector(".dropDownProfil");
+if(email!=null)
+{
+    let promPassenger = await fetch(`http://localhost:5163/Passenger/GetPassenger/${email}`);
+    await promPassenger.json().then(p=>{
+        passenger = new Passenger(p.email, p.password, p.passport, p.phone, p.birth_date, p.nationality, p.first_name, p.last_name, p.addr_street, p.addr_stNo, p.feedbacks, p.tickets);
+    });
 
   let li = document.createElement("li");
   let a = document.createElement("a");
@@ -40,19 +44,18 @@ if (email != null) {
   signOutBtn.innerHTML = "Sign Out";
   dropDownProfil.appendChild(signOutBtn);
 
-  signOutBtn.addEventListener("click", function () {
-    /*window.localStorage.removeItem("emailPass");
-        let url = "./login-register.html";
-        location.href = url;*/
-    console.log("profilllll");
-  });
-} else {
-  let dropDownProfil = document.querySelector(".dropDownProfil");
-
+    signOutBtn.addEventListener("click", function () {
+        window.localStorage.removeItem("emailPass");
+        let url = "./index.html";
+        location.href = url;
+    });
+}
+else
+{
   let signOutBtn = document.createElement("button");
-  signOutBtn.classList.add("dropdown-item");
-  signOutBtn.innerHTML = "Sing in";
-  dropDownProfil.appendChild(signOutBtn);
+    signOutBtn.classList.add("dropdown-item");
+    signOutBtn.innerHTML="Sing in";
+    dropDownProfil.appendChild(signOutBtn);
 
   signOutBtn.addEventListener("click", function () {
     let url = "./login-register.html";
@@ -60,30 +63,173 @@ if (email != null) {
   });
 }
 
-// Get the token from local storage
-let token = window.localStorage.getItem("emailAc");
 
-// Check if the token exists
-if (token) {
-  // Parse the JSON object
-  let tokenObject = JSON.parse(token);
+//logika za pretrazivanje letova
+let takeOffField = document.querySelector(".takeOffField");
+let takeOffTitle = document.createElement("option");
+takeOffTitle.innerHTML= "Airport";
+takeOffTitle.value = 0;
+takeOffField.appendChild(takeOffTitle);
+let promAirports = await fetch(`http://localhost:5163/Airport/GetAirports`);
+await promAirports.json().then(airports=>{
+		airports.forEach(airport=>{
+			takeOffTitle = document.createElement("option");
+			takeOffTitle.innerHTML= `${airport.city} (${airport.name})`;
+			takeOffTitle.value = airport.pib;
+			takeOffField.appendChild(takeOffTitle);
+		});
+});
 
-  // Access the email and type properties
-  let email = tokenObject.email;
-  let userType = tokenObject.userType;
+let landField = document.querySelector(".landField");
+let landTitle = document.createElement("option");
+landTitle.innerHTML= "Airport";
+landTitle.value = 0;
+landField.appendChild(landTitle);
 
-  // Check the userType and perform actions accordingly
-  if (userType === "aircompany") {
-    // Code for aircompany click
-    console.log("Clicked by air company");
-  } else if (userType === "airport") {
-    // Code for airport click
-    console.log("Clicked by airport");
-  } else {
-    // Handle other cases if needed
-    console.log("Unknown user type");
-  }
-} else {
-  // Handle the case where the token is not found
-  console.log("Token not found in local storage");
-}
+takeOffField.onchange=()=>{
+    let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
+    if(takeoffAirport==0)
+    {
+        return;
+    }
+    //console.log(takeoffAirport);
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/o/o/o`)
+    .then(p=>{
+		if(p.ok){
+			p.json().then(flights=>{
+                while(landField.lastChild.value!=0){
+                    landField.removeChild(landField.lastChild);
+                }
+                let unique=[];
+                flights.forEach(flight=>{
+                    //console.log(flight);
+                    if(unique.indexOf(flight.landAirport.pib)<0)
+                    {
+                        unique.push(flight.landAirport.pib);
+                        landTitle = document.createElement("option");
+                        landTitle.innerHTML= `${flight.landAirport.city} (${flight.landAirport.name})`;
+                        landTitle.value = flight.landAirport.pib;
+                        landField.appendChild(landTitle);
+                    }
+                });
+            });
+		}
+		else
+		{
+			console.log("greska preuzimanje letova sa izabranim polaznim aerodromom");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+};
+
+
+let avioCompanyField = document.querySelector(".avioCompanyField");
+let avioCompanyTitle = document.createElement("option");
+avioCompanyTitle.innerHTML= "Avio Company";
+avioCompanyTitle.value = 0;
+avioCompanyField.appendChild(avioCompanyTitle);
+
+landField.onchange=()=>{
+    let landAirport = landField.options[landField.selectedIndex].value;
+    let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
+    if(landAirport==0 || takeoffAirport==0)
+    {
+        return;
+    }
+    //console.log(landAirport);
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/o/o`)
+    .then(p=>{
+		if(p.ok){
+			p.json().then(flights=>{
+                while(avioCompanyField.lastChild.value!=0){
+                    avioCompanyField.removeChild(avioCompanyField.lastChild);
+                }
+                let unique=[];
+                flights.forEach(flight=>{
+                    if(unique.indexOf(flight.avioCompany.email)<0)
+                    {
+                        unique.push(flight.avioCompany.email);
+                        avioCompanyTitle = document.createElement("option");
+                        avioCompanyTitle.innerHTML= `${flight.avioCompany.name}`;
+                        avioCompanyTitle.value = flight.avioCompany.email;
+                        avioCompanyField.appendChild(avioCompanyTitle);
+                    }
+                });
+            });
+		}
+		else
+		{
+			console.log("greska preuzimanje letova sa izabranim dolaznim aerodromom");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+};
+
+let dateField = document.querySelector(".dateField");
+let dateTitle = document.createElement("option");
+dateTitle.innerHTML= "Departure date";
+dateTitle.value = 0;
+dateField.appendChild(dateTitle);
+
+avioCompanyField.onchange=()=>{
+    let landAirport = landField.options[landField.selectedIndex].value;
+    let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
+    let avioCompany = avioCompanyField.options[avioCompanyField.selectedIndex].value;
+    if(landAirport==0 || takeoffAirport==0 || avioCompany==0)
+    {
+        return;
+    }
+    //console.log(landAirport);
+    fetch(`http://localhost:5163/Flight/GetFlightsSearch/${takeoffAirport}/${landAirport}/${avioCompany}/o`)
+    .then(p=>{
+		if(p.ok){
+			p.json().then(flights=>{
+                while(dateField.lastChild.value!=0){
+                    dateField.removeChild(dateField.lastChild);
+                }
+                flights.forEach(flight=>{
+                    let dateView = new Date(flight.dateTimeTakeOff);
+                    dateTitle = document.createElement("option");
+	                  dateTitle.innerHTML= `${dateView.getDate()}.${(dateView.getMonth()+1)}.${dateView.getFullYear()}.`;
+                    dateTitle.value = flight.dateTimeTakeOff;
+                    dateField.appendChild(dateTitle);
+                });
+            });
+		}
+		else
+		{
+			console.log("greska preuzimanje letova sa izabranom avio kompanijom");
+		}
+	}).catch(errorMsg=>console.log(errorMsg));
+};
+
+let searchBtn = document.querySelector(".searchBtn");
+searchBtn.addEventListener("click", function () {
+    let takeoffAirport = takeOffField.options[takeOffField.selectedIndex].value;
+    let landAirport = landField.options[landField.selectedIndex].value;
+    let avioCompany = avioCompanyField.options[avioCompanyField.selectedIndex].value;
+    let date = dateField.value;
+    if(takeoffAirport==0)
+    {
+        console.log("unesite pocetnu destinaciju");
+        return;
+    }
+    if(landAirport==0)
+    {
+        console.log("unesite zavrsnu destinaciju");
+        return;
+    }
+    if(avioCompany==0)
+    {
+        console.log("unesite aviokompaniju");
+        return;
+    }
+    if(date=="")
+    {
+        console.log("unesite datum polaska");
+        return;
+    }
+    //console.log(takeoffAirport, landAirport, avioCompany, date);
+    location.href=`../Client/kupovina.html?pib1=${takeoffAirport}&pib2=${landAirport}&ac=${avioCompany}&date=${date}`;
+});
+
+// uklanjanje zastarelih letova iz cassandre i dodavanje u neo4j zbog istorije letova
+fetch("http://localhost:5163/Flight/DeleteFlightsOutdated",{ method: 'DELETE' });
